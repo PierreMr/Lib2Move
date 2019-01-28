@@ -1,0 +1,220 @@
+<?php
+
+namespace App\Entity;
+
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * @ORM\Entity(repositoryClass="App\Repository\VehiculeRepository")
+ */
+class Vehicule
+{
+    /**
+     * @ORM\Id()
+     * @ORM\GeneratedValue()
+     * @ORM\Column(type="integer")
+     */
+    private $id;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\TypeVehicule", inversedBy="vehicules")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $type;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $brand;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $serie;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $serial_number;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $color;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $license_plate;
+
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $kilometers;
+
+    /**
+     * @ORM\Column(type="date", nullable=true)
+     */
+    private $purchase_date;
+
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $purchase_price;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Location", mappedBy="vehicule")
+     */
+    private $locations;
+
+    public function __construct()
+    {
+        $this->locations = new ArrayCollection();
+    }
+
+    public function getId(): ?int
+    {
+        return $this->id;
+    }
+
+    public function getType(): ?TypeVehicule
+    {
+        return $this->type;
+    }
+
+    public function setType(?TypeVehicule $type): self
+    {
+        $this->type = $type;
+
+        return $this;
+    }
+
+    public function getBrand(): ?string
+    {
+        return $this->brand;
+    }
+
+    public function setBrand(string $brand): self
+    {
+        $this->brand = $brand;
+
+        return $this;
+    }
+
+    public function getSerie(): ?string
+    {
+        return $this->serie;
+    }
+
+    public function setSerie(string $serie): self
+    {
+        $this->serie = $serie;
+
+        return $this;
+    }
+
+    public function getSerialNumber(): ?string
+    {
+        return $this->serial_number;
+    }
+
+    public function setSerialNumber(string $serial_number): self
+    {
+        $this->serial_number = $serial_number;
+
+        return $this;
+    }
+
+    public function getColor(): ?string
+    {
+        return $this->color;
+    }
+
+    public function setColor(?string $color): self
+    {
+        $this->color = $color;
+
+        return $this;
+    }
+
+    public function getLicensePlate(): ?string
+    {
+        return $this->license_plate;
+    }
+
+    public function setLicensePlate(string $license_plate): self
+    {
+        $this->license_plate = $license_plate;
+
+        return $this;
+    }
+
+    public function getKilometers(): ?int
+    {
+        return $this->kilometers;
+    }
+
+    public function setKilometers(?int $kilometers): self
+    {
+        $this->kilometers = $kilometers;
+
+        return $this;
+    }
+
+    public function getPurchaseDate(): ?\DateTimeInterface
+    {
+        return $this->purchase_date;
+    }
+
+    public function setPurchaseDate(?\DateTimeInterface $purchase_date): self
+    {
+        $this->purchase_date = $purchase_date;
+
+        return $this;
+    }
+
+    public function getPurchasePrice(): ?int
+    {
+        return $this->purchase_price;
+    }
+
+    public function setPurchasePrice(?int $purchase_price): self
+    {
+        $this->purchase_price = $purchase_price;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Location[]
+     */
+    public function getLocations(): Collection
+    {
+        return $this->locations;
+    }
+
+    public function addLocation(Location $location): self
+    {
+        if (!$this->locations->contains($location)) {
+            $this->locations[] = $location;
+            $location->setVehicule($this);
+        }
+
+        return $this;
+    }
+
+    public function removeLocation(Location $location): self
+    {
+        if ($this->locations->contains($location)) {
+            $this->locations->removeElement($location);
+            // set the owning side to null (unless already changed)
+            if ($location->getVehicule() === $this) {
+                $location->setVehicule(null);
+            }
+        }
+
+        return $this;
+    }
+}
