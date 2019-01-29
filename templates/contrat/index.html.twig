@@ -14,6 +14,7 @@
                 <th>Price</th>
                 <th>Km_penalty</th>
                 <th>Time_penalty</th>
+                <th>Name</th>
                 <th>actions</th>
             </tr>
         </thead>
@@ -26,6 +27,7 @@
                 <td>{{ contrat.price }}</td>
                 <td>{{ contrat.kmPenalty }}</td>
                 <td>{{ contrat.timePenalty }}</td>
+                <td>{{ contrat.name }}</td>
                 <td>
                     <a href="{{ path('contrat_show', {'id': contrat.id}) }}">show</a>
                     <a href="{{ path('contrat_edit', {'id': contrat.id}) }}">edit</a>
@@ -33,7 +35,7 @@
             </tr>
         {% else %}
             <tr>
-                <td colspan="7">no records found</td>
+                <td colspan="8">no records found</td>
             </tr>
         {% endfor %}
         </tbody>

@@ -23,6 +23,10 @@
                 <th>Status</th>
                 <td>{{ location.status }}</td>
             </tr>
+            <tr>
+                <th>CreatedAt</th>
+                <td>{{ location.createdAt ? location.createdAt|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
         </tbody>
     </table>
 

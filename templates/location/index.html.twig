@@ -12,6 +12,7 @@
                 <th>Kilometers</th>
                 <th>Time</th>
                 <th>Status</th>
+                <th>CreatedAt</th>
                 <th>actions</th>
             </tr>
         </thead>
@@ -22,6 +23,7 @@
                 <td>{{ location.kilometers }}</td>
                 <td>{{ location.time ? location.time|date('H:i:s') : '' }}</td>
                 <td>{{ location.status }}</td>
+                <td>{{ location.createdAt ? location.createdAt|date('Y-m-d H:i:s') : '' }}</td>
                 <td>
                     <a href="{{ path('location_show', {'id': location.id}) }}">show</a>
                     <a href="{{ path('location_edit', {'id': location.id}) }}">edit</a>
@@ -29,7 +31,7 @@
             </tr>
         {% else %}
             <tr>
-                <td colspan="5">no records found</td>
+                <td colspan="6">no records found</td>
             </tr>
         {% endfor %}
         </tbody>
