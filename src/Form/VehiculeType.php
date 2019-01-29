@@ -3,9 +3,11 @@
 namespace App\Form;
 
 use App\Entity\Vehicule;
+use App\Entity\TypeVehicule;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 
 class VehiculeType extends AbstractType
 {
@@ -20,7 +22,12 @@ class VehiculeType extends AbstractType
             ->add('kilometers')
             ->add('purchase_date')
             ->add('purchase_price')
-            ->add('type')
+            ->add('type', EntityType::class, [
+                'class' => TypeVehicule::class,
+                'choice_label' => 'name',
+                // 'multiple' => true,
+                // 'expanded' => true,
+            ])
         ;
     }
 

@@ -19,7 +19,7 @@ class UserType extends AbstractType
             ->add('birthday')
             ->add('address')
             ->add('drivers_licence')
-            ->add('roles')
+            // ->add('roles')
         ;
     }
 
