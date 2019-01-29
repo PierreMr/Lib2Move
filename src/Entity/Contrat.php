@@ -54,6 +54,11 @@ class Contrat
      */
     private $locations;
 
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $name;
+
     public function __construct()
     {
         $this->locations = new ArrayCollection();
@@ -163,6 +168,18 @@ class Contrat
                 $location->setContrat(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getName(): ?string
+    {
+        return $this->name;
+    }
+
+    public function setName(string $name): self
+    {
+        $this->name = $name;
 
         return $this;
     }
