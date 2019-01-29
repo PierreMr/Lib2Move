@@ -22,6 +22,9 @@ class VehiculeType extends AbstractType
             ->add('kilometers')
             ->add('purchase_date')
             ->add('purchase_price')
+            ->add('status')
+            ->add('lat')
+            ->add('lon')
             ->add('type', EntityType::class, [
                 'class' => TypeVehicule::class,
                 'choice_label' => 'name',

@@ -17,6 +17,7 @@
                 <th>Kilometers</th>
                 <th>Purchase_date</th>
                 <th>Purchase_price</th>
+                <th>Status</th>
                 <th>actions</th>
             </tr>
         </thead>
@@ -32,6 +33,7 @@
                 <td>{{ vehicule.kilometers }}</td>
                 <td>{{ vehicule.purchaseDate ? vehicule.purchaseDate|date('Y-m-d') : '' }}</td>
                 <td>{{ vehicule.purchasePrice }}</td>
+                <td>{{ vehicule.status }}</td>
                 <td>
                     <a href="{{ path('vehicule_show', {'id': vehicule.id}) }}">show</a>
                     <a href="{{ path('vehicule_edit', {'id': vehicule.id}) }}">edit</a>
