@@ -25,3 +25,5 @@ npm-debug.log
 yarn-error.log
 ###< symfony/webpack-encore-bundle ###
 /v8-compile-cache-0
+/docker/
+
