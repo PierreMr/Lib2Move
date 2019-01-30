@@ -4,6 +4,7 @@ namespace App\Form;
 
 use App\Entity\Vehicule;
 use App\Entity\TypeVehicule;
+use App\Entity\Ville;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -27,6 +28,12 @@ class VehiculeType extends AbstractType
             ->add('lon')
             ->add('type', EntityType::class, [
                 'class' => TypeVehicule::class,
+                'choice_label' => 'name',
+                // 'multiple' => true,
+                // 'expanded' => true,
+            ])
+            ->add('ville', EntityType::class, [
+                'class' => Ville::class,
                 'choice_label' => 'name',
                 // 'multiple' => true,
                 // 'expanded' => true,
