@@ -12,9 +12,37 @@
         {% endblock %}
     </head>
     <body>
-        <div class="container">
-        {% block body %}{% endblock %}
+        <div id="navbar">
+            {% include('navs/main-navbar.html.twig') %}
         </div>
+
+        <div class="container">
+            <div class="flashes">
+                {% for label, messages in app.flashes %}
+                    {% set index = loop.index %}
+                    {% for message in messages %}
+                        <div class="flash flash-{{ label }}" style="top:{{ 3 + 4*index }}rem">
+                            <strong>{{ message }} <span class="font-italic"> x </span></strong>
+                        </div>
+                    {% endfor %}
+                {% endfor %}
+            </div>
+
+            {% block body %}
+
+            {% endblock %}
+        
+        </div>
+
+        <footer class="footer bg-light p-3 mt-5 border-top rounded-top shadow">
+            <div class="container">
+                <p>&copy; 2019 Lib2Move</p>
+                <blockquote class="blockquote">
+                    <footer class="blockquote-footer">Paris | Lyon</footer>
+                </blockquote>
+            </div>
+        </footer>
+
         {% block javascripts %}
         {{ encore_entry_script_tags('app') }}
 

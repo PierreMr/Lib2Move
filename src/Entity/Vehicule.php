@@ -84,6 +84,11 @@ class Vehicule
      */
     private $lon;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Ville", inversedBy="vehicules")
+     */
+    private $ville;
+
     public function __construct()
     {
         $this->locations = new ArrayCollection();
@@ -265,6 +270,18 @@ class Vehicule
     public function setLon(?float $lon): self
     {
         $this->lon = $lon;
+
+        return $this;
+    }
+
+    public function getVille(): ?Ville
+    {
+        return $this->ville;
+    }
+
+    public function setVille(?Ville $ville): self
+    {
+        $this->ville = $ville;
 
         return $this;
     }
