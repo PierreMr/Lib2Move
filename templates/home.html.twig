@@ -3,8 +3,45 @@
 {% block title %}Home | Lib2Move {% endblock %}
 
 {% block body %}
-    <h1 class="mt-3">Lib2Move</h1>
+    <p>
+        <h1 class="mt-3">Lib2Move</h1>
+        {% if foo.bar is defined %}
+        Hello {{ app.user.firstname }}, content de vous revoir !
+        {% endif %}
+    </p> 
 
+    <p>Réserver un vehicule : Aujourd'hui</p>
+
+    <form class="form-inline">
+      <label class="my-1 mr-2" for="inlineFormCustomSelectPref">Votre ville</label>
+      <select class="custom-select my-1 mr-sm-2" id="inlineFormCustomSelectPref">
+        <option selected>Choisir...</option>
+        <option value="1">Paris</option>
+        <option value="2">Lyon</option>
+        <option value="3">Lille</option>
+      </select>
+
+      <label class="my-1 mr-2" for="inlineFormCustomSelectPref">Type de vehicule</label>
+      <select class="custom-select my-1 mr-sm-2" id="inlineFormCustomSelectPref">
+        <option selected>Choisir...</option>
+        <option value="1">Luxe</option>
+        <option value="2">Berline</option>
+        <option value="3">Scooter</option>
+        <option value="3">Velo</option>
+      </select>
+
+      <label class="my-1 mr-2" for="inlineFormCustomSelectPref">Offre</label>
+      <select class="custom-select my-1 mr-sm-2" id="inlineFormCustomSelectPref">
+        <option selected>Choisir...</option>
+        <option value="1">Option A</option>
+        <option value="2">Option B</option>
+        <option value="3">Option C</option>
+      </select>
+
+      <button type="submit" class="btn btn-primary my-1">Reserver</button>
+    </form>
+
+    <!--
     <h2 class="mt-3">Liste des pages</h2>
 
     <ul class="list-group">
@@ -20,4 +57,5 @@
     	<li class="list-group-item"><a href="/contrat">Contrat</a></li>
     	<li class="list-group-item"><a href="/location">Location</a></li>
     </ul>
+    -->
 {% endblock %}
