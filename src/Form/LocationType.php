@@ -20,12 +20,12 @@ class LocationType extends AbstractType
             ->add('time')
             ->add('status')
             // ->add('createdAt')
-            ->add('user', EntityType::class, [
-                'class' => User::class,
-                'choice_label' => 'email',
-                // 'multiple' => true,
-                // 'expanded' => true,
-            ])
+            // ->add('user', EntityType::class, [
+            //     'class' => User::class,
+            //     'choice_label' => 'email',
+            //     // 'multiple' => true,
+            //     // 'expanded' => true,
+            // ])
             ->add('vehicule', EntityType::class, [
                 'class' => Vehicule::class,
                 'choice_label' => 'serial_number',

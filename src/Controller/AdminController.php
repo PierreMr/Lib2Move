@@ -12,22 +12,22 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 /**
- * @Route("/user")
+ * @Route("/admin")
  */
-class UserController extends AbstractController
+class AdminController extends AbstractController
 {
     /**
-     * @Route("/", name="user_index", methods={"GET"})
+     * @Route("/", name="admin_index", methods={"GET"})
      */
     public function index(UserRepository $userRepository): Response
     {
-        return $this->render('user/index.html.twig', [
-            'users' => $userRepository->findBy(['roles' => ['ROLE_USER']]),
+        return $this->render('admin/index.html.twig', [
+            'admins' => $userRepository->findBy(['roles' => ['ROLE_ADMIN']]),
         ]);
     }
 
     /**
-     * @Route("/new", name="user_new", methods={"GET","POST"})
+     * @Route("/new", name="admin_new", methods={"GET","POST"})
      */
     public function new(Request $request, UserPasswordEncoderInterface $passwordEncoder): Response
     {
@@ -43,22 +43,23 @@ class UserController extends AbstractController
                     $form->get('password')->getData()
                 )
             );
+            $user->setRoles(['ROLE_ADMIN']);
             
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($user);
             $entityManager->flush();
 
-            return $this->redirectToRoute('user_index');
+            return $this->redirectToRoute('admin_index');
         }
 
-        return $this->render('user/new.html.twig', [
+        return $this->render('admin/new.html.twig', [
             'user' => $user,
             'form' => $form->createView(),
         ]);
     }
 
     /**
-     * @Route("/{id}", name="user_show", methods={"GET"})
+     * @Route("/{id}", name="admin_show", methods={"GET"})
      */
     public function show(User $user): Response
     {
@@ -68,7 +69,7 @@ class UserController extends AbstractController
     }
 
     /**
-     * @Route("/{id}/edit", name="user_edit", methods={"GET","POST"})
+     * @Route("/{id}/edit", name="admin_edit", methods={"GET","POST"})
      */
     public function edit(Request $request, User $user): Response
     {
@@ -90,7 +91,7 @@ class UserController extends AbstractController
     }
 
     /**
-     * @Route("/{id}", name="user_delete", methods={"DELETE"})
+     * @Route("/{id}", name="admin_delete", methods={"DELETE"})
      */
     public function delete(Request $request, User $user): Response
     {

@@ -5,7 +5,7 @@
 {% block body %}
     <h1>Location index</h1>
 
-    <table class="table">
+    <table class="table table-striped table-hover table-responsive">
         <thead>
             <tr>
                 <th>Id</th>
@@ -13,6 +13,9 @@
                 <th>Time</th>
                 <th>Status</th>
                 <th>CreatedAt</th>
+                <th>User</th>
+                <th>Vehicule</th>
+                <th>Contrat</th>
                 <th>actions</th>
             </tr>
         </thead>
@@ -23,15 +26,19 @@
                 <td>{{ location.kilometers }}</td>
                 <td>{{ location.time ? location.time|date('H:i:s') : '' }}</td>
                 <td>{{ location.status }}</td>
-                <td>{{ location.createdAt ? location.createdAt|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ location.createdAt ? location.createdAt|date('d/m/Y - H:i:s') : '' }}</td>
+                <td>{{ location.user.lastname }} {{ location.user.firstname }}</td>
+                <td>{{ location.vehicule.serialNumber }}</td>
+                <td>{{ location.contrat.name }}</td>
                 <td>
-                    <a href="{{ path('location_show', {'id': location.id}) }}">show</a>
-                    <a href="{{ path('location_edit', {'id': location.id}) }}">edit</a>
+                    <a href="{{ path('location_show', {'id': location.id}) }}">Show</a>
+                    <a> | </a>
+                    <a href="{{ path('location_edit', {'id': location.id}) }}">Edit</a>
                 </td>
             </tr>
         {% else %}
             <tr>
-                <td colspan="6">no records found</td>
+                <td colspan="6">No records found</td>
             </tr>
         {% endfor %}
         </tbody>

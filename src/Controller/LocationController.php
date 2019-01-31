@@ -20,8 +20,17 @@ class LocationController extends AbstractController
      */
     public function index(LocationRepository $locationRepository): Response
     {
+        $user = $this->get('security.token_storage')->getToken()->getUser();
+
+        if ($user->getRoles() == ['ROLE_ADMIN']) {
+            $locations = $locationRepository->findAll();
+        }
+        else if ($user->getRoles() == ['ROLE_USER']) {
+            $locations = $locationRepository->findBy(['user' => $user->getId()]);
+        }
+
         return $this->render('location/index.html.twig', [
-            'locations' => $locationRepository->findAll(),
+            'locations' => $locations,
         ]);
     }
 
@@ -30,11 +39,15 @@ class LocationController extends AbstractController
      */
     public function new(Request $request): Response
     {
+        $user = $this->get('security.token_storage')->getToken()->getUser();
+
         $location = new Location();
         $form = $this->createForm(LocationType::class, $location);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $location->setUser($user);
+
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($location);
             $entityManager->flush();

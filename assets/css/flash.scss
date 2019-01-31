@@ -1,0 +1,21 @@
+.flash {
+    position: absolute;
+    z-index: 1;
+    right: 1rem;
+    top: 7rem;
+    padding: 1rem;
+    border-radius: 17px;
+    color: #fff;
+    opacity: 0.8;
+	cursor: pointer;
+    max-width: 20%;
+}
+.flash-success {
+    background-color: #28a745;
+}
+.flash-warning {
+    background-color: #ffc107;
+}
+.flash-danger {
+    background-color: #dc3545;
+}

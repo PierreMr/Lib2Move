@@ -5,7 +5,7 @@
 {% block body %}
     <h1>Vehicule index</h1>
 
-    <table class="table">
+    <table class="table table-striped table-hover table-responsive">
         <thead>
             <tr>
                 <th>Id</th>
@@ -18,6 +18,8 @@
                 <th>Purchase_date</th>
                 <th>Purchase_price</th>
                 <th>Status</th>
+                <th>Type</th>
+                <th>Ville</th>
                 <th>actions</th>
             </tr>
         </thead>
@@ -34,9 +36,12 @@
                 <td>{{ vehicule.purchaseDate ? vehicule.purchaseDate|date('Y-m-d') : '' }}</td>
                 <td>{{ vehicule.purchasePrice }}</td>
                 <td>{{ vehicule.status }}</td>
+                <td>{{ vehicule.type.name }}</td>
+                <td>{{ vehicule.ville.name }}</td>
                 <td>
-                    <a href="{{ path('vehicule_show', {'id': vehicule.id}) }}">show</a>
-                    <a href="{{ path('vehicule_edit', {'id': vehicule.id}) }}">edit</a>
+                    <a href="{{ path('vehicule_show', {'id': vehicule.id}) }}">Show</a>
+                    <a> | </a>
+                    <a href="{{ path('vehicule_edit', {'id': vehicule.id}) }}">Edit</a>
                 </td>
             </tr>
         {% else %}
