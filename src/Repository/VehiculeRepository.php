@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\Vehicule;
+use App\Entity\VehiculeSearch;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Symfony\Bridge\Doctrine\RegistryInterface;
 
@@ -19,32 +20,19 @@ class VehiculeRepository extends ServiceEntityRepository
         parent::__construct($registry, Vehicule::class);
     }
 
-    // /**
-    //  * @return Vehicule[] Returns an array of Vehicule objects
-    //  */
-    /*
-    public function findByExampleField($value)
+    public function findSearchVehicule(vehiculeSearch $search)
     {
-        return $this->createQueryBuilder('v')
-            ->andWhere('v.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('v.id', 'ASC')
-            ->setMaxResults(10)
-            ->getQuery()
-            ->getResult()
-        ;
-    }
-    */
+        $query = $this->createQueryBuilder('v');
 
-    /*
-    public function findOneBySomeField($value): ?Vehicule
-    {
-        return $this->createQueryBuilder('v')
-            ->andWhere('v.exampleField = :val')
-            ->setParameter('val', $value)
-            ->getQuery()
-            ->getOneOrNullResult()
-        ;
+
+        if($search->getVille() || $search->getTypeVehicule()) {
+            $query = $query
+                    ->where('v.ville = :ville')
+                    ->andWhere('v.type = :typeVehicule')
+                    ->setParameter('ville', $search->getVille())
+                    ->setParameter('typeVehicule', $search->getTypeVehicule());
+
+        }
+        return $query->getQuery()->getResult();
     }
-    */
 }
