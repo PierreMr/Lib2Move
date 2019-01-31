@@ -4,17 +4,23 @@ namespace App\DataFixtures;
 
  
 use App\Entity\User;
-use App\Entity\Ville;
+// use App\Entity\Ville;
+use App\Entity\Vehicule;
+use App\Entity\TypeVehicule;
+
+// use App\Repository\TypeVehiculeRepository;
+// use App\Repository\VilleRepository;
+
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\Persistence\ObjectManager;
 use Faker;
 
- 
+/* User - Type Vehicule */
 class FakerFixtures extends Fixture
 {
+
     public function load(ObjectManager $manager)
     {
- 
         // On configure dans quelles langues nous voulons nos données
         $faker = Faker\Factory::create('fr_FR');
  
@@ -32,6 +38,20 @@ class FakerFixtures extends Fixture
             $manager->persist($user);
         }
 
+        $typeVehiculeName = ['Voiture', 'Scooter', 'Trottinette'];
+        $villeName = ['Paris', 'Lyon'];
+
+        for ($i = 0; $i < count($typeVehiculeName); $i++) {
+
+            $typeVehicule = new TypeVehicule();
+            $typeVehicule->setName($typeVehiculeName[$i]);
+    
+            $manager->persist($typeVehicule);
+        }
+            $manager->flush();
+    }
+}
+
         /*
         // on crée 12 villes
         for ($i = 0; $i < 20; $i++) {
@@ -43,6 +63,3 @@ class FakerFixtures extends Fixture
             $manager->persist($ville);
         }
         */
-        $manager->flush();
-    }
-}
