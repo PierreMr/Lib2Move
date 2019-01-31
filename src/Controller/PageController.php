@@ -43,8 +43,8 @@ class PageController extends AbstractController
     	$form = $this->createForm(ContactType::class, $contact);
     	$form->handleRequest($request);
 
-    	if($form->isSubmitted() && $form->isValid()) {
-    		$this->addFlash('success', 'Votre email a bien été envoyer !');
+    	if($form->isSubmitted()) {
+    		die('submit.contact.form');
     	}
 
         return $this->render('contact.html.twig', [
