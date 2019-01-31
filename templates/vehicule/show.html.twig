@@ -47,12 +47,20 @@
                 <th>Status</th>
                 <td>{{ vehicule.status }}</td>
             </tr>
+            <tr>
+                <th>Type</th>
+                <td>{{ vehicule.type.name }}</td>
+            </tr>
+            <tr>
+                <th>Ville</th>
+                <td>{{ vehicule.ville.name }}</td>
+            </tr>
         </tbody>
     </table>
 
-    <a href="{{ path('vehicule_index') }}">back to list</a>
-
-    <a href="{{ path('vehicule_edit', {'id': vehicule.id}) }}">edit</a>
+    <a href="{{ path('vehicule_index') }}">Back to list</a>
+    <a> | </a>
+    <a href="{{ path('vehicule_edit', {'id': vehicule.id}) }}">Edit</a>
 
     {{ include('vehicule/_delete_form.html.twig') }}
 {% endblock %}

@@ -20,6 +20,7 @@ security:
             logout:
                 path:   app_logout
                 target: app_login
+            access_denied_handler: App\Security\AccessDeniedHandler
 
             # activate different ways to authenticate
 
@@ -31,9 +32,17 @@ security:
 
     # Easy way to control access for large sections of your site
     # Note: Only the *first* access control that matches will be used
+    role_hierarchy:
+        ROLE_ADMIN:     ROLE_USER
     access_control:
-        # - { path: ^/admin, roles: ROLE_ADMIN }
-        # - { path: ^/profile, roles: ROLE_USER }
+        - { path: ^/$, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/home, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/register, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/logout, roles: ROLE_USER }
+        - { path: ^/profile, roles: ROLE_USER }
+        - { path: ^/location, roles: ROLE_USER }
+        - { path: /*, roles: ROLE_ADMIN }
     encoders:
         App\Entity\User:
             algorithm: bcrypt

@@ -9,24 +9,29 @@
 			<li class="nav-item active">
 				<a class="nav-link" href="/">Home</a>
 			</li>
-			<li class="nav-item active">
-				<a class="nav-link" href="/user">User</a>
-			</li>
-			<li class="nav-item active">
-				<a class="nav-link" href="/type/vehicule">Type Vehicule</a>
-			</li>
-			<li class="nav-item active">
-				<a class="nav-link" href="/vehicule">Vehicule</a>
-			</li>
-			<li class="nav-item active">
-				<a class="nav-link" href="/contrat">Contrat</a>
-			</li>
-			<li class="nav-item active">
-				<a class="nav-link" href="/location">Location</a>
-			</li>
-			<li class="nav-item active">
-				<a class="nav-link" href="/ville">Ville</a>
-			</li>
+			{% if (app.user != null) %}
+				<li class="nav-item active">
+					<a class="nav-link" href="/location">Location</a>
+				</li>
+				
+				{% if (app.user.roles.0 == 'ROLE_ADMIN') %}
+					<li class="nav-item active">
+						<a class="nav-link" href="/user">User</a>
+					</li>
+					<li class="nav-item active">
+						<a class="nav-link" href="/type/vehicule">Type Vehicule</a>
+					</li>
+					<li class="nav-item active">
+						<a class="nav-link" href="/vehicule">Vehicule</a>
+					</li>
+					<li class="nav-item active">
+						<a class="nav-link" href="/contrat">Contrat</a>
+					</li>
+					<li class="nav-item active">
+						<a class="nav-link" href="/ville">Ville</a>
+					</li>
+				{% endif %}
+			{% endif %}
 		</ul>
 		<!-- <form class="form-inline my-2 my-lg-0">
 			<input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">

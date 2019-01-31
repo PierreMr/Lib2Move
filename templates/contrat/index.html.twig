@@ -5,16 +5,17 @@
 {% block body %}
     <h1>Contrat index</h1>
 
-    <table class="table">
+    <table class="table table-striped table-hover table-responsive">
         <thead>
             <tr>
                 <th>Id</th>
+                <th>Name</th>
                 <th>Max_km</th>
                 <th>Max_time</th>
                 <th>Price</th>
                 <th>Km_penalty</th>
                 <th>Time_penalty</th>
-                <th>Name</th>
+                <th>Type véhicule</th>
                 <th>actions</th>
             </tr>
         </thead>
@@ -22,20 +23,22 @@
         {% for contrat in contrats %}
             <tr>
                 <td>{{ contrat.id }}</td>
+                <td>{{ contrat.name }}</td>
                 <td>{{ contrat.maxKm }}</td>
                 <td>{{ contrat.maxTime ? contrat.maxTime|date('H:i:s') : '' }}</td>
                 <td>{{ contrat.price }}</td>
                 <td>{{ contrat.kmPenalty }}</td>
                 <td>{{ contrat.timePenalty }}</td>
-                <td>{{ contrat.name }}</td>
+                <td>{{ contrat.type.name }}</td>
                 <td>
-                    <a href="{{ path('contrat_show', {'id': contrat.id}) }}">show</a>
-                    <a href="{{ path('contrat_edit', {'id': contrat.id}) }}">edit</a>
+                    <a href="{{ path('contrat_show', {'id': contrat.id}) }}">Show</a>
+                    <a> | </a>
+                    <a href="{{ path('contrat_edit', {'id': contrat.id}) }}">Edit</a>
                 </td>
             </tr>
         {% else %}
             <tr>
-                <td colspan="8">no records found</td>
+                <td colspan="8">No records found</td>
             </tr>
         {% endfor %}
         </tbody>
