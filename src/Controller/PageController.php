@@ -13,6 +13,7 @@ use App\Entity\Contact;
 
 class PageController extends AbstractController
 {
+	
     /**
      * @Route("/home", name="app_home")
      */
@@ -43,8 +44,9 @@ class PageController extends AbstractController
     	$form = $this->createForm(ContactType::class, $contact);
     	$form->handleRequest($request);
 
-    	if($form->isSubmitted()) {
-    		die('submit.contact.form');
+    	if($form->isSubmitted() && $form->isValid()) {
+    		 $this->addFlash('danger', 'Server in progress !');
+
     	}
 
         return $this->render('contact.html.twig', [
