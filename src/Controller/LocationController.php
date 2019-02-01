@@ -6,15 +6,13 @@ use App\Entity\Location;
 use App\Form\LocationType;
 use App\Form\LocationAddType;
 use App\Repository\LocationRepository;
+use App\Repository\ContratRepository;
+use App\Repository\VehiculeRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-
-/* TESTES */
-use App\Repository\VehiculeRepository;
-use App\Repository\ContratRepository;
 
 /**
  * @Route("/location")
@@ -91,7 +89,6 @@ class LocationController extends AbstractController
             $location->setVehicule($vehicule);
             $location->setStatus("activée");
             $location->setStart(new \Datetime());
-
 
 
             $entityManager = $this->getDoctrine()->getManager();
