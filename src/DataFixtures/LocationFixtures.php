@@ -26,9 +26,10 @@ class LocationFixtures extends Fixture implements DependentFixtureInterface
         for ($i = 0; $i < 20; $i++) {
             $newLocation = new Location();
 
-            $newLocation->setKilometers(rand(10, 100));
-            $newLocation->setTime(new \DateTime('00:'.rand(10, 50)));
-            $newLocation->setStatus('Terminée');
+            $newLocation->setStart($faker->dateTimeThisCentury($max = 'now', $timezone = null));
+            // $newLocation->setKilometers(rand(10, 100));
+            // $newLocation->setTime(new \DateTime('00:'.rand(10, 50)));
+            $newLocation->setStatus('En cours');
             $newLocation->setCreatedAt(new \DateTime('now'));
 
             $newLocation->setUser($this->getReference(User::class.'_'.rand(0, 6)));

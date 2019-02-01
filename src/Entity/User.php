@@ -7,6 +7,7 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
@@ -54,7 +55,19 @@ class User implements UserInterface
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
+    private $phone;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
     private $drivers_licence;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     *
+     * @Assert\File(mimeTypes={ "image/png", "image/jpeg", "image/jpg" })
+     */
+    private $image;
 
     /**
      * @ORM\Column(type="simple_array")
@@ -66,10 +79,22 @@ class User implements UserInterface
      */
     private $locations;
 
+    /**
+     * @ORM\Column(type="datetime")
+     */
+    private $createdAt;
+
+    /**
+     * @ORM\Column(type="datetime")
+     */
+    private $modifiedAt;
+
     public function __construct()
     {
         $this->roles = ['ROLE_USER'];
         $this->locations = new ArrayCollection();
+        $this->setCreatedAt(new \DateTime());
+        $this->setModifiedAt(new \DateTime());        
     }
 
     public function getId(): ?int
@@ -149,6 +174,18 @@ class User implements UserInterface
         return $this;
     }
 
+    public function getPhone(): ?string
+    {
+        return $this->phone;
+    }
+
+    public function setPhone(?string $phone): self
+    {
+        $this->phone = $phone;
+
+        return $this;
+    }
+
     public function getDriversLicence(): ?string
     {
         return $this->drivers_licence;
@@ -157,6 +194,18 @@ class User implements UserInterface
     public function setDriversLicence(?string $drivers_licence): self
     {
         $this->drivers_licence = $drivers_licence;
+
+        return $this;
+    }
+
+    public function getImage()
+    {
+        return $this->image;
+    }
+
+    public function setImage($image): self
+    {
+        $this->image = $image;
 
         return $this;
     }
@@ -213,6 +262,30 @@ class User implements UserInterface
                 $location->setUser(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getCreatedAt(): ?\DateTimeInterface
+    {
+        return $this->createdAt;
+    }
+
+    public function setCreatedAt(\DateTimeInterface $createdAt): self
+    {
+        $this->createdAt = $createdAt;
+
+        return $this;
+    }
+
+    public function getModifiedAt(): ?\DateTimeInterface
+    {
+        return $this->modifiedAt;
+    }
+
+    public function setModifiedAt(\DateTimeInterface $modifiedAt): self
+    {
+        $this->modifiedAt = $modifiedAt;
 
         return $this;
     }

@@ -9,6 +9,7 @@
         <thead>
             <tr>
                 <th>Id</th>
+                <th style="width: 9%;">Image</th>
                 <th>Name</th>
                 <th>ZIP</th>
                 <th>actions</th>
@@ -18,6 +19,13 @@
         {% for ville in villes %}
             <tr>
                 <td>{{ ville.id }}</td>
+                <td>
+                    {% if ville.image %}
+                        <img src="/assets/uploads/ville/{{ ville.image }}" class="img-fluid rounded-circle" />
+                    {% else %}
+                        <img src="/assets/img/ville.png" class="img-fluid rounded-circle" />
+                    {% endif %}
+                </td>
                 <td>{{ ville.name }}</td>
                 <td>{{ ville.ZIP }}</td>
                 <td>

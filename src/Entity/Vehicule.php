@@ -25,6 +25,11 @@ class Vehicule
     private $type;
 
     /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Ville", inversedBy="vehicules")
+     */
+    private $ville;
+
+    /**
      * @ORM\Column(type="string", length=255)
      */
     private $brand;
@@ -85,9 +90,9 @@ class Vehicule
     private $lon;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Ville", inversedBy="vehicules")
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
-    private $ville;
+    private $image;
 
     public function __construct()
     {
@@ -107,6 +112,18 @@ class Vehicule
     public function setType(?TypeVehicule $type): self
     {
         $this->type = $type;
+
+        return $this;
+    }
+
+    public function getVille(): ?Ville
+    {
+        return $this->ville;
+    }
+
+    public function setVille(?Ville $ville): self
+    {
+        $this->ville = $ville;
 
         return $this;
     }
@@ -207,37 +224,6 @@ class Vehicule
         return $this;
     }
 
-    /**
-     * @return Collection|Location[]
-     */
-    public function getLocations(): Collection
-    {
-        return $this->locations;
-    }
-
-    public function addLocation(Location $location): self
-    {
-        if (!$this->locations->contains($location)) {
-            $this->locations[] = $location;
-            $location->setVehicule($this);
-        }
-
-        return $this;
-    }
-
-    public function removeLocation(Location $location): self
-    {
-        if ($this->locations->contains($location)) {
-            $this->locations->removeElement($location);
-            // set the owning side to null (unless already changed)
-            if ($location->getVehicule() === $this) {
-                $location->setVehicule(null);
-            }
-        }
-
-        return $this;
-    }
-
     public function getStatus(): ?string
     {
         return $this->status;
@@ -274,14 +260,45 @@ class Vehicule
         return $this;
     }
 
-    public function getVille(): ?Ville
+    public function getImage(): ?string
     {
-        return $this->ville;
+        return $this->image;
     }
 
-    public function setVille(?Ville $ville): self
+    public function setImage(?string $image): self
     {
-        $this->ville = $ville;
+        $this->image = $image;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Location[]
+     */
+    public function getLocations(): Collection
+    {
+        return $this->locations;
+    }
+
+    public function addLocation(Location $location): self
+    {
+        if (!$this->locations->contains($location)) {
+            $this->locations[] = $location;
+            $location->setVehicule($this);
+        }
+
+        return $this;
+    }
+
+    public function removeLocation(Location $location): self
+    {
+        if ($this->locations->contains($location)) {
+            $this->locations->removeElement($location);
+            // set the owning side to null (unless already changed)
+            if ($location->getVehicule() === $this) {
+                $location->setVehicule(null);
+            }
+        }
 
         return $this;
     }

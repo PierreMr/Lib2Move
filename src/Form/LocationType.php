@@ -10,6 +10,8 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use Symfony\Component\Form\FormEvent;
+use Symfony\Component\Form\FormEvents;
 
 class LocationType extends AbstractType
 {
@@ -29,6 +31,7 @@ class LocationType extends AbstractType
             ->add('vehicule', EntityType::class, [
                 'class' => Vehicule::class,
                 'choice_label' => 'serial_number',
+                'mapped' => true,
                 // 'multiple' => true,
                 // 'expanded' => true,
             ])
@@ -38,6 +41,17 @@ class LocationType extends AbstractType
                 // 'multiple' => true,
                 // 'expanded' => true,
             ])
+            // ->addEventListener(FormEvents::PRE_SET_DATA, function (FormEvent $event) {
+            //     $location = $event->getData();
+            //     $form = $event->getForm();
+
+            //     // checks if the Product object is "new"
+            //     // If no data is passed to the form, the data is "null".
+            //     // This should be considered a new "Product"
+                
+            //     $form->get('status')->setData('Test');
+            //     $form->get('vehicule')->setData(20);
+            // });
         ;
     }
 

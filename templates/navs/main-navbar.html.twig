@@ -47,12 +47,16 @@
 				</li>
 			{% else %}
 				<li class="nav-item dropdown">
+					<!-- {% if app.user.image %}
+		                <img src="/assets/uploads/user_profile/{{ app.user.image }}" class="img-fluid rounded-circle" style="width: 3%;" />
+		            {% else %}
+		                <img src="/assets/img/user.png" class="img-fluid rounded-circle" style="width: 3%;" />
+		            {% endif %} -->
 					<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 				  		{{ app.user.lastname }} {{ app.user.firstname }}
 					</a>
 					<div class="dropdown-menu" aria-labelledby="navbarDropdown">
-						<a class="dropdown-item disabled" href="#">Action</a>
-						<a class="dropdown-item disabled" href="#">Another action</a>
+						<a class="dropdown-item" href="/profile">Profile</a>
 						<div class="dropdown-divider"></div>
     					<a class="dropdown-item" href="/logout">Déconnexion</a>
 					</div>

@@ -29,6 +29,11 @@ class Ville
     private $ZIP;
 
     /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $image;
+
+    /**
      * @ORM\OneToMany(targetEntity="App\Entity\Vehicule", mappedBy="ville")
      */
     private $vehicules;
@@ -63,6 +68,18 @@ class Ville
     public function setZIP(?string $ZIP): self
     {
         $this->ZIP = $ZIP;
+
+        return $this;
+    }
+
+    public function getImage()
+    {
+        return $this->image;
+    }
+
+    public function setImage($image): self
+    {
+        $this->image = $image;
 
         return $this;
     }

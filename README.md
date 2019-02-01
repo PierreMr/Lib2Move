@@ -27,6 +27,5 @@
 ## DataFixtures
 
 - `https://symfonycasts.com/screencast/doctrine-relations/fixture-references`
-- `php bin/console doctrine:schema:drop --force \
-&& bin/console doctrine:schema:update --force \
-&& bin/console doctrine:fixtures:load -n`
+- `https://github.com/fzaninotto/Faker`
+- `php bin/console doctrine:schema:drop --force && bin/console doctrine:schema:update --force && bin/console doctrine:fixtures:load -n`
