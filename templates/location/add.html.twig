@@ -4,7 +4,7 @@
 
 {% block body %}
 
-    <h1>Confirmer votre réservation Location</h1>
+    <h1>Confirmer votre réservation !</h1>
 
     <p>{{ vehicule.brand }}</p>
 
@@ -12,7 +12,7 @@
     <form class="form-group">
 	    {{ form_start(form) }}
 
-	    <label for="exampleInputEmail1">Choisir une date</label>
+	    <label for="">Choisir une date</label>
 	    <input class="form-control mb-3" type="date" name=""> 
 
 	    {{ form_row(form.vehicule) }}  
@@ -24,6 +24,7 @@
 		{{ form_end(form) }}
 
 	</form>
-  
-
+  		{% for contrat in contrats %}
+		{{ contrat.name }}
+		{% endfor %}
 {% endblock %}
