@@ -36,9 +36,11 @@ class VilleController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $file = $ville->getImage();
-            $fileName = $fileUploader->upload($file, 'ville');
-            $ville->setImage($fileName);
+            if ($ville->getImage()) {
+                $file = $ville->getImage();
+                $fileName = $fileUploader->upload($file, 'ville');
+                $ville->setImage($fileName);
+            }
 
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($ville);
@@ -77,9 +79,11 @@ class VilleController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $file = $ville->getImage();
-            $fileName = $fileUploader->upload($file, 'ville');
-            $ville->setImage($fileName);
+            if ($ville->getImage()) {
+                $file = $ville->getImage();
+                $fileName = $fileUploader->upload($file, 'ville');
+                $ville->setImage($fileName);
+            }
 
             $this->getDoctrine()->getManager()->flush();
 
