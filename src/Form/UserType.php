@@ -5,6 +5,7 @@ namespace App\Form;
 use App\Entity\User;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\NotBlank;
@@ -36,7 +37,13 @@ class UserType extends AbstractType
             ->add('firstname')
             ->add('birthday')
             ->add('address')
+            ->add('phone')
             ->add('drivers_licence')
+            ->add('image', FileType::class, [
+                'data_class' => null,
+                'label' => 'Image',
+                'required' => false
+            ])
             // ->add('roles')
         ;
     }

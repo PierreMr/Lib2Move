@@ -25,6 +25,11 @@ class Contrat
     private $type;
 
     /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $name;
+
+    /**
      * @ORM\Column(type="integer")
      */
     private $max_km;
@@ -54,11 +59,6 @@ class Contrat
      */
     private $locations;
 
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $name;
-
     public function __construct()
     {
         $this->locations = new ArrayCollection();
@@ -77,6 +77,18 @@ class Contrat
     public function setType(?TypeVehicule $type): self
     {
         $this->type = $type;
+
+        return $this;
+    }
+
+    public function getName(): ?string
+    {
+        return $this->name;
+    }
+
+    public function setName(string $name): self
+    {
+        $this->name = $name;
 
         return $this;
     }
@@ -168,18 +180,6 @@ class Contrat
                 $location->setContrat(null);
             }
         }
-
-        return $this;
-    }
-
-    public function getName(): ?string
-    {
-        return $this->name;
-    }
-
-    public function setName(string $name): self
-    {
-        $this->name = $name;
 
         return $this;
     }

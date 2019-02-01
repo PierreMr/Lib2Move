@@ -9,6 +9,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use App\Service\FileUploader;
 
 /**
  * @Route("/ville")
@@ -35,9 +36,18 @@ class VilleController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $file = $ville->getImage();
+            $fileName = $fileUploader->upload($file, 'ville');
+            $ville->setImage($fileName);
+
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($ville);
             $entityManager->flush();
+        
+            $this->addFlash(
+                'success',
+                'Votre ville a bien été ajoutée !'
+            );
 
             return $this->redirectToRoute('ville_index');
         }
@@ -61,12 +71,16 @@ class VilleController extends AbstractController
     /**
      * @Route("/{id}/edit", name="ville_edit", methods={"GET","POST"})
      */
-    public function edit(Request $request, Ville $ville): Response
+    public function edit(Request $request, Ville $ville, FileUploader $fileUploader): Response
     {
         $form = $this->createForm(VilleType::class, $ville);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $file = $ville->getImage();
+            $fileName = $fileUploader->upload($file, 'ville');
+            $ville->setImage($fileName);
+
             $this->getDoctrine()->getManager()->flush();
 
             return $this->redirectToRoute('ville_index', [

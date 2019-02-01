@@ -60,6 +60,7 @@ class UserFixtures extends Fixture
             $newUser->setFirstname($faker->firstName);
             $newUser->setLastname($faker->lastName);
             $newUser->setAddress($faker->streetAddress);
+            $newUser->setPhone($faker->phoneNumber);
             $newUser->setBirthday($faker->dateTimeThisCentury($max = 'now', $timezone = null));
             $newUser->setDriversLicence($faker->postcode);
             

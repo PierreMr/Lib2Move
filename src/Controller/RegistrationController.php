@@ -43,6 +43,16 @@ class RegistrationController extends AbstractController
             'success',
             'Hello, it\'s great to see you here !'
         );
+        
+        $this->addFlash(
+            'warning',
+            'Hello, it\'s great to see you here !'
+        );
+        
+        $this->addFlash(
+            'danger',
+            'Hello, it\'s great to see you here !'
+        );
 
         return $this->render('registration/register.html.twig', [
             'registrationForm' => $form->createView(),
