@@ -41,9 +41,11 @@ class ProfileController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $file = $user->getImage();
-	        $fileName = $fileUploader->upload($file, 'user_profile');
-	        $user->setImage($fileName);
+            if ($user->getImage()) {
+                $file = $user->getImage();
+    	        $fileName = $fileUploader->upload($file, 'user_profile');
+    	        $user->setImage($fileName);
+            }
 
             $this->getDoctrine()->getManager()->flush();
 

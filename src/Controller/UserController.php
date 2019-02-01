@@ -45,9 +45,11 @@ class UserController extends AbstractController
                 )
             );
 
-            $file = $user->getImage();
-            $fileName = $fileUploader->upload($file, 'user_profile');
-            $user->setImage($fileName);
+            if ($user->getImage()) {
+                $file = $user->getImage();
+                $fileName = $fileUploader->upload($file, 'user_profile');
+                $user->setImage($fileName);
+            }
             
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($user);
@@ -81,9 +83,11 @@ class UserController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {            
-            $file = $user->getImage();
-            $fileName = $fileUploader->upload($file, 'user_profile');
-            $user->setImage($fileName);
+            if ($user->getImage()) {
+                $file = $user->getImage();
+                $fileName = $fileUploader->upload($file, 'user_profile');
+                $user->setImage($fileName);
+            }
 
             $this->getDoctrine()->getManager()->flush();
 
