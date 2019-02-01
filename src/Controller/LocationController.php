@@ -76,7 +76,14 @@ class LocationController extends AbstractController
         
         $location = new Location();
         $form = $this->createForm(LocationAddType::class, $location);
-        // $form->get('vehicule')->setData($id);
+        $form->get('vehicule')->setData($vehicule);
+
+        $contrat = $vehicule->getType()->getName();
+
+        $form->get('contrat')->setData($vehicule->getType()->getName());
+
+        var_dump($vehicule->getType()->getName());
+
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {

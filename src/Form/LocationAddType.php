@@ -15,13 +15,14 @@ class LocationAddType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-
         $builder
+            ->add('vehicule', EntityType::class, [
+                'class' => Vehicule::class,
+                'choice_label' => 'serial_number',
+            ])
             ->add('contrat', EntityType::class, [
                 'class' => Contrat::class,
                 'choice_label' => 'name',
-                // 'multiple' => true,
-                // 'expanded' => true,
             ])
         ;
     }
@@ -30,7 +31,6 @@ class LocationAddType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => Location::class,
-            'method' => 'get'
         ]);
     }
 }
