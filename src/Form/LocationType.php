@@ -30,7 +30,9 @@ class LocationType extends AbstractType
             // ])
             ->add('vehicule', EntityType::class, [
                 'class' => Vehicule::class,
-                'choice_label' => 'serial_number',
+                'choice_label' => function (Vehicule $vehicule) {
+                    return $vehicule->getFullname($vehicule);
+                },
                 'mapped' => true,
                 // 'multiple' => true,
                 // 'expanded' => true,

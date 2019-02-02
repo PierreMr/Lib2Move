@@ -71,15 +71,16 @@ class LocationController extends AbstractController
     public function add(Request $request, int $id, VehiculeRepository $vehiculeRepository, ContratRepository $contratRepository): Response
     {
         $user = $this->get('security.token_storage')->getToken()->getUser();
-        $vehicule = $vehiculeRepository->find($id);
         
         $location = new Location();
         $form = $this->createForm(LocationAddType::class, $location);
+        
+        $vehicule = $vehiculeRepository->find($id);
         $form->get('vehicule')->setData($vehicule);
 
         $typeVehicule = $vehicule->getType()->getId();
 
-        $contrats = $contratRepository->findBy([ "type" => $typeVehicule ]);
+        $contrats = $contratRepository->findBy(['type' => $typeVehicule ]);
         // $form->get('contrat')->setData($vehicule->getType()->getName());
         $form->handleRequest($request);
 

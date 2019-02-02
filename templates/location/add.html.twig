@@ -199,4 +199,26 @@ container {
 </a>
  </container>
 
+    <script type="text/javascript">
+      $('#location_add_vehicule').on('change', function() {
+        $('#location_add_contrat').empty()
+        $.ajax({
+            url: '/contrat/vehicule/' + this.value,
+            data: {
+                  typeVehicule: $("#location_add_vehicule").val()
+              },
+              dataType: 'json',
+            type: 'post',
+            success: function(data){
+                  $.each(data, function (key, value) {
+                      $("#location_add_contrat").append('<option value="' + Object.keys(value)[0] + '">' + Object.values(value)[0] + '</option>')
+                  })
+            },
+            error: function(){
+            console.log('Erreur AJAX #location_add_vehicule')             
+            }
+        })
+      })
+    </script>
+
 {% endblock %}

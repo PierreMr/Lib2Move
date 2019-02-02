@@ -34,7 +34,7 @@ class LocationFixtures extends Fixture implements DependentFixtureInterface
 
             $newLocation->setUser($this->getReference(User::class.'_'.rand(0, 6)));
             $newLocation->setVehicule($this->getReference(Vehicule::class.'_'.rand(0, 19)));
-            $newLocation->setContrat($this->getReference(Contrat::class.'_'.rand(0, 2)));
+            $newLocation->setContrat($this->getReference(Contrat::class.'_'.rand(0, 2).'_'.rand(0, 2)));
             
             $manager->persist($newLocation);
 

@@ -42,6 +42,15 @@ class PageController extends AbstractController
     {
     	$contact = new Contact();
     	$form = $this->createForm(ContactType::class, $contact);
+
+        if ($this->get('security.token_storage')->getToken()->getUser()) {
+            $user = $this->get('security.token_storage')->getToken()->getUser();
+            $form->get('lastname')->setData($user->getLastname());
+            $form->get('firstname')->setData($user->getFirstname());
+            $form->get('email')->setData($user->getEmail());
+            $form->get('phone')->setData($user->getPhone());
+        }
+        
     	$form->handleRequest($request);
 
     	if($form->isSubmitted() && $form->isValid()) {
@@ -49,7 +58,7 @@ class PageController extends AbstractController
 
     	}
 
-        return $this->render('contact.html.twig', [
+        return $this->render('page/contact.html.twig', [
         	'form' => $form->createView(),
         ]);
 	}

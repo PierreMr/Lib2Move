@@ -5,9 +5,12 @@ namespace App\Controller;
 use App\Entity\Contrat;
 use App\Form\ContratType;
 use App\Repository\ContratRepository;
+use App\Repository\TypeVehiculeRepository;
+use App\Repository\VehiculeRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
@@ -92,5 +95,26 @@ class ContratController extends AbstractController
         }
 
         return $this->redirectToRoute('contrat_index');
+    }
+
+
+    /**
+     * @Route("/vehicule/{id}", name="contrat_by_vehicule", methods={"GET", "POST"})
+     */
+    public function getContratByVehicule(ContratRepository $contratRepository, TypeVehiculeRepository $typeVehiculeRepository, VehiculeRepository $vehiculeRepository, Int $id): JsonResponse
+    {
+        $jsonResponse = [];
+
+        $vehicule = $vehiculeRepository->find($id);
+
+        $typeVehicule = $typeVehiculeRepository->find($vehicule->getType());
+
+        $contrats = $contratRepository->findBy(['type' => $typeVehicule]);
+
+        foreach ($contrats as $contrat) {
+            array_push($jsonResponse, [$contrat->getId() => $contrat->getName()]);
+        }
+
+        return new JsonResponse($jsonResponse);
     }
 }

@@ -18,7 +18,9 @@ class LocationAddType extends AbstractType
         $builder
             ->add('vehicule', EntityType::class, [
                 'class' => Vehicule::class,
-                'choice_label' => 'serial_number',
+                'choice_label' => function (Vehicule $vehicule) {
+                    return $vehicule->getFullname($vehicule);
+                },
             ])
             ->add('contrat', EntityType::class, [
                 'class' => Contrat::class,
