@@ -42,6 +42,7 @@ class UserFixtures extends Fixture
             $newUser->setAddress($faker->streetAddress);
             $newUser->setBirthday($faker->dateTimeThisCentury($max = 'now', $timezone = null));
             $newUser->setDriversLicence($faker->postcode);
+            $newUser->setImage($faker->imageUrl());
             
             $manager->persist($newUser);
 
@@ -63,6 +64,7 @@ class UserFixtures extends Fixture
             $newUser->setPhone($faker->phoneNumber);
             $newUser->setBirthday($faker->dateTimeThisCentury($max = 'now', $timezone = null));
             $newUser->setDriversLicence($faker->postcode);
+            $newUser->setImage($faker->imageUrl());
             
             $manager->persist($newUser);
 

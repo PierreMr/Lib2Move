@@ -260,12 +260,12 @@ class Vehicule
         return $this;
     }
 
-    public function getImage(): ?string
+    public function getImage()
     {
         return $this->image;
     }
 
-    public function setImage(?string $image): self
+    public function setImage($image): self
     {
         $this->image = $image;
 
@@ -301,5 +301,10 @@ class Vehicule
         }
 
         return $this;
+    }
+
+    public function getFullname(Vehicule $vehicule): ?string
+    {
+        return $vehicule->getBrand() . ' ' . $vehicule->getSerie() . ' - ' . $vehicule->getLicensePlate() . ' - ' . $vehicule->getSerialNumber() . ' - ' . $vehicule->getType()->getName();
     }
 }

@@ -9,6 +9,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use App\Service\FileUploader;
 
 /**
  * @Route("/vehicule")
@@ -28,13 +29,19 @@ class VehiculeController extends AbstractController
     /**
      * @Route("/new", name="vehicule_new", methods={"GET","POST"})
      */
-    public function new(Request $request): Response
+    public function new(Request $request, FileUploader $fileUploader): Response
     {
         $vehicule = new Vehicule();
         $form = $this->createForm(VehiculeType::class, $vehicule);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            if ($vehicule->getImage()) {
+                $file = $vehicule->getImage();
+                $fileName = $fileUploader->upload($file, 'vehicule');
+                $vehicule->setImage($fileName);
+            }
+
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($vehicule);
             $entityManager->flush();
@@ -61,12 +68,18 @@ class VehiculeController extends AbstractController
     /**
      * @Route("/{id}/edit", name="vehicule_edit", methods={"GET","POST"})
      */
-    public function edit(Request $request, Vehicule $vehicule): Response
+    public function edit(Request $request, Vehicule $vehicule, FileUploader $fileUploader): Response
     {
         $form = $this->createForm(VehiculeType::class, $vehicule);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            if ($vehicule->getImage()) {
+                $file = $vehicule->getImage();
+                $fileName = $fileUploader->upload($file, 'vehicule');
+                $vehicule->setImage($fileName);
+            }
+            
             $this->getDoctrine()->getManager()->flush();
 
             return $this->redirectToRoute('vehicule_index', [

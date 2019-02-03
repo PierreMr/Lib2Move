@@ -20,21 +20,24 @@ class ContratFixtures extends Fixture implements DependentFixtureInterface
     {
         $faker = Faker\Factory::create('fr_FR');
 
-    	$contrats = ['Voiture', 'Scooter', 'Trottinette'];
+        $contrats = ['Voiture', 'Scooter', 'Trottinette'];
+    	$types = ['A', 'B', 'C'];
 
         for ($i = 0; $i < 3; $i++) {
-            $newContrat = new Contrat();
-            $newContrat->setName($contrats[$i]);
-            $newContrat->setMaxKm(rand(10, 50));
-            $newContrat->setMaxTime(new \DateTime('00:'.rand(10, 50)));
-            $newContrat->setPrice(20.5);
-            $newContrat->setKmPenalty(0.5);
-            $newContrat->setTimePenalty(0.5);
-            $newContrat->setType($this->getReference(TypeVehicule::class.'_'.$i));
+            for ($j = 0; $j < 3; $j++) {
+                $newContrat = new Contrat();
+                $newContrat->setName($contrats[$i].' '.$types[$j]);
+                $newContrat->setMaxKm(rand(10, 50));
+                $newContrat->setMaxTime(new \DateTime('00:'.rand(10, 50)));
+                $newContrat->setPrice(20.5);
+                $newContrat->setKmPenalty(0.5);
+                $newContrat->setTimePenalty(0.5);
+                $newContrat->setType($this->getReference(TypeVehicule::class.'_'.$i));
 
-            $manager->persist($newContrat);
+                $manager->persist($newContrat);
 
-            $this->addReference(Contrat::class.'_'.$i, $newContrat);
+                $this->addReference(Contrat::class.'_'.$i.'_'.$j, $newContrat);
+            }
         }
 
         $manager->flush();

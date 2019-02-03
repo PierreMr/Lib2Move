@@ -6,14 +6,13 @@ use App\Entity\Location;
 use App\Form\LocationType;
 use App\Form\LocationAddType;
 use App\Repository\LocationRepository;
+use App\Repository\ContratRepository;
+use App\Repository\VehiculeRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-
-/* TESTES */
-use App\Repository\VehiculeRepository;
 
 /**
  * @Route("/location")
@@ -69,27 +68,29 @@ class LocationController extends AbstractController
     /**
      * @Route("/add/{id}", name="location_add", methods={"GET","POST"})
      */
-    public function add(Request $request, int $id, VehiculeRepository $vehiculeRepository): Response
+    public function add(Request $request, int $id, VehiculeRepository $vehiculeRepository, ContratRepository $contratRepository): Response
     {
         $user = $this->get('security.token_storage')->getToken()->getUser();
-        $vehicule = $vehiculeRepository->find($id);
         
         $location = new Location();
         $form = $this->createForm(LocationAddType::class, $location);
+        
+        $vehicule = $vehiculeRepository->find($id);
         $form->get('vehicule')->setData($vehicule);
 
-        $contrat = $vehicule->getType()->getName();
+        $typeVehicule = $vehicule->getType()->getId();
 
-        $form->get('contrat')->setData($vehicule->getType()->getName());
-
-        var_dump($vehicule->getType()->getName());
-
+        $contrats = $contratRepository->findBy(['type' => $typeVehicule ]);
+        // $form->get('contrat')->setData($vehicule->getType()->getName());
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            
             $location->setUser($user);
             $location->setVehicule($vehicule);
             $location->setStatus("activée");
+            $location->setStart(new \Datetime());
+
 
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($location);
@@ -102,6 +103,7 @@ class LocationController extends AbstractController
             'location' => $location,
             'form' => $form->createView(),
             'vehicule' => $vehicule,
+            'contrats' => $contrats
         ]);
     }
 
