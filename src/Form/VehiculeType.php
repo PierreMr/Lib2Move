@@ -6,6 +6,7 @@ use App\Entity\Vehicule;
 use App\Entity\TypeVehicule;
 use App\Entity\Ville;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
@@ -37,6 +38,11 @@ class VehiculeType extends AbstractType
                 'choice_label' => 'name',
                 // 'multiple' => true,
                 // 'expanded' => true,
+            ])
+            ->add('image', FileType::class, [
+                'data_class' => null,
+                'label' => 'Image',
+                'required' => false
             ])
         ;
     }

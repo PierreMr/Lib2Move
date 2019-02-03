@@ -3,60 +3,73 @@
 {% block title %}Vehicule{% endblock %}
 
 {% block body %}
-    <h1>Vehicule</h1>
+    <h1 class="mb-5">Vehicule</h1>
 
-    <table class="table">
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ vehicule.id }}</td>
-            </tr>
-            <tr>
-                <th>Brand</th>
-                <td>{{ vehicule.brand }}</td>
-            </tr>
-            <tr>
-                <th>Serie</th>
-                <td>{{ vehicule.serie }}</td>
-            </tr>
-            <tr>
-                <th>Serial_number</th>
-                <td>{{ vehicule.serialNumber }}</td>
-            </tr>
-            <tr>
-                <th>Color</th>
-                <td>{{ vehicule.color }}</td>
-            </tr>
-            <tr>
-                <th>License_plate</th>
-                <td>{{ vehicule.licensePlate }}</td>
-            </tr>
-            <tr>
-                <th>Kilometers</th>
-                <td>{{ vehicule.kilometers }}</td>
-            </tr>
-            <tr>
-                <th>Purchase_date</th>
-                <td>{{ vehicule.purchaseDate ? vehicule.purchaseDate|date('Y-m-d') : '' }}</td>
-            </tr>
-            <tr>
-                <th>Purchase_price</th>
-                <td>{{ vehicule.purchasePrice }}</td>
-            </tr>
-            <tr>
-                <th>Status</th>
-                <td>{{ vehicule.status }}</td>
-            </tr>
-            <tr>
-                <th>Type</th>
-                <td>{{ vehicule.type.name }}</td>
-            </tr>
-            <tr>
-                <th>Ville</th>
-                <td>{{ vehicule.ville.name }}</td>
-            </tr>
-        </tbody>
-    </table>
+    <div class="row">
+        <div class="col-3">
+            {% if vehicule.image %}
+                <img src="/assets/uploads/vehicule/{{ vehicule.image }}" class="img-fluid rounded-circle" />
+            {% else %}
+                <img src="/assets/img/vehicule.png" class="img-fluid rounded-circle" />
+            {% endif %}
+        </div>
+        <div class="col-6">
+            <a href="/vehicule/{{ vehicule.id }}/edit"><i class="fas fa-user-edit"></i> Edit</a>
+            
+            <table class="table table-hover mt-3">
+                <tbody>
+                    <tr>
+                        <th>Id</th>
+                        <td>{{ vehicule.id }}</td>
+                    </tr>
+                    <tr>
+                        <th>Brand</th>
+                        <td>{{ vehicule.brand }}</td>
+                    </tr>
+                    <tr>
+                        <th>Serie</th>
+                        <td>{{ vehicule.serie }}</td>
+                    </tr>
+                    <tr>
+                        <th>Serial_number</th>
+                        <td>{{ vehicule.serialNumber }}</td>
+                    </tr>
+                    <tr>
+                        <th>Color</th>
+                        <td>{{ vehicule.color }}</td>
+                    </tr>
+                    <tr>
+                        <th>License_plate</th>
+                        <td>{{ vehicule.licensePlate }}</td>
+                    </tr>
+                    <tr>
+                        <th>Kilometers</th>
+                        <td>{{ vehicule.kilometers }}</td>
+                    </tr>
+                    <tr>
+                        <th>Purchase_date</th>
+                        <td>{{ vehicule.purchaseDate ? vehicule.purchaseDate|date('Y-m-d') : '' }}</td>
+                    </tr>
+                    <tr>
+                        <th>Purchase_price</th>
+                        <td>{{ vehicule.purchasePrice }}</td>
+                    </tr>
+                    <tr>
+                        <th>Status</th>
+                        <td>{{ vehicule.status }}</td>
+                    </tr>
+                    <tr>
+                        <th>Type</th>
+                        <td>{{ vehicule.type.name }}</td>
+                    </tr>
+                    <tr>
+                        <th>Ville</th>
+                        <td>{{ vehicule.ville.name }}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
 
     <a href="{{ path('vehicule_index') }}">Back to list</a>
     <a> | </a>

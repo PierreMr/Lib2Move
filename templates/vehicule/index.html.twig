@@ -9,6 +9,7 @@
         <thead>
             <tr>
                 <th>Id</th>
+                <th>Image</th>
                 <th>Brand</th>
                 <th>Serie</th>
                 <th>Serial_number</th>
@@ -27,6 +28,17 @@
         {% for vehicule in vehicules %}
             <tr>
                 <td>{{ vehicule.id }}</td>
+                <td>
+                    {% if vehicule.image %}
+                        {% if vehicule.image starts with 'http' %}
+                            <img src="{{ vehicule.image }}" class="img-fluid rounded-circle" />
+                        {% else %}
+                            <img src="/assets/uploads/vehicule/{{ vehicule.image }}" class="img-fluid rounded-circle" />
+                        {% endif %}
+                    {% else %}
+                        <img src="/assets/img/vehicule.png" class="img-fluid rounded-circle" />
+                    {% endif %}
+                </td>
                 <td>{{ vehicule.brand }}</td>
                 <td>{{ vehicule.serie }}</td>
                 <td>{{ vehicule.serialNumber }}</td>
@@ -46,7 +58,7 @@
             </tr>
         {% else %}
             <tr>
-                <td colspan="10">no records found</td>
+                <td colspan="10">No records found</td>
             </tr>
         {% endfor %}
         </tbody>

@@ -27,7 +27,11 @@
                 <td>{{ user.id }}</td>
                 <td>
                     {% if user.image %}
-                        <img src="/assets/uploads/user_profile/{{ user.image }}" class="img-fluid rounded-circle" />
+                        {% if user.image starts with 'http' %}
+                            <img src="{{ user.image }}" class="img-fluid rounded-circle" />
+                        {% else %}
+                            <img src="/assets/uploads/user_profile/{{ user.image }}" class="img-fluid rounded-circle" />
+                        {% endif %}
                     {% else %}
                         <img src="/assets/img/user.png" class="img-fluid rounded-circle" />
                     {% endif %}

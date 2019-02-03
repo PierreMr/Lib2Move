@@ -22,11 +22,36 @@ class AdminFixtures extends Fixture
     {
         $faker = Faker\Factory::create('fr_FR');
 
+        $superadmins = [
+            ['email' => 'admin@gmail.com', 'password' => '123456', 'lastname' => 'Super', 'firstname' => 'Admin'],
+        ];
+
         $admins = [
             ['email' => 'admin.pierre@gmail.com', 'password' => '123456', 'lastname' => 'Admin', 'firstname' => 'Pierre'],
             ['email' => 'admin.julien@hotmail.fr', 'password' => '123456', 'lastname' => 'Admin', 'firstname' => 'Julien']
         ];
 
+        foreach ($superadmins as $key => $superadmin) {
+            $newAdmin = new User();
+            $newAdmin->setEmail($superadmin['email']);
+            $newAdmin->setPassword(
+                $this->passwordEncoder->encodePassword(
+                    $newAdmin,
+                    $superadmin['password']
+                )
+            );
+            $newAdmin->setLastname($superadmin['lastname']);
+            $newAdmin->setFirstname($superadmin['firstname']);
+            $newAdmin->setAddress($faker->streetAddress);
+            $newAdmin->setBirthday($faker->dateTimeThisCentury($max = 'now', $timezone = null));
+            $newAdmin->setDriversLicence($faker->postcode);
+            $newAdmin->setImage($faker->imageUrl());
+            $newAdmin->setRoles(['ROLE_SUPERADMIN']);
+            
+            $manager->persist($newAdmin);
+
+            $this->addReference(User::class.'_admin'.$key, $newAdmin);
+        }
 
         foreach ($admins as $key => $admin) {
             $newAdmin = new User();
@@ -42,11 +67,12 @@ class AdminFixtures extends Fixture
             $newAdmin->setAddress($faker->streetAddress);
             $newAdmin->setBirthday($faker->dateTimeThisCentury($max = 'now', $timezone = null));
             $newAdmin->setDriversLicence($faker->postcode);
+            $newAdmin->setImage($faker->imageUrl());
             $newAdmin->setRoles(['ROLE_ADMIN']);
             
             $manager->persist($newAdmin);
 
-            $this->addReference(User::class.'_admin'.$key, $newAdmin);
+            $this->addReference(User::class.'_admin'.($key + count($superadmins)), $newAdmin);
         }
         
         $manager->flush();
