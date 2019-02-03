@@ -9,6 +9,8 @@
         <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
         <link href="https://fonts.googleapis.com/css?family=Lato|ZCOOL+KuaiLe" rel="stylesheet">
+        <link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css">
+        <script type="text/javascript" src="//cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
         {{ encore_entry_link_tags('app') }}
 
             <!-- Renders a link tag (if your module requires any CSS)
@@ -52,17 +54,23 @@
         <script type="text/javascript" src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.bundle.min.js"></script>
         <script type="text/javascript">
             $('.flash').on('click', function() {
-            $(this).hide(400)
-            
-            $(this).nextAll('.flash').each(function() {
-                let top = this.style.top.replace('rem', '')-4
-                $(this).css('top',top+'rem')
+                $(this).hide(400)
+                
+                $(this).nextAll('.flash').each(function() {
+                    let top = this.style.top.replace('rem', '')-4
+                    $(this).css('top',top+'rem')
+                })
             })
-        })
 
-        setInterval(function() {
-            $('.flash').hide(400)
-        }, 10000);
+            setInterval(function() {
+                $('.flash').hide(400)
+            }, 10000);
+
+
+
+            $(document).ready( function () {
+                $('#datatable').DataTable();
+            } );
         </script>
         {{ encore_entry_script_tags('app') }}
 

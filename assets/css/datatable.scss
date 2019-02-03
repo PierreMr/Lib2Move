@@ -1,0 +1,16 @@
+#datatable_wrapper {
+	.dataTables_length select {
+		color: white;
+		background: #007bff;
+		border: 1px solid #007bff;
+		border-radius: 10px;
+		font-weight: bold;
+		margin-left: .5em;
+		margin-right: .5em;
+	}
+
+	.dataTables_filter input {
+		border: 1px solid #007bff;
+		border-radius: 10px;		
+	}
+}

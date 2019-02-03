@@ -305,6 +305,6 @@ class Vehicule
 
     public function getFullname(Vehicule $vehicule): ?string
     {
-        return $vehicule->getBrand() . ' ' . $vehicule->getSerie() . ' - ' . $vehicule->getLicensePlate() . ' - ' . $vehicule->getSerialNumber();
+        return $vehicule->getBrand() . ' ' . $vehicule->getSerie() . ' - ' . $vehicule->getLicensePlate() . ' - ' . $vehicule->getSerialNumber() . ' - ' . $vehicule->getType()->getName();
     }
 }

@@ -10,6 +10,7 @@
 require('../css/app.css');
 require('../css/app.scss');
 require('../css/flash.scss');
+require('../css/datatable.scss');
 
 // Need jQuery? Install it with "yarn add jquery", then uncomment to require it.
 // const $ = require('jquery');
