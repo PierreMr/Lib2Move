@@ -38,12 +38,12 @@ class PageController extends AbstractController
 	/**
      * @Route("/contact", name="app_contact")
      */
-	public function contact(Request $request): Response
+	public function contact(Request $request, \Swift_Mailer $mailer): Response
     {
     	$contact = new Contact();
     	$form = $this->createForm(ContactType::class, $contact);
 
-        if ($this->get('security.token_storage')->getToken()->getUser()) {
+        if ($this->get('security.token_storage')->getToken()->getUser() != 'anon.') {
             $user = $this->get('security.token_storage')->getToken()->getUser();
             $form->get('lastname')->setData($user->getLastname());
             $form->get('firstname')->setData($user->getFirstname());
@@ -54,8 +54,24 @@ class PageController extends AbstractController
     	$form->handleRequest($request);
 
     	if($form->isSubmitted() && $form->isValid()) {
-    		 $this->addFlash('danger', 'Server in progress !');
+    		$this->addFlash('warning', 'Server in progress !');
 
+            $mail = (new \Swift_Message('Contact'))
+                ->setFrom('mauerpierre@gmail.com')
+                ->setTo($form->get('email')->getData())
+                // ->setFrom($form->get('email')->getData())
+                // ->setCc($form->get('email')->getData())
+                // ->setTo('mauerpierre@gmail.com')
+                ->setBody(
+                    $this->renderView(
+                        'emails/contact.html.twig',
+                        ['message' => $form->get('message')->getData()]
+                    ),
+                    'text/html'
+                )
+            ;
+
+            $mailer->send($mail);
     	}
 
         return $this->render('page/contact.html.twig', [

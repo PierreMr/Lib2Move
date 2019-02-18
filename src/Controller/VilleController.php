@@ -21,6 +21,19 @@ class VilleController extends AbstractController
      */
     public function index(VilleRepository $villeRepository): Response
     {
+        $this->addFlash(
+            'success',
+            'Votre ville a bien été ajoutée !'
+        );
+        $this->addFlash(
+            'success',
+            'Votre ville a bien été ajoutée !'
+        );
+        $this->addFlash(
+            'success',
+            'Votre ville a bien été ajoutée !'
+        );
+        
         return $this->render('ville/index.html.twig', [
             'villes' => $villeRepository->findAll(),
         ]);

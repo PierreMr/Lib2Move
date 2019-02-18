@@ -5,16 +5,12 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>{% block title %}Lib 2 Move !{% endblock %}</title>
         {% block stylesheets %}
-        <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
-        <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
-        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
         <link href="https://fonts.googleapis.com/css?family=Lato|ZCOOL+KuaiLe" rel="stylesheet">
-        <link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css">
-        <script type="text/javascript" src="//cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
         {{ encore_entry_link_tags('app') }}
 
             <!-- Renders a link tag (if your module requires any CSS)
                  <link rel="stylesheet" href="/build/app.css"> -->
+            <!-- <script src="/build/app.js"></script> -->
         {% endblock %}
     </head>
     <body>
@@ -27,8 +23,8 @@
                 {% for label, messages in app.flashes %}
                     {% set index = loop.index %}
                     {% for message in messages %}
-                        <div class="flash flash-{{ label }}" style="top:{{ 3 + 4*index }}rem">
-                            <strong>{{ message }} <span class="font-italic"> x </span></strong>
+                        <div class="flash flash-{{ label }}" style="top:{{ 0.5 + 4*loop.index }}rem">
+                            <strong>{{ message }}</strong>
                         </div>
                     {% endfor %}
                 {% endfor %}
@@ -50,29 +46,7 @@
         </footer>
 
         {% block javascripts %}
-        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
-        <script type="text/javascript" src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.bundle.min.js"></script>
-        <script type="text/javascript">
-            $('.flash').on('click', function() {
-                $(this).hide(400)
-                
-                $(this).nextAll('.flash').each(function() {
-                    let top = this.style.top.replace('rem', '')-4
-                    $(this).css('top',top+'rem')
-                })
-            })
-
-            setInterval(function() {
-                $('.flash').hide(400)
-            }, 10000);
-
-
-
-            $(document).ready( function () {
-                $('#datatable').DataTable();
-            } );
-        </script>
-        {{ encore_entry_script_tags('app') }}
+        {{ encore_entry_script_tags('app-bottom') }}
 
             <!-- Renders app.js & a webpack runtime.js file
                 <script src="/build/runtime.js"></script>

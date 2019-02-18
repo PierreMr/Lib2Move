@@ -16,7 +16,7 @@
 				
 				{% if (app.user.roles.0 == 'ROLE_ADMIN') %}
 					<li class="nav-item active">
-						<a class="nav-link" href="/user">User</a>
+						<a class="nav-link" href="/user"><i class="fas fa-users"></i> User</a>
 					</li>
 					<li class="nav-item active">
 						<a class="nav-link" href="/type/vehicule">Type Vehicule</a>
@@ -32,6 +32,9 @@
 					</li>
 				{% endif %}
 			{% endif %}
+			<li class="nav-item active">
+				<a class="nav-link" href="/contact">Contact</a>
+			</li>
 		</ul>
 		<!-- <form class="form-inline my-2 my-lg-0">
 			<input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
@@ -46,9 +49,6 @@
 					<a class="nav-link" href="/register">Inscription</a>
 				</li>
 			{% else %}
-				<li class="nav-item active">
-					<a class="nav-link" href="/contact">Contact</a>
-				</li>
 				<li class="nav-item dropdown">
 					<!-- {% if app.user.image %}
 		                <img src="/assets/uploads/user_profile/{{ app.user.image }}" class="img-fluid rounded-circle" style="width: 3%;" />

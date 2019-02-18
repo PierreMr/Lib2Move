@@ -24,7 +24,8 @@ class UserFixtures extends Fixture
 
         $users = [
             ['email' => 'mauerpierre@gmail.com', 'password' => '123456', 'lastname' => 'Mauer', 'firstname' => 'Pierre'],
-            ['email' => 'julien.laville@hotmail.fr', 'password' => '123456', 'lastname' => 'Laville', 'firstname' => 'Julien']
+            ['email' => 'julien.laville@hotmail.fr', 'password' => '123456', 'lastname' => 'Laville', 'firstname' => 'Julien'],
+            ['email' => 'jeancy.artmooviz@gmail.com', 'password' => '123456', 'lastname' => 'Artmooviz', 'firstname' => 'Jeancy'],
         ];
 
 
@@ -49,7 +50,7 @@ class UserFixtures extends Fixture
             $this->addReference(User::class.'_'.$key, $newUser);
         }
  
-        for ($i = 2; $i < 7; $i++) {
+        for ($i = 3; $i < 8; $i++) {
             $newUser = new User();
             $newUser->setEmail($faker->email);
             $newUser->setPassword(

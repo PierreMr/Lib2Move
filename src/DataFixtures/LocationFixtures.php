@@ -26,7 +26,12 @@ class LocationFixtures extends Fixture implements DependentFixtureInterface
         for ($i = 0; $i < 20; $i++) {
             $newLocation = new Location();
 
-            $newLocation->setStart($faker->dateTimeThisCentury($max = 'now', $timezone = null));
+            $date = $faker->dateTimeThisDecade($max = 'now', $timezone = 'Europe/Paris');
+            $start = new \DateTimeImmutable($date->format('Y-m-d H:i:s'));
+            $newLocation->setStart($start);
+            $end = $date->add(new \DateInterval('P2D'));
+            $newLocation->setEnd($end);
+
             // $newLocation->setKilometers(rand(10, 100));
             // $newLocation->setTime(new \DateTime('00:'.rand(10, 50)));
             $newLocation->setStatus('En cours');
