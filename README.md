@@ -29,6 +29,7 @@
 
 ## DataFixtures
 
-* [Link](https://symfonycasts.com/screencast/doctrine-relations/fixture-references){.btn .btn-link}
-* [Link](https://github.com/fzaninotto/Faker){.btn .btn-link}
-```php bin/console doctrine:schema:drop --force && bin/console doctrine:schema:update --force && bin/console doctrine:fixtures:load -n```
+* [https://symfonycasts.com/screencast/doctrine-relations/fixture-references](https://symfonycasts.com/screencast/doctrine-relations/fixture-references)
+* [https://github.com/fzaninotto/Faker](https://github.com/fzaninotto/Faker)
+*
+* ```php bin/console doctrine:schema:drop --force && bin/console doctrine:schema:update --force && bin/console doctrine:fixtures:load -n```
