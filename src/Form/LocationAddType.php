@@ -33,7 +33,6 @@ class LocationAddType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => Location::class,
-            'method' => 'get',
         ]);
     }
 }

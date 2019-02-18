@@ -11,6 +11,8 @@
                 <th>Id</th>
                 <th>Kilometers</th>
                 <th>Time</th>
+                <th>Start</th>
+                <th>End</th>
                 <th>Status</th>
                 <th>CreatedAt</th>
                 <th>User</th>
@@ -25,6 +27,8 @@
                 <td>{{ location.id }}</td>
                 <td>{{ location.kilometers }}</td>
                 <td>{{ location.time ? location.time|date('H:i:s') : '' }}</td>
+                <td>{{ location.start ? location.start|date('d-m-Y H:i:s') : '' }}</td>
+                <td>{{ location.end ? location.end|date('d-m-Y H:i:s') : '' }}</td>
                 <td>{{ location.status }}</td>
                 <td>{{ location.createdAt ? location.createdAt|date('d/m/Y - H:i:s') : '' }}</td>
                 <td>{{ location.user.lastname }} {{ location.user.firstname }}</td>

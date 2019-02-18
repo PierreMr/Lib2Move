@@ -28,7 +28,8 @@ class AdminFixtures extends Fixture
 
         $admins = [
             ['email' => 'admin.pierre@gmail.com', 'password' => '123456', 'lastname' => 'Admin', 'firstname' => 'Pierre'],
-            ['email' => 'admin.julien@hotmail.fr', 'password' => '123456', 'lastname' => 'Admin', 'firstname' => 'Julien']
+            ['email' => 'admin.julien@hotmail.fr', 'password' => '123456', 'lastname' => 'Admin', 'firstname' => 'Julien'],
+            ['email' => 'admin.jeancy@gmail.com', 'password' => '123456', 'lastname' => 'Admin', 'firstname' => 'Jeancy'],
         ];
 
         foreach ($superadmins as $key => $superadmin) {

@@ -1,5 +1,6 @@
 {
   "devDependencies": {
+    "@fortawesome/fontawesome-free": "^5.7.2",
     "@symfony/webpack-encore": "^0.22.4",
     "webpack-notifier": "^1.6.0"
   },
@@ -13,7 +14,13 @@
     "build": "encore production --progress"
   },
   "dependencies": {
+    "bootstrap": "^4.3.1",
+    "datatables.net": "^1.10.19",
+    "datatables.net-dt": "^1.10.19",
+    "fontawesome": "^5.6.3",
+    "jquery": "^3.3.1",
     "node-sass": "^4.11.0",
+    "popper.js": "^1.14.7",
     "sass-loader": "^7.1.0"
   }
 }
