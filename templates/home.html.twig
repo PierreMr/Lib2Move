@@ -20,6 +20,12 @@
                 {{ form_row(form.typeVehicule) }}
             </div>
              <div class="col">
+                {{ form_row(form.start) }}
+            </div>
+              <div class="col">
+                {{ form_row(form.end) }}
+            </div>
+             <div class="col">
                 <button class="btn btn-primary" style="margin-top:31px;">Rechercher</button>
             </div>
         </div>
@@ -53,4 +59,14 @@
             </div>
         {% endfor %}
     </div>
+
+    <script>
+        $(document).ready(function() {
+            // you may need to change this code if you are not using Bootstrap Datepicker
+            $('.js-datepicker').datepicker({
+                format: 'yyyy-mm-dd'
+            });
+        });
+    </script>
+    
 {% endblock %}

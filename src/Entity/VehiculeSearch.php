@@ -17,6 +17,16 @@ class VehiculeSearch
 	 */
 	private $typeVehicule;
 
+	/**
+	 * @var \DateTime|null
+	 */
+	private $start;
+
+	/**
+	 * @var \DateTime|null
+	 */
+	private $end;
+
     /**
      * @return int|null
      */
@@ -51,6 +61,44 @@ class VehiculeSearch
 	public function setTypeVehicule(?int $typeVehicule): VehiculeSearch
 	{	
 		$this->typeVehicule = $typeVehicule;
+		return $this;
+
+	}
+
+	/**
+     * @return \DateTime|null
+     */
+    public function getStart()
+    {
+    	return $this->start;
+    }
+
+	/**
+	 * @param \DateTime|null 
+	 * @return VehiculeSearch
+	 */
+	public function setStart(?\DateTimeInterface $start): VehiculeSearch
+	{	
+		$this->start = $start;
+		return $this;
+
+	}
+
+	/**
+     * @return \DateTime|null
+     */
+    public function getEnd()
+    {
+    	return $this->end;
+    }
+
+	/**
+	 * @param \DateTime|null 
+	 * @return VehiculeSearch
+	 */
+	public function setEnd(?\DateTimeInterface $end): VehiculeSearch
+	{	
+		$this->end = $end;
 		return $this;
 
 	}

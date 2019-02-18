@@ -7,6 +7,8 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
+
 
 class VehiculeSearchType extends AbstractType
 {
@@ -24,7 +26,12 @@ class VehiculeSearchType extends AbstractType
                 'Scooter' => 2,
                 'Trottinette' => 3,]
                 ])
-        ;
+            ->add('start', DateTimeType::class, [
+                'widget' => 'single_text',
+                ])
+            ->add('end', DateTimeType::class, [
+                'widget' => 'single_text',
+                ]);
     }
 
     public function configureOptions(OptionsResolver $resolver)
