@@ -26,10 +26,10 @@ class LocationController extends AbstractController
     {
         $user = $this->get('security.token_storage')->getToken()->getUser();
 
-        if ($user->getRoles() == ['ROLE_ADMIN']) {
+        if ($user->getRoles() == ['ROLE_ADMIN'] || ['ROLE_SUPERADMIN']) {
             $locations = $locationRepository->findAll();
         }
-        else if ($user->getRoles() == ['ROLE_USER']) {
+        else {
             $locations = $locationRepository->findBy(['user' => $user->getId()]);
         }
 

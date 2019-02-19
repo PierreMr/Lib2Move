@@ -1,0 +1,126 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Facture{% endblock %}
+
+{% block body %}
+    <h1>Facture</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ facture.id }}</td>
+            </tr>
+            <tr>
+                <th>Contract_name</th>
+                <td>{{ facture.contractName }}</td>
+            </tr>
+            <tr>
+                <th>Max_time</th>
+                <td>{{ facture.maxTime ? facture.maxTime|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Max_km</th>
+                <td>{{ facture.maxKm }}</td>
+            </tr>
+            <tr>
+                <th>Price</th>
+                <td>{{ facture.price }}</td>
+            </tr>
+            <tr>
+                <th>Km_penalty</th>
+                <td>{{ facture.kmPenalty }}</td>
+            </tr>
+            <tr>
+                <th>Time_penalty</th>
+                <td>{{ facture.timePenalty }}</td>
+            </tr>
+            <tr>
+                <th>City_name</th>
+                <td>{{ facture.cityName }}</td>
+            </tr>
+            <tr>
+                <th>Start</th>
+                <td>{{ facture.start ? facture.start|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+            <tr>
+                <th>End</th>
+                <td>{{ facture.end ? facture.end|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Km_end</th>
+                <td>{{ facture.kmEnd }}</td>
+            </tr>
+            <tr>
+                <th>Vehicule_name</th>
+                <td>{{ facture.vehiculeName }}</td>
+            </tr>
+            <tr>
+                <th>User_email</th>
+                <td>{{ facture.userEmail }}</td>
+            </tr>
+            <tr>
+                <th>User_lastname</th>
+                <td>{{ facture.userLastname }}</td>
+            </tr>
+            <tr>
+                <th>User_firstname</th>
+                <td>{{ facture.userFirstname }}</td>
+            </tr>
+            <tr>
+                <th>User_adress</th>
+                <td>{{ facture.userAdress }}</td>
+            </tr>
+            <tr>
+                <th>User_phone</th>
+                <td>{{ facture.userPhone }}</td>
+            </tr>
+            <tr>
+                <th>Brand</th>
+                <td>{{ facture.brand }}</td>
+            </tr>
+            <tr>
+                <th>Serie</th>
+                <td>{{ facture.serie }}</td>
+            </tr>
+            <tr>
+                <th>Licence_plate</th>
+                <td>{{ facture.licencePlate }}</td>
+            </tr>
+            <tr>
+                <th>Pdf</th>
+                <td>{{ facture.pdf }}</td>
+            </tr>
+            <tr>
+                <th>Tva</th>
+                <td>{{ facture.tva }}</td>
+            </tr>
+            <tr>
+                <th>Final_price</th>
+                <td>{{ facture.finalPrice }}</td>
+            </tr>
+            <tr>
+                <th>End_final</th>
+                <td>{{ facture.endFinal ? facture.endFinal|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Km_final</th>
+                <td>{{ facture.kmFinal }}</td>
+            </tr>
+            <tr>
+                <th>Time_final</th>
+                <td>{{ facture.timeFinal ? facture.timeFinal|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Status</th>
+                <td>{{ facture.status }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('facture_index') }}">back to list</a>
+
+    <a href="{{ path('facture_edit', {'id': facture.id}) }}">edit</a>
+
+    {{ include('facture/_delete_form.html.twig') }}
+{% endblock %}

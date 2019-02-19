@@ -59,9 +59,15 @@ class Contrat
      */
     private $locations;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Facture", mappedBy="contract_id")
+     */
+    private $factures;
+
     public function __construct()
     {
         $this->locations = new ArrayCollection();
+        $this->factures = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -178,6 +184,37 @@ class Contrat
             // set the owning side to null (unless already changed)
             if ($location->getContrat() === $this) {
                 $location->setContrat(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Facture[]
+     */
+    public function getFactures(): Collection
+    {
+        return $this->factures;
+    }
+
+    public function addFacture(Facture $facture): self
+    {
+        if (!$this->factures->contains($facture)) {
+            $this->factures[] = $facture;
+            $facture->setContractId($this);
+        }
+
+        return $this;
+    }
+
+    public function removeFacture(Facture $facture): self
+    {
+        if ($this->factures->contains($facture)) {
+            $this->factures->removeElement($facture);
+            // set the owning side to null (unless already changed)
+            if ($facture->getContractId() === $this) {
+                $facture->setContractId(null);
             }
         }
 
