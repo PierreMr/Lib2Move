@@ -31,5 +31,5 @@
 
 * [https://symfonycasts.com/screencast/doctrine-relations/fixture-references](https://symfonycasts.com/screencast/doctrine-relations/fixture-references)
 * [https://github.com/fzaninotto/Faker](https://github.com/fzaninotto/Faker)
-*
-* ```php bin/console doctrine:schema:drop --force && bin/console doctrine:schema:update --force && bin/console doctrine:fixtures:load -n```
+* `docker-compose exec lib2move bash`
+	* ```php bin/console doctrine:schema:drop --force && bin/console doctrine:schema:update --force && bin/console doctrine:fixtures:load -n```
