@@ -34,17 +34,15 @@ class VehiculeRepository extends ServiceEntityRepository
                     ->andWhere('v.type = :typeVehicule')
                     ->setParameter('ville', $search->getVille())
                     ->setParameter('typeVehicule', $search->getTypeVehicule());
-
         }
 
-        if($search->getStart()) {
-             $query
+        if($search->getStart() && $search->getEnd()) {
+            $query
                     ->innerJoin(Location::class, 'l', Join::WITH, 'v.id = l.vehicule')
-                    ->andWhere('l.start < :start')
-                    ->andWhere('l.end > :end')                   
+                    ->andWhere(':start NOT BETWEEN l.start AND l.end')
+                    ->andWhere(':end NOT BETWEEN l.start AND l.end')
                     ->setParameter('start', $search->getStart())
-                    ->setParameter('end', $search->getEnd())
-                    ;
+                    ->setParameter('end', $search->getEnd());
         }
 
         return $query->getQuery()->getResult();
