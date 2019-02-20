@@ -99,7 +99,6 @@ class FactureController extends AbstractController
 
         $facture = new Facture();
         $em = $this->getDoctrine()->getManager();
-
         $form = $this->createForm(PenaltyType::class, $facture);
         $form->handleRequest($request);
 
@@ -173,7 +172,7 @@ class FactureController extends AbstractController
             }
 
             // var_dump($finalePrice);
-
+            
             $facture
                 ->setUserId($userId)
                 ->setVehiculeId($vehiculeId)
@@ -204,18 +203,17 @@ class FactureController extends AbstractController
                 ->setSerie($vehiculeSerie)
                 ->setLicencePlate($vehiculeLicensePlate)
 
-                //->setKmEnd(100)
+                // ->setKmEnd() // Doublon
+                // ->setEndFinal() // Doublon 
 
                 // proper facture data
                 ->setPdf("path/to/.pdf")
                 ->setTva(5.5)
                 ->setFinalPrice($finalePrice)
-                //->setEndFinal($end)
 
-                //->setKmFinal(100)
-                //->setTimeFinal($end)
+               
 
-                ->setStatus("X");                 ;                    
+                ->setStatus("X");                   
             
                 $em->persist($facture);
                 $em->flush();
