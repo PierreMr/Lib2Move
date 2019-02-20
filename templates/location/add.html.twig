@@ -7,8 +7,9 @@
   <nav aria-label="breadcrumb">
     <ol class="breadcrumb">
       <li class="breadcrumb-item"><a href="/">Home</a></li>
-      <li class="breadcrumb-item active" aria-current="page">Contrat</li>
-      <li class="breadcrumb-item">Confirmation</li>
+      <li class="breadcrumb-item active font-weight-bold" aria-current="page">Contrat</li>
+      <li class="breadcrumb-item text-muted">Paiement</li>
+      <li class="breadcrumb-item text-muted">Confirmation</li>
     </ol>
   </nav>
 
@@ -83,10 +84,10 @@
   <h2 class="m-3 mt-5">Véhicule</h2>
 
   <div class="row shadow-lg">
-    <div class="col-3">
+    <div class="col-3 pl-0">
       <img src="{{ vehicule.image }}" class="img-fluid rounded">
     </div>
-    <div class="col-6">
+    <div class="col-5">
       <table class="table table-hover">
           <tr>
               <th>Brand & Serie</th>
@@ -100,7 +101,38 @@
               <th>Type</th>
               <td>{{ vehicule.type.name|capitalize }}</td>
           </tr>
+          <tr style="display: none;">
+              <th>Latitude</th>
+              <td id="lat" data="{{ vehicule.lat }}">{{ vehicule.lat }}</td>
+          </tr>
+          <tr style="display: none;">
+              <th>Longitude</th>
+              <td id="lon" data="{{ vehicule.lon }}">{{ vehicule.lon }}</td>
+          </tr>
       </table>
+    </div>
+    <div class="col-4">
+      <div id="map" style="width: 100%; height: 22vh;">
+        <script>
+          let myLatLng = {lat: parseFloat($('#lat').attr('data')), lng: parseFloat($('#lon').attr('data'))};
+
+          function initMap() {
+            let map = new google.maps.Map(document.getElementById('map'), {
+              center: myLatLng,
+              zoom: 18,
+              // mapTypeId: 'hybrid'
+            });
+            map.setTilt(45);
+
+            var marker = new google.maps.Marker({
+              position: myLatLng,
+              map: map,
+              title: 'Hello World!'
+            });
+          }
+        </script>
+        <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB5OO81Okr-XgCuyK8m2QApnrPsrJsZwtk&callback=initMap"></script>
+      </div>
     </div>
   </div>
 
