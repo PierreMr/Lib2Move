@@ -19,21 +19,146 @@ class VehiculeFixtures extends Fixture implements DependentFixtureInterface
 {
     public function load(ObjectManager $manager)
     {
+        $vehicules = [
+            [
+                [
+                    'brand' => 'Audi',
+                    'serie' => 'A4',
+                ],
+                [
+                    'brand' => 'Audi',
+                    'serie' => 'A6',
+                ],
+                [
+                    'brand' => 'Audi',
+                    'serie' => 'Q5',
+                ],
+                [
+                    'brand' => 'Audi',
+                    'serie' => 'R8',
+                ],
+                [
+                    'brand' => 'Mercedes-Benz',
+                    'serie' => 'Classe A',
+                ],
+                [
+                    'brand' => 'Mercedes-Benz',
+                    'serie' => 'Classe G',
+                ],
+                [
+                    'brand' => 'Mercedes-Benz',
+                    'serie' => 'Classe G',
+                ],
+                [
+                    'brand' => 'Mercedes-Benz',
+                    'serie' => 'Classe G',
+                ],
+                [
+                    'brand' => 'Volkswagen',
+                    'serie' => 'Polo',
+                ],
+                [
+                    'brand' => 'Volkswagen',
+                    'serie' => 'Passat',
+                ],
+            ],
+            [
+                [
+                    'brand' => 'Vespa',
+                    'serie' => '98',
+                ],
+                [
+                    'brand' => 'Vespa',
+                    'serie' => '125',
+                ],
+                [
+                    'brand' => 'Vespa',
+                    'serie' => 'Sprint',
+                ],
+                [
+                    'brand' => 'Vespa',
+                    'serie' => 'Granturismo',
+                ],
+                [
+                    'brand' => 'Peugeot',
+                    'serie' => 'Metropolis Allure',
+                ],
+                [
+                    'brand' => 'Peugeot',
+                    'serie' => 'Belville Allure',
+                ],
+                [
+                    'brand' => 'Peugeot',
+                    'serie' => 'Citystar',
+                ],
+                [
+                    'brand' => 'Peugeot',
+                    'serie' => 'Kisbee',
+                ],
+                [
+                    'brand' => 'Suzuki',
+                    'serie' => 'Katana',
+                ],
+                [
+                    'brand' => 'Suzuki',
+                    'serie' => 'Street Magic',
+                ],
+            ],
+            [
+                [
+                    'brand' => 'Razor',
+                    'serie' => 'E300',
+                ],
+                [
+                    'brand' => 'Razor',
+                    'serie' => 'E90',
+                ],
+                [
+                    'brand' => 'Micro',
+                    'serie' => 'Merlin',
+                ],
+                [
+                    'brand' => 'Micro',
+                    'serie' => 'Condor',
+                ],
+                [
+                    'brand' => 'Micro',
+                    'serie' => 'Falcon',
+                ],
+                [
+                    'brand' => 'Oxelo',
+                    'serie' => 'Freestyle',
+                ],
+                [
+                    'brand' => 'Oxelo',
+                    'serie' => 'Town',
+                ],
+            ],
+        ];
+
+
         $faker = Faker\Factory::create('fr_FR');
 
         for ($i = 0; $i < 20; $i++) {
             $newVehicule = new Vehicule();
 
-            $newVehicule->setBrand($faker->company);
-            $newVehicule->setSerie($faker->tld);
-            $newVehicule->setSerialNumber($faker->ean8);
-            $newVehicule->setColor($faker->safeColorName);
-            $newVehicule->setLicensePlate($faker->isbn13);
-            $newVehicule->setKilometers($faker->ean8);
-            $newVehicule->setPurchaseDate($faker->dateTimeThisCentury($max = 'now', $timezone = null));
-            $newVehicule->setStatus('Disponible');
+            $type = rand(0, 2);
+            $brand = rand(0, count($vehicules[$type])-1);
 
-            $newVehicule->setType($this->getReference(TypeVehicule::class.'_'.rand(0, 2)));
+            $newVehicule->setBrand($vehicules[$type][$brand]['brand']);
+            $newVehicule->setSerie($vehicules[$type][$brand]['serie']);
+            $newVehicule->setSerialNumber($faker->regexify('[A-Za-z0-9]{9}'));
+            $newVehicule->setColor($faker->safeColorName);
+            $newVehicule->setLicensePlate($faker->regexify('[A-Z]{2}[0-9]{3}[A-Z]{2}'));
+            $newVehicule->setKilometers($faker->numberBetween($min = 1000, $max = 200000));
+            $newVehicule->setPurchaseDate($faker->dateTimeThisDecade($max = 'now', $timezone = null));
+            $newVehicule->setPurchasePrice($faker->numberBetween($min = 5000, $max = 70000));
+            $newVehicule->setStatus('Disponible');
+            $newVehicule->setLat($faker->latitude($min = 48.83370272345498, $max = 48.88475067793349));
+            $newVehicule->setLon($faker->longitude($min = 2.2900743330078512, $max = 2.3855180585937887));
+            $newVehicule->setImage($faker->imageUrl());
+
+            $newVehicule->setType($this->getReference(TypeVehicule::class.'_'.$type));
             $newVehicule->setVille($this->getReference(Ville::class.'_'.rand(0, 1)));
             
             $manager->persist($newVehicule);

@@ -81,22 +81,14 @@ class LocationController extends AbstractController
         $typeVehicule = $vehicule->getType()->getId();
 
         $contrats = $contratRepository->findBy(['type' => $typeVehicule ]);
-        // $form->get('contrat')->setData($vehicule->getType()->getName());
+
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            
-            $location->setUser($user);
-            $location->setVehicule($vehicule);
-            $location->setStatus("activée");
-            $location->setStart(new \Datetime());
-
-
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->persist($location);
-            $entityManager->flush();
-
-           return $this->redirectToRoute('location_index');
+            return $this->redirectToRoute('location_confirm', [
+                'idV' => $request->get('location_add')['vehicule'],
+                'idC' => $request->get('location_add')['contrat'],
+            ]);
         }
 
         return $this->render('location/add.html.twig', [
@@ -151,5 +143,51 @@ class LocationController extends AbstractController
         }
 
         return $this->redirectToRoute('location_index');
+    }
+
+    /**
+     * @Route("/confirm/{idV}/{idC}", name="location_confirm", methods={"GET","POST"})
+     */
+    public function confirm(Request $request, int $idV, int $idC, VehiculeRepository $vehiculeRepository, ContratRepository $contratRepository): Response
+    {
+        $user = $this->get('security.token_storage')->getToken()->getUser();
+        
+        $location = new Location();
+
+        $data = $request->get('location_add');
+        
+        $form = $this->createForm(LocationAddType::class, $location);
+        
+        $vehicule = $vehiculeRepository->find($idV);
+        $form->get('vehicule')->setData($vehicule);
+
+        $contrat = $contratRepository->find($idC);
+        $form->get('contrat')->setData($contrat);
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            
+            $location->setUser($user);
+            $location->setVehicule($vehicule);
+            $location->setContrat($contrat);
+            $location->setStatus("En cours");
+            $date = new \DatetimeImmutable();
+            $location->setStart($date);
+            $location->setEnd($date->add(new \DateInterval('P2D')));
+
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($location);
+            $entityManager->flush();
+
+            return $this->redirectToRoute('location_index');
+        }
+
+        return $this->render('location/confirm.html.twig', [
+            'location' => $location,
+            'form' => $form->createView(),
+            'vehicule' => $vehicule,
+            'contrat' => $contrat
+        ]);
     }
 }

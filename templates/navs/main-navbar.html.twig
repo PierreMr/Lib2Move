@@ -7,7 +7,7 @@
 	<div class="collapse navbar-collapse" id="navbarSupportedContent">
 		<ul class="navbar-nav mr-auto">
 			<li class="nav-item active">
-				<a class="nav-link" href="/">Home</a>
+				<a class="nav-link" href="/"><i class="fas fa-car-crash"></i> Lib2Move</a>
 			</li>
 			{% if (app.user != null) %}
 				<li class="nav-item active">
@@ -16,7 +16,7 @@
 				
 				{% if (app.user.roles.0 == 'ROLE_ADMIN') %}
 					<li class="nav-item active">
-						<a class="nav-link" href="/user"><i class="fas fa-users"></i> User</a>
+						<a class="nav-link" href="/user">User</a>
 					</li>
 					<li class="nav-item active">
 						<a class="nav-link" href="/type/vehicule">Type Vehicule</a>
