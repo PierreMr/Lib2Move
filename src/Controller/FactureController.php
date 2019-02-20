@@ -3,12 +3,19 @@
 namespace App\Controller;
 
 use App\Entity\Facture;
+use App\Entity\Location;
+   
+use App\Entity\User;
+use App\Entity\Contrat;
+
 use App\Form\FactureType;
+use App\Form\PenaltyType;
 use App\Repository\FactureRepository;
+
 use App\Repository\LocationRepository;
 use App\Repository\ContratRepository;
 use App\Repository\UserRepository;
-use App\Repository\VehiculeRepository;
+
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -87,50 +94,119 @@ class FactureController extends AbstractController
     /**
      * @Route("/generate/{id}/", name="facture_generate", methods={"GET","POST"})
      */
-    public function generate(Request $request, int $id, LocationRepository $locationRepository, VehiculeRepository $vehiculeRepository, ContratRepository $contratRepository, UserRepository $userRepository): Response
+    public function generate(Request $request, int $id, LocationRepository $locationRepository, ContratRepository $contratRepository, UserRepository $userRepository): Response
     {
 
         $facture = new Facture();
-      
         $em = $this->getDoctrine()->getManager();
 
-        $facture
-            ->setBrand("BMW")
-            ->setContractName()
-            ->setMaxTime()
-            ->setMaxKm()
-            ->setPrice()
-            ->setKmPenalty()
-            ->setTimePenalty()
-            ->setCityName()
-            ->setStart()
-            ->setEnd()
-            ->setKmEnd()
-            ->setVehiculeName()
-            ->setUserEmail()
-            ->setUserLastname()
-            ->setUserFirstname()
-            ->setUserAdress()
-            ->setUserPhone()
-            ->setBrand()
-            ->setSerie()
-            ->setLicencePlate()
-            ->setUserId()
-            ->setVehiculeId()
-            ->setContractId()
-            ->setLocationId()
-            ->setPdf()
-            ->setTva()
-            ->setFinalPrice()
-            ->setEndFinal()
-            ->setKmFinal()
-            ->setTimeFinal()
-            ->setStatus() ;                    
         
-        $em->persist($facture);
-        $em->flush();
+        $form = $this->createForm(PenaltyType::class, $facture);
+        $form->handleRequest($request);
 
-        return $this->redirectToRoute('facture_index');
+        if ($form->isSubmitted() && $form->isValid()) {
+            
+            $km_end = $request->get("penalty")["km_end"];
+        
+            $location = new Location();
+            $user = new User();
+            $contrat = new Contrat();
+            
+            $location = $locationRepository->find($id);
+            $locationId = $location->getId();
+
+            $userId = $location->getUser();
+            $user = $userRepository->find($userId);
+            $userFirstname = $user->getFirstname();
+            $userLastname = $user->getLastname();
+            $userEmail = $user->getEmail();
+            $userAddress = $user->getAddress();
+            $userPhone = $user->getPhone();
+
+            $vehiculeId = $location->getVehicule();
+            $vehiculeName = $location->getVehicule()->getType()->getName();
+            
+            $vehiculeBrand = $location->getVehicule()->getBrand();
+            $vehiculeSerie = $location->getVehicule()->getSerie();
+            $vehiculeLicensePlate = $location->getVehicule()->getLicensePlate();
+                 
+            $villeName = $location->getVehicule()->getVille()->getName();
+
+            $contratId = $location->getContrat()->getId();
+            $contrat = $contratRepository->find($contratId);
+            $contratName = $location->getContrat()->getName();
+            $contratMaxKm = $location->getContrat()->getMaxKm();
+            $contratMaxTime = $location->getContrat()->getMaxTime();
+            $contratPrice = $location->getContrat()->getPrice();
+
+            $contratKmPenalty = $location->getContrat()->getKmPenalty();
+            $contratTimePenalty = $location->getContrat()->getTimePenalty();
+
+            // From table location 
+            $start = $location->getStart();
+            $end = $location->getEnd();
+
+           $finalePriceKm = ($km_end - $contratMaxKm) * $contratKmPenalty;
+           $finalePriceTime = ($km_end - $contratMaxKm) * $contratKmPenalty;
+
+           $finalePrice = $finalePriceKm + $finalePriceTime;
+
+           var_dump($finalePrice);
+
+            $facture
+                ->setUserId($userId)
+                ->setVehiculeId($vehiculeId)
+                ->setContractId($contrat)
+                ->setLocationId($location)
+                
+                ->setStart($start)
+                ->setEnd($end)
+                // contrat/*
+                ->setBrand($vehiculeBrand)
+                ->setContractName($contratName)
+                ->setMaxTime($contratMaxTime)
+                ->setMaxKm($contratMaxKm)
+                ->setPrice($contratPrice)
+                ->setKmPenalty($contratKmPenalty)
+                ->setTimePenalty($contratTimePenalty)
+
+                ->setCityName($villeName)
+                ->setVehiculeName($vehiculeName)
+
+                ->setUserEmail($userEmail)
+                ->setUserLastname($userLastname)
+                ->setUserFirstname($userFirstname)
+                ->setUserAdress($userAddress)
+                ->setUserPhone($userPhone)
+
+                ->setBrand($vehiculeBrand)
+                ->setSerie($vehiculeSerie)
+                ->setLicencePlate($vehiculeLicensePlate)
+
+                //->setKmEnd(100)
+
+                // proper facture data
+                ->setPdf("path/to/pdf")
+                ->setTva(5.5)
+                ->setFinalPrice($finalePrice)
+                //->setEndFinal($end)
+
+                //->setKmFinal(100)
+                //->setTimeFinal($end)
+
+                ->setStatus("X")
+                 ;                    
+            
+                $em->persist($facture);
+                $em->flush();
+
+                return $this->redirectToRoute('facture_index');
+            }
+
+        return $this->render('facture/new.html.twig', [
+            'facture' => $facture,
+            'form' => $form->createView(),
+        ]); 
     }
 
     /**

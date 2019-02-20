@@ -15,6 +15,7 @@ use Doctrine\ORM\Query\Expr\Join;
  * @method Vehicule[]    findAll()
  * @method Vehicule[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
+
 class VehiculeRepository extends ServiceEntityRepository
 {
     public function __construct(RegistryInterface $registry)
