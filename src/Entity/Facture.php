@@ -137,7 +137,7 @@ class Facture
     private $tva;
 
     /**
-     * @ORM\Column(type="integer", nullable=true)
+     * @ORM\Column(type="float", nullable=true)
      */
     private $final_price;
 
@@ -471,12 +471,12 @@ class Facture
         return $this;
     }
 
-    public function getFinalPrice(): ?int
+    public function getFinalPrice(): ?float
     {
         return $this->final_price;
     }
 
-    public function setFinalPrice(?int $final_price): self
+    public function setFinalPrice(?float $final_price): self
     {
         $this->final_price = $final_price;
 

@@ -100,13 +100,13 @@ class FactureController extends AbstractController
         $facture = new Facture();
         $em = $this->getDoctrine()->getManager();
 
-        
         $form = $this->createForm(PenaltyType::class, $facture);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             
             $km_end = $request->get("penalty")["km_end"];
+            $end_final = $request->get("penalty")["end_final"];
         
             $location = new Location();
             $user = new User();
@@ -117,6 +117,7 @@ class FactureController extends AbstractController
 
             $userId = $location->getUser();
             $user = $userRepository->find($userId);
+            
             $userFirstname = $user->getFirstname();
             $userLastname = $user->getLastname();
             $userEmail = $user->getEmail();
@@ -142,16 +143,36 @@ class FactureController extends AbstractController
             $contratKmPenalty = $location->getContrat()->getKmPenalty();
             $contratTimePenalty = $location->getContrat()->getTimePenalty();
 
-            // From table location 
+            // From table location  
             $start = $location->getStart();
             $end = $location->getEnd();
 
-           $finalePriceKm = ($km_end - $contratMaxKm) * $contratKmPenalty;
-           $finalePriceTime = ($km_end - $contratMaxKm) * $contratKmPenalty;
+            $finalePrice = $contratPrice;
 
-           $finalePrice = $finalePriceKm + $finalePriceTime;
+            if($km_end) {    
+                $finalePriceKm = ($km_end - $contratMaxKm) * $contratKmPenalty;
+                $finalePrice +=  $finalePriceKm;
+            }
+            if($end_final) {  
+                // $end ->Datetime
+                // $end_final -> string !
+    
+                $end_final = new \Datetime($end_final);
+                
+                $interval = $end->diff($end_final);
+                // var_dump($interval);
+                // $strtotime = strtotime($interval->format('%Y-%m-%d'));
 
-           var_dump($finalePrice);
+                $diff = $end_final->getTimestamp() - $end->getTimestamp();
+
+                // ----
+                
+                // var_dump($diff);
+                $finalePriceTime = (($diff/3600) * $contratTimePenalty);
+                $finalePrice += $finalePriceTime;
+            }
+
+            // var_dump($finalePrice);
 
             $facture
                 ->setUserId($userId)
@@ -186,7 +207,7 @@ class FactureController extends AbstractController
                 //->setKmEnd(100)
 
                 // proper facture data
-                ->setPdf("path/to/pdf")
+                ->setPdf("path/to/.pdf")
                 ->setTva(5.5)
                 ->setFinalPrice($finalePrice)
                 //->setEndFinal($end)
@@ -194,8 +215,7 @@ class FactureController extends AbstractController
                 //->setKmFinal(100)
                 //->setTimeFinal($end)
 
-                ->setStatus("X")
-                 ;                    
+                ->setStatus("X");                 ;                    
             
                 $em->persist($facture);
                 $em->flush();
