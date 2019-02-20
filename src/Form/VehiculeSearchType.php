@@ -28,9 +28,11 @@ class VehiculeSearchType extends AbstractType
                 ])
             ->add('start', DateTimeType::class, [
                 'widget' => 'single_text',
+                'required' => false,
                 ])
             ->add('end', DateTimeType::class, [
                 'widget' => 'single_text',
+                'required' => false,
                 ]);
     }
 
