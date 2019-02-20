@@ -136,6 +136,20 @@ class VehiculeFixtures extends Fixture implements DependentFixtureInterface
             ],
         ];
 
+        $villes = [
+            [
+                'latMin' => 48.83370272345498,
+                'latMax' => 48.88475067793349,
+                'lonMin' => 2.2900743330078512,
+                'lonMax' => 2.3855180585937887,
+            ],
+            [
+                'latMin' => 45.72594660979239,
+                'latMax' => 45.78117048537809,
+                'lonMin' => 4.786006150976618,
+                'lonMax' => 4.882517507126295,
+            ],
+        ];
 
         $faker = Faker\Factory::create('fr_FR');
 
@@ -144,6 +158,8 @@ class VehiculeFixtures extends Fixture implements DependentFixtureInterface
 
             $type = rand(0, 2);
             $brand = rand(0, count($vehicules[$type])-1);
+
+            $ville = rand(0, 1);
 
             $newVehicule->setBrand($vehicules[$type][$brand]['brand']);
             $newVehicule->setSerie($vehicules[$type][$brand]['serie']);
@@ -154,12 +170,12 @@ class VehiculeFixtures extends Fixture implements DependentFixtureInterface
             $newVehicule->setPurchaseDate($faker->dateTimeThisDecade($max = 'now', $timezone = null));
             $newVehicule->setPurchasePrice($faker->numberBetween($min = 5000, $max = 70000));
             $newVehicule->setStatus('Disponible');
-            $newVehicule->setLat($faker->latitude($min = 48.83370272345498, $max = 48.88475067793349));
-            $newVehicule->setLon($faker->longitude($min = 2.2900743330078512, $max = 2.3855180585937887));
+            $newVehicule->setLat($faker->latitude($min = $villes[$ville]['latMin'], $max = $villes[$ville]['latMax']));
+            $newVehicule->setLon($faker->longitude($min = $villes[$ville]['lonMin'], $max = $villes[$ville]['lonMax']));
             $newVehicule->setImage($faker->imageUrl());
 
             $newVehicule->setType($this->getReference(TypeVehicule::class.'_'.$type));
-            $newVehicule->setVille($this->getReference(Ville::class.'_'.rand(0, 1)));
+            $newVehicule->setVille($this->getReference(Ville::class.'_'.$ville));
             
             $manager->persist($newVehicule);
 

@@ -39,10 +39,13 @@
     <div class="card-columns">
         {% for vehicule in vehicules %}
             <div class="card border-primary mb-3">
-                <!-- <img class="card-img-top" src="..." alt="Card image cap"> -->
-                <div class="card-header bg-primary border-primary text-white">{{ vehicule.brand|capitalize }} {{ vehicule.serie|capitalize }}</div>
+                <img class="card-img-top" src="{{ vehicule.image }}" alt="Card image cap">
                 <div class="card-body">
                     <table class="table table-hover">
+                        <tr>
+                            <th>Brand & Serie</th>
+                            <td>{{ vehicule.brand|capitalize }} {{ vehicule.serie|capitalize }}</td>
+                        </tr>
                         <tr>
                             <th>Serial number</th>
                             <td>{{ vehicule.serialNumber|capitalize }}</td>
@@ -60,13 +63,13 @@
         {% endfor %}
     </div>
 
-    <script>
+    <!-- <script>
         $(document).ready(function() {
             // you may need to change this code if you are not using Bootstrap Datepicker
             $('.js-datepicker').datepicker({
                 format: 'yyyy-mm-dd'
             });
         });
-    </script>
+    </script> -->
     
 {% endblock %}

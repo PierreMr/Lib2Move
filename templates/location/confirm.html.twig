@@ -8,20 +8,22 @@
 		<ol class="breadcrumb">
 			<li class="breadcrumb-item"><a href="/">Home</a></li>
 			<li class="breadcrumb-item"><a href="/location/add/{{ vehicule.id }}">Contrat</a></li>
-			<li class="breadcrumb-item active" aria-current="page">Confirmation</li>
+      		<li class="breadcrumb-item"><a href="#">Paiement</a></li>
+			<li class="breadcrumb-item active font-weight-bold" aria-current="page">Confirmation</li>
 		</ol>
 	</nav>
+
     <h1>Récapitulatif</h1>
 
 
 	<h2 class="m-3 mt-5">Véhicule</h2>
 
 	<div class="row shadow">
-		<div class="col-3">
+		<div class="col-6 pl-0">
 		  <img src="{{ vehicule.image }}" class="img-fluid rounded">
 		</div>
 		<div class="col-6">
-			<table class="table">
+			<table class="table table-responsive">
 				<tr>
 					<th>Brand & Serie</th>
 					<td>{{ vehicule.brand|capitalize }} {{ vehicule.serie|capitalize }}</td>
@@ -34,8 +36,39 @@
 					<th>Type</th>
 					<td>{{ vehicule.type.name|capitalize }}</td>
 				</tr>
+				<tr style="display: none;">
+					<th>Latitude</th>
+					<td id="lat" data="{{ vehicule.lat }}">{{ vehicule.lat }}</td>
+				</tr>
+				<tr style="display: none;">
+					<th>Longitude</th>
+					<td id="lon" data="{{ vehicule.lon }}">{{ vehicule.lon }}</td>
+				</tr>
 			</table>
 		</div>
+	    <div class="col-12 p-0">
+			<div id="map" style="width: 100%; height: 27vh;">
+				<script>
+				let myLatLng = {lat: parseFloat($('#lat').attr('data')), lng: parseFloat($('#lon').attr('data'))};
+
+				function initMap() {
+					let map = new google.maps.Map(document.getElementById('map'), {
+						center: myLatLng,
+						zoom: 18,
+						// mapTypeId: 'hybrid'
+					});
+					map.setTilt(45);
+
+					var marker = new google.maps.Marker({
+						position: myLatLng,
+						map: map,
+						title: 'Hello World!'
+					});
+				}
+				</script>
+				<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB5OO81Okr-XgCuyK8m2QApnrPsrJsZwtk&callback=initMap"></script>
+			</div>
+	    </div>
 	</div>
 
 	<h2 class="m-3 mt-5">Contrat</h2>
@@ -44,10 +77,10 @@
 		<div class="card border-light mb-3 card-contrat" data="{{ contrat.id }}">
 			<div class="card-header bg-secondary text-white">
 				<strong>{{ contrat.name|upper }}</strong>
-				<span class="float-right">{{ contrat.price }} €</span>
+				<span class="d-flex justify-content-end">{{ contrat.price }} €</span>
 			</div>
 			<div class="card-body">
-				<table class="table">
+				<table class="table table-responsive">
 					<tr>
 					    <th>Kilomètres maximum</th>
 					    <td>{{ contrat.maxKm }}</td>
@@ -107,6 +140,6 @@
 		</tr>
 	</table>
 
-    {{ include('location/_form.html.twig', {'button_label': 'Confirmer'}) }}
+    {{ include('location/_form.html.twig', {'button_label': 'Confirmer & Payer'}) }}
 
 {% endblock %}
