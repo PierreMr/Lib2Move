@@ -29,7 +29,7 @@ class LocationFixtures extends Fixture implements DependentFixtureInterface
             $date = $faker->dateTimeThisDecade($max = 'now', $timezone = 'Europe/Paris');
             $start = new \DateTimeImmutable($date->format('Y-m-d H:i:s'));
             $newLocation->setStart($start);
-            $end = $date->add(new \DateInterval('P2D'));
+            $end = $date->add(new \DateInterval('P'.rand(0, 3).'DT'.rand(1, 10).'H'.rand(0, 59).'M'));
             $newLocation->setEnd($end);
 
             // $newLocation->setKilometers(rand(10, 100));
@@ -37,7 +37,7 @@ class LocationFixtures extends Fixture implements DependentFixtureInterface
             $newLocation->setStatus('En cours');
             $newLocation->setCreatedAt(new \DateTime('now'));
 
-            $newLocation->setUser($this->getReference(User::class.'_'.rand(0, 6)));
+            $newLocation->setUser($this->getReference(User::class.'_'.rand(0, 7)));
             $newLocation->setVehicule($this->getReference(Vehicule::class.'_'.rand(0, 19)));
             $newLocation->setContrat($this->getReference(Contrat::class.'_'.rand(0, 2).'_'.rand(0, 2)));
             

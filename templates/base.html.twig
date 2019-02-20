@@ -7,6 +7,7 @@
         {% block stylesheets %}
         <link href="https://fonts.googleapis.com/css?family=Lato|ZCOOL+KuaiLe" rel="stylesheet">
         {{ encore_entry_link_tags('app') }}
+        {{ encore_entry_script_tags('app') }}
 
             <!-- Renders a link tag (if your module requires any CSS)
                  <link rel="stylesheet" href="/build/app.css"> -->
@@ -23,7 +24,7 @@
                 {% for label, messages in app.flashes %}
                     {% set index = loop.index %}
                     {% for message in messages %}
-                        <div class="flash flash-{{ label }}" style="top:{{ 0.5 + 4*loop.index }}rem">
+                        <div class="flash flash-{{ label }}" style="top:{{ 0.5 + 4*index }}rem">
                             <strong>{{ message }}</strong>
                         </div>
                     {% endfor %}
