@@ -38,6 +38,11 @@
                     <a href="{{ path('location_show', {'id': location.id}) }}">Show</a>
                     <a> | </a>
                     <a href="{{ path('location_edit', {'id': location.id}) }}">Edit</a>
+
+                    {% if app.user.roles.0 == 'ROLE_SUPERADMIN' %}
+                    <br />
+                    <a href="{{ path('facture_generate', {'id': location.id}) }}" style="color:red;">Generate Invoice</a>
+                    {% endif %}
                 </td>
             </tr>
         {% else %}

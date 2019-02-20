@@ -94,9 +94,15 @@ class Vehicule
      */
     private $image;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Facture", mappedBy="vehicule_id")
+     */
+    private $factures;
+
     public function __construct()
     {
         $this->locations = new ArrayCollection();
+        $this->factures = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -306,5 +312,36 @@ class Vehicule
     public function getFullname(Vehicule $vehicule): ?string
     {
         return $vehicule->getBrand() . ' ' . $vehicule->getSerie() . ' - ' . $vehicule->getLicensePlate() . ' - ' . $vehicule->getSerialNumber() . ' - ' . $vehicule->getType()->getName();
+    }
+
+    /**
+     * @return Collection|Facture[]
+     */
+    public function getFactures(): Collection
+    {
+        return $this->factures;
+    }
+
+    public function addFacture(Facture $facture): self
+    {
+        if (!$this->factures->contains($facture)) {
+            $this->factures[] = $facture;
+            $facture->setVehiculeId($this);
+        }
+
+        return $this;
+    }
+
+    public function removeFacture(Facture $facture): self
+    {
+        if ($this->factures->contains($facture)) {
+            $this->factures->removeElement($facture);
+            // set the owning side to null (unless already changed)
+            if ($facture->getVehiculeId() === $this) {
+                $facture->setVehiculeId(null);
+            }
+        }
+
+        return $this;
     }
 }

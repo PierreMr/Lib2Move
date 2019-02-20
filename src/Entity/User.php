@@ -89,12 +89,18 @@ class User implements UserInterface
      */
     private $modifiedAt;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Facture", mappedBy="user_id")
+     */
+    private $factures;
+
     public function __construct()
     {
         $this->roles = ['ROLE_USER'];
         $this->locations = new ArrayCollection();
         $this->setCreatedAt(new \DateTime());
-        $this->setModifiedAt(new \DateTime());        
+        $this->setModifiedAt(new \DateTime());
+        $this->factures = new ArrayCollection();        
     }
 
     public function getId(): ?int
@@ -286,6 +292,37 @@ class User implements UserInterface
     public function setModifiedAt(\DateTimeInterface $modifiedAt): self
     {
         $this->modifiedAt = $modifiedAt;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Facture[]
+     */
+    public function getFactures(): Collection
+    {
+        return $this->factures;
+    }
+
+    public function addFacture(Facture $facture): self
+    {
+        if (!$this->factures->contains($facture)) {
+            $this->factures[] = $facture;
+            $facture->setUserId($this);
+        }
+
+        return $this;
+    }
+
+    public function removeFacture(Facture $facture): self
+    {
+        if ($this->factures->contains($facture)) {
+            $this->factures->removeElement($facture);
+            // set the owning side to null (unless already changed)
+            if ($facture->getUserId() === $this) {
+                $facture->setUserId(null);
+            }
+        }
 
         return $this;
     }

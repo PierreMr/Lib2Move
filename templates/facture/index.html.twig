@@ -1,0 +1,85 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Facture index{% endblock %}
+
+{% block body %}
+    <h1>Facture index</h1>
+
+    <table id="datatable" class="table table-striped table-hover table-responsive cell-border">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Contract_name</th>
+                <th>Max_time</th>
+                <th>Max_km</th>
+                <th>Price</th>
+                <th>Km_penalty</th>
+                <th>Time_penalty</th>
+                <th>City_name</th>
+                <th>Start</th>
+                <th>End</th>
+                <th>Km_end</th>
+                <th>Vehicule_name</th>
+                <th>User_email</th>
+                <th>User_lastname</th>
+                <th>User_firstname</th>
+                <th>User_adress</th>
+                <th>User_phone</th>
+                <th>Brand</th>
+                <th>Serie</th>
+                <th>Licence_plate</th>
+                <th>Pdf</th>
+                <th>Tva</th>
+                <th>Final_price</th>
+                <th>End_final</th>
+                <th>Km_final</th>
+                <th>Time_final</th>
+                <th>Status</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for facture in factures %}
+            <tr>
+                <td>{{ facture.id }}</td>
+                <td>{{ facture.contractName }}</td>
+                <td>{{ facture.maxTime ? facture.maxTime|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ facture.maxKm }}</td>
+                <td>{{ facture.price }}</td>
+                <td>{{ facture.kmPenalty }}</td>
+                <td>{{ facture.timePenalty }}</td>
+                <td>{{ facture.cityName }}</td>
+                <td>{{ facture.start ? facture.start|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ facture.end ? facture.end|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ facture.kmEnd }}</td>
+                <td>{{ facture.vehiculeName }}</td>
+                <td>{{ facture.userEmail }}</td>
+                <td>{{ facture.userLastname }}</td>
+                <td>{{ facture.userFirstname }}</td>
+                <td>{{ facture.userAdress }}</td>
+                <td>{{ facture.userPhone }}</td>
+                <td>{{ facture.brand }}</td>
+                <td>{{ facture.serie }}</td>
+                <td>{{ facture.licencePlate }}</td>
+                <td>{{ facture.pdf }}</td>
+                <td>{{ facture.tva }}</td>
+                <td>{{ facture.finalPrice }}</td>
+                <td>{{ facture.endFinal ? facture.endFinal|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ facture.kmFinal }}</td>
+                <td>{{ facture.timeFinal ? facture.timeFinal|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ facture.status }}</td>
+                <td>
+                    <a href="{{ path('facture_show', {'id': facture.id}) }}">show</a>
+                    <a href="{{ path('facture_edit', {'id': facture.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="28">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('facture_new') }}">Create new</a>
+{% endblock %}
