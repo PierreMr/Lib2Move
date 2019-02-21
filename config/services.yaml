@@ -30,3 +30,9 @@ services:
     App\Service\FileUploader:
         arguments:
             $targetDirectory: '%kernel.project_dir%/public/assets/uploads'
+
+    # add a event listener to trigger user's recommandations
+
+    App\EventListener\LoginListener:
+        tags:
+            - { name: 'kernel.event_listener', event: 'security.interactive_login' }

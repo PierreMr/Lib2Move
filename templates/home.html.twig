@@ -71,5 +71,15 @@
             });
         });
     </script> -->
-    
+
+    <div id="container">
+        <div class="row">
+            <div class="col-6">
+            {{ render(controller(
+                'App\\Controller\\RecommandationController::recommandationLast'
+            )) }}
+            </div>
+        </div>
+</div>
+   
 {% endblock %}

@@ -57,15 +57,7 @@ class LocationController extends AbstractController
      */
     public function add(Request $request, int $id, VehiculeRepository $vehiculeRepository, ContratRepository $contratRepository): Response
     {
-        /*
-        \Stripe\Stripe::setApiKey("pk_test_TYooMQauvdEDq54NiTphI7jx");
-        \Stripe\Charge::create(array(
-            "amont" => 2000,
-            "currency" => "eur",
-            "source" => "tok_visa",
-            "description" => "Charge for william.thompson@example.com"
-        ));
-        */
+        
         $user = $this->get('security.token_storage')->getToken()->getUser();
         
         $location = new Location();
@@ -119,6 +111,16 @@ class LocationController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+
+            /*
+                \Stripe\Stripe::setApiKey("pk_test_TYooMQauvdEDq54NiTphI7jx");
+                \Stripe\Charge::create(array(
+                    "amont" => $contrat->getPrice(),
+                    "currency" => "eur",
+                    "source" => $request->request->get('stripeToken'),
+                    "description" => "lib2move",
+            ));
+            */
             
             $location->setUser($user);
             $location->setVehicule($vehicule);
