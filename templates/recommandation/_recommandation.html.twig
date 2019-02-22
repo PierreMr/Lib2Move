@@ -4,7 +4,8 @@
 	<div class="card" style="width: 18rem;">
 	  <img class="card-img-top" src="..." alt="Card image cap">
 	  <div class="card-body">
-	  	<h3>Une balade à {{ lastOrderedRecommandation.vehicule.ville.name|capitalize }} :</h3>
+	  	<h3>Une balade à {{ lastOrderedRecommandation.vehicule.ville.name|capitalize }}&nbsp;:</h3>
+	  	<br />
 	    
 	    <h5 class="card-title">En {{ lastOrderedRecommandation.vehicule.type.name }} </h5>
 	    <p class="card-text"> </p>
@@ -20,7 +21,8 @@
 	<div class="card" style="width: 18rem;">
 	  <img class="card-img-top" src="..." alt="Card image cap">
 	  <div class="card-body">
-	  	<h3>Une balade à {{ mostVille|capitalize }} :</h3>
+	  	<h3>Une balade à {{ mostVille|capitalize }}&nbsp;:</h3>
+	  	<br />
 	    
 	    <h5 class="card-title">En {{ mostType }} </h5>
 	    <p class="card-text"> </p>

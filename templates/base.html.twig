@@ -22,21 +22,24 @@
         </div>
 
         <div class="container">
-            <div class="flashes">
-                {% for label, messages in app.flashes %}
-                    {% set index = loop.index %}
-                    {% for message in messages %}
-                        <div class="flash flash-{{ label }}" style="top:{{ 0.5 + 4*index }}rem">
-                            <strong>{{ message }}</strong>
-                        </div>
+            <div id="container">
+                <div class="flashes">
+                    {% for label, messages in app.flashes %}
+                        {% set index = loop.index %}
+                        {% for message in messages %}
+                            <div class="flash flash-{{ label }}" style="top:{{ 0.5 + 4*index }}rem">
+                                <strong>{{ message }}</strong>
+                            </div>
+                        {% endfor %}
                     {% endfor %}
-                {% endfor %}
-            </div>
+                </div>
 
-            {% block body %}
 
-            {% endblock %}
+                {% block body %}
+
+                {% endblock %}
         
+            </div>
         </div>
 
         <footer class="footer bg-light p-3 mt-5 border-top rounded-top shadow">

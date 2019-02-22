@@ -71,6 +71,8 @@ class RecommandationController extends AbstractController
 
 			// var_dump($tabOffre);
 
+			// A refaire en beau ! mais fonctionne pour le moment 
+
 		    switch ($maxType[0]) {
 			    case "Trottinette":
 			    	$a = 0; 
@@ -162,22 +164,18 @@ class RecommandationController extends AbstractController
 			}
 
 			//var_dump($maxOffre["Trottinette B"]);
-
-			
-			
-			
 		    //var_dump($maxType[0]);
 			//var_dump($maxOffre[0]);
 			//var_dump($maxVille[0]);			
 
-
-	    //var_dump($fiveLocations[0]->getId());
+	        // var_dump($fiveLocations[0]->getId());
 	  
 
 	    	// array_push($tabVille, $this->locationRepository->find($lastFiveId));
 	   
 	        return $this->render('recommandation/_recommandation.html.twig', [
 	            'lastOrderedRecommandation' => $lastOrderedRecommandation,
+	            /*/Based on at least 5 orders /*/
 	            'mostType' => $maxType[0],
 				'mostOffre' => $maxOffre[0],
 				'mostVille' => $maxVille[0],
