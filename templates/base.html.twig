@@ -3,17 +3,13 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>{% block title %}Lib 2 Move !{% endblock %}</title>
+        <title>{% block title %}Lib2Move{% endblock %}</title>
         {% block stylesheets %}
-        <link href="https://fonts.googleapis.com/css?family=Lato|ZCOOL+KuaiLe" rel="stylesheet">
-        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-        <!-- <script type="text/javascript" src="//cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script> -->
-        {{ encore_entry_link_tags('app') }}
-        {{ encore_entry_script_tags('app') }}
-
-            <!-- Renders a link tag (if your module requires any CSS)
-                 <link rel="stylesheet" href="/build/app.css"> -->
-            <!-- <script src="/build/app.js"></script> -->
+            <link href="https://fonts.googleapis.com/css?family=Lato|ZCOOL+KuaiLe" rel="stylesheet">
+            <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+            <!-- <script type="text/javascript" src="//cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script> -->
+            {{ encore_entry_link_tags('app') }}
+            {{ encore_entry_script_tags('app') }}
         {% endblock %}
     </head>
     <body>
@@ -49,11 +45,26 @@
         </footer>
 
         {% block javascripts %}
-        {{ encore_entry_script_tags('app-bottom') }}
+            {{ encore_entry_script_tags('app-bottom') }}
+            <!-- <script>
+              let myLatLng = {lat: parseFloat($('#lat').attr('data')), lng: parseFloat($('#lon').attr('data'))};
 
-            <!-- Renders app.js & a webpack runtime.js file
-                <script src="/build/runtime.js"></script>
-                <script src="/build/app.js"></script> -->
+              function initMap() {
+                let map = new google.maps.Map(document.getElementById('map'), {
+                  center: myLatLng,
+                  zoom: 18,
+                  // mapTypeId: 'hybrid'
+                });
+                map.setTilt(45);
+
+                var marker = new google.maps.Marker({
+                  position: myLatLng,
+                  map: map,
+                  title: 'Emplacement véhicule'
+                });
+              }
+            </script>
+            <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB5OO81Okr-XgCuyK8m2QApnrPsrJsZwtk&callback=initMap"></script> -->
         {% endblock %}
     </body>
 </html>

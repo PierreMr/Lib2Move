@@ -153,18 +153,6 @@ class Location
         return $this;
     }
 
-    public function getTime(): ?\DateTimeInterface
-    {
-        return $this->time;
-    }
-
-    public function setTime(?\DateTimeInterface $time): self
-    {
-        $this->time = $time;
-
-        return $this;
-    }
-
     public function getStatus(): ?string
     {
         return $this->status;

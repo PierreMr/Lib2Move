@@ -13,7 +13,7 @@ class PenaltyType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('km_end')
+            ->add('km_final')
             ->add('end_final', DateTimeType::class, [
                 'widget' => 'single_text',
                 'required' => false,

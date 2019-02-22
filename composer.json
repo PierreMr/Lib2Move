@@ -6,6 +6,8 @@
         "ext-ctype": "*",
         "ext-iconv": "*",
         "doctrine/annotations": "^1.6",
+        "dompdf/dompdf": "^0.8.3",
+        "knplabs/knp-snappy-bundle": "^1.6",
         "sensio/framework-extra-bundle": "^5.1",
         "stripe/stripe-php": "^6.30",
         "symfony/asset": "4.2.*",
