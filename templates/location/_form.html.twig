@@ -1,6 +1,23 @@
 {{ form_start(form) }}
     {{ form_widget(form) }}
-    <div class="col-12 d-flex justify-content-end">
-    	<button class="btn btn-success mt-5">{{ button_label|default('Save') }}</button>
+    <div class="col-12 d-flex justify-content-end">	
+    	{% if contrat.price is defined %}                    
+	    <div class="mt-5">	
+		    <script
+		        src="https://checkout.stripe.com/checkout.js" class="stripe-button"
+		        data-key="pk_test_TYooMQauvdEDq54NiTphI7jx"
+		        data-currency="EUR"
+		        data-amount="{{ contrat.price * 100 }}"
+		        data-name="Lib2Move"
+		        data-description="Location"
+		        data-image="https://stripe.com/img/documentation/checkout/marketplace.png"
+		        data-locale="fr"
+		        data-zip-code="true">
+		    </script>
+	    </div>
+   	 	 {% else %}
+   	 	<button class="btn btn-success mt-5">{{ button_label|default('Save') }}</button> 
+   	 	{% endif %}
     </div>
 {{ form_end(form) }}
+
