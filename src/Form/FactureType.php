@@ -36,7 +36,6 @@ class FactureType extends AbstractType
             ->add('final_price')
             ->add('end_final')
             ->add('km_final')
-            ->add('time_final')
             ->add('status')
             ->add('user_id')
             ->add('vehicule_id')

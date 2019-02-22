@@ -19,7 +19,6 @@ class LocationType extends AbstractType
     {
         $builder
             ->add('kilometers')
-            ->add('time')
             ->add('status')
             // ->add('createdAt')
             // ->add('user', EntityType::class, [

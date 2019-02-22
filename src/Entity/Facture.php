@@ -17,6 +17,66 @@ class Facture
     private $id;
 
     /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="factures")
+     */
+    private $user_id;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $user_email;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $user_lastname;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $user_firstname;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $user_adress;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $user_phone;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Vehicule", inversedBy="factures")
+     */
+    private $vehicule_id;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $vehicule_name;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $brand;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $serie;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $licence_plate;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Contrat", inversedBy="factures")
+     */
+    private $contract_id;
+
+    /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $contract_name;
@@ -62,69 +122,19 @@ class Facture
     private $end;
 
     /**
+     * @ORM\Column(type="datetime", nullable=true)
+     */
+    private $end_final;
+
+    /**
      * @ORM\Column(type="float", nullable=true)
      */
-    private $km_end;
+    private $km_final;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="time", nullable=true)
      */
-    private $vehicule_name;
-
-    /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     */
-    private $user_email;
-
-    /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     */
-    private $user_lastname;
-
-    /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     */
-    private $user_firstname;
-
-    /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     */
-    private $user_adress;
-
-    /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     */
-    private $user_phone;
-
-    /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     */
-    private $brand;
-
-    /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     */
-    private $serie;
-
-    /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     */
-    private $licence_plate;
-
-    /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="factures")
-     */
-    private $user_id;
-
-    /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Vehicule", inversedBy="factures")
-     */
-    private $vehicule_id;
-
-    /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Contrat", inversedBy="factures")
-     */
-    private $contract_id;
+    private $time_final;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
@@ -140,21 +150,6 @@ class Facture
      * @ORM\Column(type="float", nullable=true)
      */
     private $final_price;
-
-    /**
-     * @ORM\Column(type="datetime", nullable=true)
-     */
-    private $end_final;
-
-    /**
-     * @ORM\Column(type="float", nullable=true)
-     */
-    private $km_final;
-
-    /**
-     * @ORM\Column(type="datetime", nullable=true)
-     */
-    private $time_final;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
@@ -275,18 +270,6 @@ class Facture
     public function setEnd(?\DateTimeInterface $end): self
     {
         $this->end = $end;
-
-        return $this;
-    }
-
-    public function getKmEnd(): ?float
-    {
-        return $this->km_end;
-    }
-
-    public function setKmEnd(?float $km_end): self
-    {
-        $this->km_end = $km_end;
 
         return $this;
     }
@@ -503,18 +486,6 @@ class Facture
     public function setKmFinal(?float $km_final): self
     {
         $this->km_final = $km_final;
-
-        return $this;
-    }
-
-    public function getTimeFinal(): ?\DateTimeInterface
-    {
-        return $this->time_final;
-    }
-
-    public function setTimeFinal(?\DateTimeInterface $time_final): self
-    {
-        $this->time_final = $time_final;
 
         return $this;
     }

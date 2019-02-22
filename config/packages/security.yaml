@@ -50,6 +50,7 @@ security:
         - { path: /vehicule, roles: ROLE_ADMIN }
         - { path: /contrat, roles: ROLE_ADMIN }
         - { path: /ville, roles: ROLE_ADMIN }
+        - { path: /facture, roles: ROLE_ADMIN }
         - { path: /*, roles: ROLE_SUPERADMIN }
     encoders:
         App\Entity\User:

@@ -20,6 +20,7 @@ require('../css/app.scss');
 require('../css/flash.scss');
 require('../css/datatable.scss');
 require('../css/card.scss');
+require('../css/map.scss');
 
 
 console.log('Hello Webpack Encore! Edit me in assets/js/app.js');

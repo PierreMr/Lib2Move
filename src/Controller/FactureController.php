@@ -16,16 +16,19 @@ use App\Repository\LocationRepository;
 use App\Repository\ContratRepository;
 use App\Repository\UserRepository;
 
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
+use Knp\Bundle\SnappyBundle\Snappy\Response\PdfResponse;
+
 /**
  * @Route("/facture")
  */
-class FactureController extends AbstractController
-{
+class FactureController extends Controller
+{    
+
     /**
      * @Route("/", name="facture_index", methods={"GET"})
      */
@@ -104,8 +107,9 @@ class FactureController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             
-            $km_end = $request->get("penalty")["km_end"];
+            $km_end = $request->get("penalty")["km_final"];
             $end_final = $request->get("penalty")["end_final"];
+            $end_final = new \Datetime($end_final);
         
             $location = new Location();
             $user = new User();
@@ -124,7 +128,7 @@ class FactureController extends AbstractController
             $userPhone = $user->getPhone();
 
             $vehiculeId = $location->getVehicule();
-            $vehiculeName = $location->getVehicule()->getType()->getName();
+            $vehiculeTypeName = $location->getVehicule()->getType()->getName();
             
             $vehiculeBrand = $location->getVehicule()->getBrand();
             $vehiculeSerie = $location->getVehicule()->getSerie();
@@ -148,41 +152,39 @@ class FactureController extends AbstractController
 
             $finalePrice = $contratPrice;
 
-            if($km_end) {    
+
+            if($km_end > $location->getVehicule()->getKilometers() + $location->getContrat()->getMaxKm()) {   
                 $finalePriceKm = ($km_end - $contratMaxKm) * $contratKmPenalty;
                 $finalePrice +=  $finalePriceKm;
             }
-            if($end_final) {  
-                // $end ->Datetime
-                // $end_final -> string !
-    
-                $end_final = new \Datetime($end_final);
-                
+            if($end_final > $end) {                
                 $interval = $end->diff($end_final);
-                // var_dump($interval);
-                // $strtotime = strtotime($interval->format('%Y-%m-%d'));
 
-                $diff = $end_final->getTimestamp() - $end->getTimestamp();
+                $minutes = $interval->format('%y') * 525600;
+                $minutes += $interval->format('%m') * 43800;
+                $minutes += $interval->format('%d') * 1440;
+                $minutes += $interval->format('%H') * 60;
+                $minutes += $interval->format('%i') * 1;
 
-                // ----
-                
-                // var_dump($diff);
-                $finalePriceTime = (($diff/3600) * $contratTimePenalty);
-                $finalePrice += $finalePriceTime;
+                $finalePriceTime = $minutes * $contratTimePenalty;
+                $finalePrice +=  $finalePriceTime;
             }
-
-            // var_dump($finalePrice);
             
             $facture
                 ->setUserId($userId)
+                ->setUserEmail($userEmail)
+                ->setUserLastname($userLastname)
+                ->setUserFirstname($userFirstname)
+                ->setUserAdress($userAddress)
+                ->setUserPhone($userPhone)
+
                 ->setVehiculeId($vehiculeId)
-                ->setContractId($contrat)
-                ->setLocationId($location)
-                
-                ->setStart($start)
-                ->setEnd($end)
-                // contrat/*
+                ->setVehiculeName($vehiculeTypeName)
                 ->setBrand($vehiculeBrand)
+                ->setSerie($vehiculeSerie)
+                ->setLicencePlate($vehiculeLicensePlate)
+
+                ->setContractId($contrat)
                 ->setContractName($contratName)
                 ->setMaxTime($contratMaxTime)
                 ->setMaxKm($contratMaxKm)
@@ -191,20 +193,11 @@ class FactureController extends AbstractController
                 ->setTimePenalty($contratTimePenalty)
 
                 ->setCityName($villeName)
-                ->setVehiculeName($vehiculeName)
 
-                ->setUserEmail($userEmail)
-                ->setUserLastname($userLastname)
-                ->setUserFirstname($userFirstname)
-                ->setUserAdress($userAddress)
-                ->setUserPhone($userPhone)
-
-                ->setBrand($vehiculeBrand)
-                ->setSerie($vehiculeSerie)
-                ->setLicencePlate($vehiculeLicensePlate)
-
-                // ->setKmEnd() // Doublon
-                // ->setEndFinal() // Doublon 
+                ->setLocationId($location)
+                ->setStart($start)
+                ->setEnd($end)
+                ->setEndFinal($end_final)
 
                 // proper facture data
                 ->setPdf("path/to/.pdf")
@@ -218,13 +211,28 @@ class FactureController extends AbstractController
                 $em->persist($facture);
                 $em->flush();
 
-                return $this->redirectToRoute('facture_index');
-            }
+            return $this->redirectToRoute('facture_index');
+        }
 
         return $this->render('facture/new.html.twig', [
             'facture' => $facture,
             'form' => $form->createView(),
         ]); 
+    }
+
+    /**
+     * @Route("/pdf/{id}", name="facture_pdf", methods={"GET"})
+     */
+    public function pdf(Request $request, Facture $facture): Response
+    {
+        $html = $this->renderView('pdf/facture.html.twig', array(
+            'facture'  => $facture,
+        ));
+
+        return new PdfResponse(
+            $this->get('knp_snappy.pdf')->getOutputFromHtml($html),
+            'file.pdf'
+        );
     }
 
     /**
