@@ -1,0 +1,37 @@
+
+{% if lastOrderedRecommandation.id is defined %}
+<div class="col-5">
+	<div class="card" style="width: 18rem;">
+	  <img class="card-img-top" src="..." alt="Card image cap">
+	  <div class="card-body">
+	  	<h3>Une balade à {{ lastOrderedRecommandation.vehicule.ville.name|capitalize }} :</h3>
+	    
+	    <h5 class="card-title">En {{ lastOrderedRecommandation.vehicule.type.name }} </h5>
+	    <p class="card-text"> </p>
+	    <p class="card-text"></p>
+	    <a href="" class="btn btn-primary">à partir de {{ lastOrderedRecommandation.contrat.price }}</a>
+	  </div>
+	</div>
+</div>
+<div class="col-2">
+	Ou
+</div>
+<div class="col-5">
+	<div class="card" style="width: 18rem;">
+	  <img class="card-img-top" src="..." alt="Card image cap">
+	  <div class="card-body">
+	  	<h3>Une balade à {{ mostVille|capitalize }} :</h3>
+	    
+	    <h5 class="card-title">En {{ mostType }} </h5>
+	    <p class="card-text"> </p>
+	    <p class="card-text"></p>
+	    <a href="" class="btn btn-primary">{{ bestOffre }}</a>
+	  </div>
+	</div>
+</div>
+{% else %}
+<div>
+ PUB
+</div>
+{% endif %}
+
