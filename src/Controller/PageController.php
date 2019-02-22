@@ -78,4 +78,23 @@ class PageController extends AbstractController
         	'form' => $form->createView(),
         ]);
 	}
+
+    
+    public function recommandation() {
+
+        $results = $user->getLocations();
+       
+        $tab = [];
+        foreach ($results as $result) {
+            array_push($tab, $result->getId());
+        }
+        $lastLocationId = max($tab);
+
+        $lastOrderedRecommandation = $this->locationRepository->find($lastLocationId);
+
+         return $this->renderView('recommandation/_recommandation.html.twig', [
+            'data' => $lastOrderedRecommandation,
+        ]);
+
+    }
 }
