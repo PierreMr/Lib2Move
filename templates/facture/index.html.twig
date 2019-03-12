@@ -22,7 +22,7 @@
                 <th>User_email</th>
                 <th>User_lastname</th>
                 <th>User_firstname</th>
-                <th>User_adress</th>
+                <th>User_address</th>
                 <th>User_phone</th>
                 <th>Brand</th>
                 <th>Serie</th>
@@ -30,6 +30,7 @@
                 <th>Pdf</th>
                 <th>Tva</th>
                 <th>Final_price</th>
+                <th>End_diff</th>
                 <th>End_final</th>
                 <th>Km_final</th>
                 <th>Status</th>
@@ -53,7 +54,7 @@
                 <td>{{ facture.userEmail }}</td>
                 <td>{{ facture.userLastname }}</td>
                 <td>{{ facture.userFirstname }}</td>
-                <td>{{ facture.userAdress }}</td>
+                <td>{{ facture.userAddress }}</td>
                 <td>{{ facture.userPhone }}</td>
                 <td>{{ facture.brand }}</td>
                 <td>{{ facture.serie }}</td>
@@ -61,6 +62,7 @@
                 <td>{{ facture.pdf }}</td>
                 <td>{{ facture.tva }}</td>
                 <td>{{ facture.finalPrice }}</td>
+                <td>{{ facture.endDiff }}</td>
                 <td>{{ facture.endFinal ? facture.endFinal|date('Y-m-d H:i:s') : '' }}</td>
                 <td>{{ facture.kmFinal }}</td>
                 <td>{{ facture.status }}</td>

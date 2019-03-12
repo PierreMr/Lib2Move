@@ -73,13 +73,15 @@
         });
     </script> -->
     {% if app.user %}
-    <div id="container">
-        <div class="row">
-            {{ render(controller(
-                'App\\Controller\\RecommandationController::recommandation'
-            )) }}
-        </div>
-    </div>
+        {% if app.user.locations|length > 0 %}
+            <div id="container">
+                <div class="row">
+                    {{ render(controller(
+                        'App\\Controller\\RecommandationController::recommandation'
+                    )) }}
+                </div>
+            </div>
+        {% endif %}
     {% endif %}
 
 {% endblock %}

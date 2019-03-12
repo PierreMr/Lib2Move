@@ -21,7 +21,8 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-use Knp\Bundle\SnappyBundle\Snappy\Response\PdfResponse;
+use Dompdf\Dompdf;
+use Dompdf\Options;
 
 /**
  * @Route("/facture")
@@ -104,10 +105,11 @@ class FactureController extends Controller
         $em = $this->getDoctrine()->getManager();
         $form = $this->createForm(PenaltyType::class, $facture);
         $form->handleRequest($request);
+        $location = $locationRepository->find($id);
 
         if ($form->isSubmitted() && $form->isValid()) {
             
-            $km_end = $request->get("penalty")["km_final"];
+            $km_final = $request->get("penalty")["km_final"];
             $end_final = $request->get("penalty")["end_final"];
             $end_final = new \Datetime($end_final);
         
@@ -129,10 +131,10 @@ class FactureController extends Controller
 
             $vehiculeId = $location->getVehicule();
             $vehiculeTypeName = $location->getVehicule()->getType()->getName();
-            
             $vehiculeBrand = $location->getVehicule()->getBrand();
             $vehiculeSerie = $location->getVehicule()->getSerie();
             $vehiculeLicensePlate = $location->getVehicule()->getLicensePlate();
+            $vehiculeKilometers = $location->getVehicule()->getKilometers();
                  
             $villeName = $location->getVehicule()->getVille()->getName();
 
@@ -153,8 +155,8 @@ class FactureController extends Controller
             $finalePrice = $contratPrice;
 
 
-            if($km_end > $location->getVehicule()->getKilometers() + $location->getContrat()->getMaxKm()) {   
-                $finalePriceKm = ($km_end - $contratMaxKm) * $contratKmPenalty;
+            if($km_final > $vehiculeKilometers + $contratMaxKm) {   
+                $finalePriceKm = ($km_final - ($vehiculeKilometers + $contratMaxKm)) * $contratKmPenalty;
                 $finalePrice +=  $finalePriceKm;
             }
             if($end_final > $end) {                
@@ -166,8 +168,12 @@ class FactureController extends Controller
                 $minutes += $interval->format('%H') * 60;
                 $minutes += $interval->format('%i') * 1;
 
+
                 $finalePriceTime = $minutes * $contratTimePenalty;
                 $finalePrice +=  $finalePriceTime;
+            }
+            else {
+                $minutes = 0;
             }
             
             $facture
@@ -175,11 +181,12 @@ class FactureController extends Controller
                 ->setUserEmail($userEmail)
                 ->setUserLastname($userLastname)
                 ->setUserFirstname($userFirstname)
-                ->setUserAdress($userAddress)
+                ->setUserAddress($userAddress)
                 ->setUserPhone($userPhone)
 
                 ->setVehiculeId($vehiculeId)
                 ->setVehiculeName($vehiculeTypeName)
+                ->setVehiculeKm($vehiculeKilometers)
                 ->setBrand($vehiculeBrand)
                 ->setSerie($vehiculeSerie)
                 ->setLicencePlate($vehiculeLicensePlate)
@@ -197,7 +204,9 @@ class FactureController extends Controller
                 ->setLocationId($location)
                 ->setStart($start)
                 ->setEnd($end)
+                ->setEndDiff($minutes)
                 ->setEndFinal($end_final)
+                ->setKmFinal($km_final)
 
                 // proper facture data
                 ->setPdf("path/to/.pdf")
@@ -216,6 +225,7 @@ class FactureController extends Controller
 
         return $this->render('facture/new.html.twig', [
             'facture' => $facture,
+            'location' => $location,
             'form' => $form->createView(),
         ]); 
     }
@@ -225,14 +235,44 @@ class FactureController extends Controller
      */
     public function pdf(Request $request, Facture $facture): Response
     {
-        $html = $this->renderView('pdf/facture.html.twig', array(
-            'facture'  => $facture,
-        ));
+        // Configure Dompdf according to your needs
+        $pdfOptions = new Options();
+        $pdfOptions->set('defaultFont', 'Arial');
+        $pdfOptions->set('isRemoteEnabled', TRUE);
 
-        return new PdfResponse(
-            $this->get('knp_snappy.pdf')->getOutputFromHtml($html),
-            'file.pdf'
-        );
+        // Instantiate Dompdf with our options
+        $dompdf = new Dompdf($pdfOptions);
+        
+        // Retrieve the HTML generated in our twig file
+        $html = $this->renderView('pdf/facture.html.twig', [
+            'facture' => $facture
+        ]);
+        
+        // Load HTML to Dompdf
+        $dompdf->loadHtml($html);
+        
+        // (Optional) Setup the paper size and orientation 'portrait' or 'portrait'
+        $dompdf->setPaper('A4', 'portrait');
+
+        // Render the HTML as PDF
+        $dompdf->render();
+
+        // Output the generated PDF to Browser (inline view)
+        $dompdf->stream("mypdf.pdf", [
+            "Attachment" => false
+        ]);
+
+        exit;
+    }
+
+    /**
+     * @Route("/pdftest/{id}", name="facture_pdftest", methods={"GET"})
+     */
+    public function pdftest(Request $request, Facture $facture): Response
+    {
+        return $this->render('pdf/facture.html.twig', [
+            'facture' => $facture,
+        ]);
     }
 
     /**

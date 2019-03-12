@@ -2,7 +2,7 @@ import $ from 'jquery';
 
 $('#location_add').css('display', 'none')
 
-$('#location_add_contrat').val($('.card').first().attr('data'))
+$('#location_add_contrat').val(0)
 
 
 $('.card').on('click', function() {

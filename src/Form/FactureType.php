@@ -26,7 +26,7 @@ class FactureType extends AbstractType
             ->add('user_email')
             ->add('user_lastname')
             ->add('user_firstname')
-            ->add('user_adress')
+            ->add('user_address')
             ->add('user_phone')
             ->add('brand')
             ->add('serie')

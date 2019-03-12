@@ -39,7 +39,7 @@ class Facture
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
-    private $user_adress;
+    private $user_address;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
@@ -55,6 +55,11 @@ class Facture
      * @ORM\Column(type="string", length=255)
      */
     private $vehicule_name;
+
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $vehicule_km;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
@@ -127,9 +132,19 @@ class Facture
     private $end_final;
 
     /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $end_diff;
+
+    /**
      * @ORM\Column(type="float", nullable=true)
      */
     private $km_final;
+
+    /**
+     * @ORM\Column(type="float", nullable=true)
+     */
+    private $km_diff;
 
     /**
      * @ORM\Column(type="time", nullable=true)
@@ -286,6 +301,18 @@ class Facture
         return $this;
     }
 
+    public function getVehiculeKm(): ?int
+    {
+        return $this->vehicule_km;
+    }
+
+    public function setVehiculeKm(?int $vehicule_km): self
+    {
+        $this->vehicule_km = $vehicule_km;
+
+        return $this;
+    }
+
     public function getUserEmail(): ?string
     {
         return $this->user_email;
@@ -322,14 +349,14 @@ class Facture
         return $this;
     }
 
-    public function getUserAdress(): ?string
+    public function getUserAddress(): ?string
     {
-        return $this->user_adress;
+        return $this->user_address;
     }
 
-    public function setUserAdress(?string $user_adress): self
+    public function setUserAddress(?string $user_address): self
     {
-        $this->user_adress = $user_adress;
+        $this->user_address = $user_address;
 
         return $this;
     }
@@ -478,6 +505,18 @@ class Facture
         return $this;
     }
 
+    public function getEndDiff(): ?int
+    {
+        return $this->end_diff;
+    }
+
+    public function setEndDiff(?int $end_diff): self
+    {
+        $this->end_diff = $end_diff;
+
+        return $this;
+    }
+
     public function getKmFinal(): ?float
     {
         return $this->km_final;
@@ -486,6 +525,18 @@ class Facture
     public function setKmFinal(?float $km_final): self
     {
         $this->km_final = $km_final;
+
+        return $this;
+    }
+
+    public function getKmDiff(): ?float
+    {
+        return $this->km_diff;
+    }
+
+    public function setKmDiff(?float $km_diff): self
+    {
+        $this->km_diff = $km_diff;
 
         return $this;
     }

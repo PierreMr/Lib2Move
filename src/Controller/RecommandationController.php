@@ -61,106 +61,106 @@ class RecommandationController extends AbstractController
 		    }
 		}
 
-		    $tabType = array_count_values($tabType);
-		    $tabOffre = array_count_values($tabOffre);
-		    $tabVille = array_count_values($tabVille);
-		    
-		    $maxType = array_keys($tabType, max($tabType));
-		    $maxOffre = array_keys($tabOffre, max($tabOffre));
-		    $maxVille = array_keys($tabVille, max($tabVille));	
+	    $tabType = array_count_values($tabType);
+	    $tabOffre = array_count_values($tabOffre);
+	    $tabVille = array_count_values($tabVille);
+	    
+	    $maxType = array_keys($tabType, max($tabType));
+	    $maxOffre = array_keys($tabOffre, max($tabOffre));
+	    $maxVille = array_keys($tabVille, max($tabVille));	
 
-			// var_dump($tabOffre);
+		// var_dump($tabOffre);
 
-			// A refaire en beau ! mais fonctionne pour le moment 
+		// A refaire en beau ! mais fonctionne pour le moment 
 
-		    switch ($maxType[0]) {
-			    case "Trottinette":
-			    	$a = 0; 
-			    	$b = 0; 
-			    	$c = 0; 
-			    	foreach($tabOffre as $key => $value)
-						{
-						  if($key == "Trottinette A")
-						  {
-						  	$a += 1;
-						  }
-						  if($key == "Trottinette B")
-						  {
-						  	$b += 1;
-						  }
-						  if($key == "Trottinette C")
-						  {
-						  	$c += 1;
-						  }
-						  if ($a > $b && $a > $c) {
-						  	$bestOffre = "Trottinette A";
-						  }
-						  if ($b > $c) {
-						  	$bestOffre = "Trottinette B";
-						  } 
-						  elseif ( $c >= $b && $c >= $a) {
-						  	$bestOffre = "Trottinette C";
-						  }
-						}
-				break;
-			    case "Scooter":
-			    	$a = 0; 
-			    	$b = 0; 
-			    	$c = 0; 
-			    	foreach($tabOffre as $key => $value)
-						{
-						  if($key == 'Scooter A')
-						  {
-						  	$a += 1;
-						  }
-						  if($key == 'Scooter B')
-						  {
-						  	$b += 1;
-						  }
-						  if($key == 'Scooter C')
-						  {
-						  	$c += 1;
-						  }
-						  if ($a > $b && $a > $c) {
-						  	$bestOffre = "Scooter A";
-						  }
-						  if ($b > $c) {
-						  	$bestOffre = "Scooter B";
-						  } 
-						  elseif ( $c >= $b && $c >= $a) {
-						  	$bestOffre = "Scooter C";
-						  }
-						}
-			        break;
-			    case "Voiture":
-			    	$a = 0; 
-			    	$b = 0; 
-			    	$c = 0; 
-			    	foreach($tabOffre as $key => $value)
-						{
-						  if($key == 'Voiture A')
-						  {
-						  	$a += 1;
-						  }
-						  if($key == 'Voiture B')
-						  {
-						  	$b += 1;
-						  }
-						  if($key == 'Voiture C')
-						  {
-						  	$c += 1;
-						  }
-						  if ($a > $b && $a > $c) {
-						  	$bestOffre = "Voiture A";
-						  }
-						  if ($b > $c) {
-						  	$bestOffre = "Voiture B";
-						  } 
-						  elseif ( $c >= $b && $c >= $a) {
-						  	$bestOffre = "Voiture C";
-						  }
-						}
-			        break;
+	    switch ($maxType[0]) {
+		    case "Trottinette":
+		    	$a = 0; 
+		    	$b = 0; 
+		    	$c = 0; 
+		    	foreach($tabOffre as $key => $value)
+					{
+					  if($key == "Trottinette A")
+					  {
+					  	$a += 1;
+					  }
+					  if($key == "Trottinette B")
+					  {
+					  	$b += 1;
+					  }
+					  if($key == "Trottinette C")
+					  {
+					  	$c += 1;
+					  }
+					  if ($a > $b && $a > $c) {
+					  	$bestOffre = "Trottinette A";
+					  }
+					  if ($b > $c) {
+					  	$bestOffre = "Trottinette B";
+					  } 
+					  elseif ( $c >= $b && $c >= $a) {
+					  	$bestOffre = "Trottinette C";
+					  }
+					}
+			break;
+		    case "Scooter":
+		    	$a = 0; 
+		    	$b = 0; 
+		    	$c = 0; 
+		    	foreach($tabOffre as $key => $value)
+					{
+					  if($key == 'Scooter A')
+					  {
+					  	$a += 1;
+					  }
+					  if($key == 'Scooter B')
+					  {
+					  	$b += 1;
+					  }
+					  if($key == 'Scooter C')
+					  {
+					  	$c += 1;
+					  }
+					  if ($a > $b && $a > $c) {
+					  	$bestOffre = "Scooter A";
+					  }
+					  if ($b > $c) {
+					  	$bestOffre = "Scooter B";
+					  } 
+					  elseif ( $c >= $b && $c >= $a) {
+					  	$bestOffre = "Scooter C";
+					  }
+					}
+		        break;
+		    case "Voiture":
+		    	$a = 0; 
+		    	$b = 0; 
+		    	$c = 0; 
+		    	foreach($tabOffre as $key => $value)
+					{
+					  if($key == 'Voiture A')
+					  {
+					  	$a += 1;
+					  }
+					  if($key == 'Voiture B')
+					  {
+					  	$b += 1;
+					  }
+					  if($key == 'Voiture C')
+					  {
+					  	$c += 1;
+					  }
+					  if ($a > $b && $a > $c) {
+					  	$bestOffre = "Voiture A";
+					  }
+					  if ($b > $c) {
+					  	$bestOffre = "Voiture B";
+					  } 
+					  elseif ( $c >= $b && $c >= $a) {
+					  	$bestOffre = "Voiture C";
+					  }
+					}
+		        break;
 			}
 
 			//var_dump($maxOffre["Trottinette B"]);
