@@ -137,7 +137,6 @@ class LocationController extends AbstractController
             ]
         );
         
-        
         //$form->get('vehicule')->setData($vehicule);
         
         $contrat = $contratRepository->find($idC);
@@ -180,7 +179,47 @@ class LocationController extends AbstractController
         ]);
     }
 
-    
+    /**
+     * @Route("/add_from_recommandation/{idV}/{idC}", name="location_add_from_recommandation", methods={"GET","POST"})
+     */
+    public function addFromRecommandation(Request $request, int $idV, int $idC, VehiculeRepository $vehiculeRepository, ContratRepository $contratRepository): Response
+    {
+        
+        $user = $this->get('security.token_storage')->getToken()->getUser();
+        // Hors exemple 10
+        $loyaltyStamps = count($user->getLocations()) % 10;
+        $promo = false;
+
+        // hors teste le modumo doit valoire 1
+        $loyaltyStamps === 1 ? $promo = true : $promo = false;
+        
+        $location = new Location();
+        $form = $this->createForm(LocationAddType::class, $location);
+        
+        $vehicule = $vehiculeRepository->find($idV);
+        $form->get('vehicule')->setData($vehicule);
+
+        $typeVehicule = $vehicule->getType()->getId();
+
+        $contrats = $contratRepository->findBy(['id' => $idC ]);
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            return $this->redirectToRoute('location_confirm', [
+                'idV' => $request->get('location_add')['vehicule'],
+                'idC' => $request->get('location_add')['contrat'],
+            ]);
+        }
+
+        return $this->render('location/add.html.twig', [
+            'location' => $location,
+            'form' => $form->createView(),
+            'vehicule' => $vehicule,
+            'contrats' => $contrats,
+            'promo' => $promo
+        ]);
+    }
 
     /**
      * @Route("/confirm/{idV}/{idC}", name="location_confirm", methods={"GET","POST"})

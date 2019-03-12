@@ -64,9 +64,9 @@ class RecommandationController extends AbstractController
 		    }
 		}
 
-		    $tabType = array_count_values($tabType);
-		    $tabOffre = array_count_values($tabOffre);
-		    $tabVille = array_count_values($tabVille);
+			$tabType = array_count_values($tabType);
+			$tabOffre = array_count_values($tabOffre);
+			$tabVille = array_count_values($tabVille);
 		
 		if ($tabType  !=[] && $tabOffre  !=[] && $tabVille !=[]) 
 		{  
