@@ -7,6 +7,8 @@ use App\Form\LocationType;
 use App\Form\LocationAddType;
 use App\Repository\LocationRepository;
 use App\Repository\ContratRepository;
+use App\Repository\VilleRepository;
+use App\Repository\TypeVehiculeRepository;
 use App\Repository\VehiculeRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -59,6 +61,12 @@ class LocationController extends AbstractController
     {
         
         $user = $this->get('security.token_storage')->getToken()->getUser();
+        // Hors exemple 10
+        $loyaltyStamps = count($user->getLocations()) % 10;
+        $promo = false;
+
+        // hors teste le modumo doit valoire 1
+        $loyaltyStamps === 1 ? $promo = true : $promo = false;
         
         $location = new Location();
         $form = $this->createForm(LocationAddType::class, $location);
@@ -83,9 +91,96 @@ class LocationController extends AbstractController
             'location' => $location,
             'form' => $form->createView(),
             'vehicule' => $vehicule,
-            'contrats' => $contrats
+            'contrats' => $contrats,
+            'promo' => $promo
         ]);
     }
+
+    /**
+     * @Route("/recommandation/{idC}/{ville}/{type}", name="location_recommandation", methods={"GET","POST"})
+     */
+    public function location_from_recommandation(Request $request, int $idC, string $ville, string $type, VehiculeRepository $vehiculeRepository, ContratRepository $contratRepository, VilleRepository $villeRepository, TypeVehiculeRepository $typeVehiculeRepository): Response
+    {
+
+        $user = $this->get('security.token_storage')->getToken()->getUser(); 
+        
+        $location = new Location();
+
+
+        $data = $request->get('location_add');
+        
+        $form = $this->createForm(LocationAddType::class, $location);
+
+        $loyaltyStamps = count($user->getLocations()) % 2;
+        $promo = false;
+
+        // hors teste le modulo doit valoire 1
+        $loyaltyStamps === 0 ? $promo = true : $promo = false;
+        
+        
+        $nameType = $typeVehiculeRepository->findOneBy(
+            [
+                'name' => $type
+            ]
+        );
+        $nameVille = $villeRepository->findOneBy(
+            [
+                'name' => $ville
+            ]
+        );
+        
+        $vehicules = $vehiculeRepository->findBy(
+            // ['name' => 'Keyboard'],
+            [
+            'type' => $nameType->getId(),
+            'ville' => $nameVille->getId()
+            ]
+        );
+        
+        
+        //$form->get('vehicule')->setData($vehicule);
+        
+        $contrat = $contratRepository->find($idC);
+        $form->get('contrat')->setData($contrat);
+
+        $form->handleRequest($request);
+        
+        /*
+        index vehicule dispo
+        add $vehicule
+        */
+
+        if ($form->isSubmitted() && $form->isValid()) {
+
+            
+            $location->setUser($user);
+
+            // $location->setVehicule($vehicule);
+            $location->setContrat($contrat);
+
+            $location->setStatus("En cours");
+
+            $date = new \DatetimeImmutable();
+            $location->setStart($date);
+            $location->setEnd($date->add(new \DateInterval('P2D')));
+
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($location);
+            $entityManager->flush();
+
+            return $this->redirectToRoute('location_index');
+        }
+
+        return $this->render('recommandation/location_from_recommandation.html.twig', [
+            'location' => $location,
+            'form' => $form->createView(),
+            'vehicules' => $vehicules,
+            'contrat' => $contrat,
+            //'promo' => $promo
+        ]);
+    }
+
+    
 
     /**
      * @Route("/confirm/{idV}/{idC}", name="location_confirm", methods={"GET","POST"})
@@ -101,6 +196,12 @@ class LocationController extends AbstractController
         $data = $request->get('location_add');
         
         $form = $this->createForm(LocationAddType::class, $location);
+
+        $loyaltyStamps = count($user->getLocations()) % 2;
+        $promo = false;
+
+        // hors teste le modulo doit valoire 1
+        $loyaltyStamps === 0 ? $promo = true : $promo = false;
         
         $vehicule = $vehiculeRepository->find($idV);
         $form->get('vehicule')->setData($vehicule);
@@ -141,7 +242,8 @@ class LocationController extends AbstractController
             'location' => $location,
             'form' => $form->createView(),
             'vehicule' => $vehicule,
-            'contrat' => $contrat
+            'contrat' => $contrat,
+            'promo' => $promo
         ]);
     }
 

@@ -7,53 +7,13 @@
 	<nav aria-label="breadcrumb">
 		<ol class="breadcrumb">
 			<li class="breadcrumb-item"><a href="/">Home</a></li>
-			<li class="breadcrumb-item"><a href="/location/add/{{ vehicule.id }}">Contrat</a></li>
+			<li class="breadcrumb-item"><a href="">Contrat</a></li>
       		<li class="breadcrumb-item"><a href="#">Paiement</a></li>
 			<li class="breadcrumb-item active font-weight-bold" aria-current="page">Confirmation</li>
 		</ol>
 	</nav>
 
     <h1>Récapitulatif</h1>
-
-
-	<h2 class="m-3 mt-5">Véhicule</h2>
-
-	<div class="row shadow">
-		<div class="col-4 p-0">
-		  <img src="{{ vehicule.image }}" class="img-fluid rounded">
-		</div>
-		<div class="col-8">
-			<table class="table">
-				<tr>
-					<th>Brand & Serie</th>
-					<td>{{ vehicule.brand|capitalize }} {{ vehicule.serie|capitalize }}</td>
-				</tr>
-				<tr>
-					<th>Serial number</th>
-					<td>{{ vehicule.serialNumber|capitalize }}</td>
-				</tr>
-				<tr>
-					<th>Type</th>
-					<td>{{ vehicule.type.name|capitalize }}</td>
-				</tr>
-				<tr>
-					<th>Ville</th>
-					<td>{{ vehicule.ville.name|capitalize }}</td>
-				</tr>
-				<tr class="d-none">
-					<th>Latitude</th>
-					<td id="lat" data="{{ vehicule.lat }}">{{ vehicule.lat }}</td>
-				</tr>
-				<tr class="d-none">
-					<th>Longitude</th>
-					<td id="lon" data="{{ vehicule.lon }}">{{ vehicule.lon }}</td>
-				</tr>
-			</table>
-		</div>
-	    <div class="col-12 p-0">
-			<div id="map" style="height: 40vh;"></div>
-	    </div>
-	</div>
 
 	<h2 class="m-3 mt-5">Contrat</h2>
 
@@ -123,6 +83,33 @@
 			<td><strong>{{ contrat.price }} €</strong></td>
 		</tr>
 	</table>
+
+	 <div class="card-columns">
+        {% for vehicule in vehicules %}
+            <div class="card border-primary mb-3">
+                <img class="card-img-top" src="{{ vehicule.image }}" alt="Card image cap">
+                <div class="card-body">
+                    <table class="table table-hover">
+                        <tr>
+                            <th>Brand & Serie</th>
+                            <td>{{ vehicule.brand|capitalize }} {{ vehicule.serie|capitalize }}</td>
+                        </tr>
+                        <tr>
+                            <th>Serial number</th>
+                            <td>{{ vehicule.serialNumber|capitalize }}</td>
+                        </tr>
+                        <tr>
+                            <th>Type</th>
+                            <td>{{ vehicule.type.name|capitalize }}</td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="card-footer bg-transparent">
+                    <a href="location/add/{{vehicule.id}}" class="btn btn-primary">Reserver</a>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
 
 
     {{ include('location/_form.html.twig', {'button_label': 'Confirmer & Payer'}) }}

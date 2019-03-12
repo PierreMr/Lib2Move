@@ -79,7 +79,12 @@
     </div>
   </div>
 
-  {{ include('location/_form.html.twig', {'button_label': 'Poursuivre'}) }}
+  {% if promo is defined and promo == true %}
+    
+    {{ include('location/_form.html.twig', {'button_label': 'Poursuivre profiter de vos -5% de reduction'}) }}
+  {% else %}
+    {{ include('location/_form.html.twig', {'button_label': 'Poursuivre'}) }}
+  {% endif %}
 
   <h2 class="m-3 mt-5">Véhicule</h2>
 

@@ -31,7 +31,10 @@ class RecommandationController extends AbstractController
         }
         if ($tabId != []) {
         	$lastLocationId = max($tabId);
-        	$lastOrderedRecommandation = $this->locationRepository->find($lastLocationId);
+        	$lastOrderedRecommandation = $this->locationRepository->findOneBy([
+
+        		'id' => $lastLocationId
+        	]);
 	    } else {
 	    	$lastOrderedRecommandation = null;
 	    }
@@ -64,7 +67,9 @@ class RecommandationController extends AbstractController
 		    $tabType = array_count_values($tabType);
 		    $tabOffre = array_count_values($tabOffre);
 		    $tabVille = array_count_values($tabVille);
-		    
+		
+		if ($tabType  !=[] && $tabOffre  !=[] && $tabVille !=[]) 
+		{  
 		    $maxType = array_keys($tabType, max($tabType));
 		    $maxOffre = array_keys($tabOffre, max($tabOffre));
 		    $maxVille = array_keys($tabVille, max($tabVille));	
@@ -94,12 +99,15 @@ class RecommandationController extends AbstractController
 						  }
 						  if ($a > $b && $a > $c) {
 						  	$bestOffre = "Trottinette A";
+						  	$idC = 7;
 						  }
 						  if ($b > $c) {
 						  	$bestOffre = "Trottinette B";
+						  	$idC = 8;
 						  } 
 						  elseif ( $c >= $b && $c >= $a) {
 						  	$bestOffre = "Trottinette C";
+						  	$idC = 9;
 						  }
 						}
 				break;
@@ -123,12 +131,15 @@ class RecommandationController extends AbstractController
 						  }
 						  if ($a > $b && $a > $c) {
 						  	$bestOffre = "Scooter A";
+						  	$idC = 4;	
 						  }
 						  if ($b > $c) {
 						  	$bestOffre = "Scooter B";
+						  	$idC = 5;	
 						  } 
 						  elseif ( $c >= $b && $c >= $a) {
 						  	$bestOffre = "Scooter C";
+						  	$idC = 6;	
 						  }
 						}
 			        break;
@@ -152,15 +163,27 @@ class RecommandationController extends AbstractController
 						  }
 						  if ($a > $b && $a > $c) {
 						  	$bestOffre = "Voiture A";
+						  	$idC = 1;	
 						  }
 						  if ($b > $c) {
 						  	$bestOffre = "Voiture B";
+						  	$idC = 2;	
 						  } 
 						  elseif ( $c >= $b && $c >= $a) {
 						  	$bestOffre = "Voiture C";
+						  	$idC = 3;	
 						  }
 						}
 			        break;
+			}
+			}
+			else 
+			{
+				$maxType[0] = null;
+				$maxOffre[0] = null;
+				$maxVille[0] = null;
+				$bestOffre = null;
+				$idC = null;
 			}
 
 			//var_dump($maxOffre["Trottinette B"]);
@@ -169,7 +192,6 @@ class RecommandationController extends AbstractController
 			//var_dump($maxVille[0]);			
 
 	        // var_dump($fiveLocations[0]->getId());
-	  
 
 	    	// array_push($tabVille, $this->locationRepository->find($lastFiveId));
 	   
@@ -180,6 +202,7 @@ class RecommandationController extends AbstractController
 				'mostOffre' => $maxOffre[0],
 				'mostVille' => $maxVille[0],
 				'bestOffre' => $bestOffre,
+				'idC' => $idC,
 	        ]);
 	    }
 
