@@ -3,10 +3,110 @@
     <head>
         <meta charset="UTF-8">
         <title>PDF</title>
+        <link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
     </head>
     <body>
         <div class="container">
-        	<h4>{{ facture.userFirstname }} {{ facture.userLastname }}</h4>
+        	<div class="row">
+	        	<div class="col-3">
+	        		<img src="/favicon.ico" class="img-fluid">
+	        	</div>
+	        	<div class="col-3">    		
+		        	<p><strong>Lib2Move</strong></p>
+		        	<p><strong>245, Avenue du Temple</strong></p>
+		        	<p>contact@lib2move.com</p>
+		        	<p>+33 1 44 59 62 31</p>
+	        	</div>
+	        	<div class="col-6 offset-6">    		
+		        	<p><strong>{{ facture.userFirstname }} {{ facture.userLastname }}</strong></p>
+		        	<p><strong>{{ facture.userEmail }}</strong></p>
+		        	<p>{{ facture.userAddress }}</p>
+		        	<p>{{ facture.userPhone }}</p>
+	        	</div>
+
+	        	<div class="col-12">
+	        		<table class="table table-bordered">
+	        			<thead>
+	        				<tr>
+	        					<th>Produits et prestations</th>
+	        					<th>Quantité</th>
+	        					<th>PU</th>
+	        					<th>TVA</th>
+	        					<th>TTC</th>
+	        				</tr>
+	        			</thead>
+	        			<tbody>
+	        				<tr>
+	        					<td>Contrat {{ facture.contractName }}</td>
+	        					<td>1</td>
+	        					<td>{{ facture.price }} €</td>
+	        					<td>{{ facture.tva }} %</td>
+	        					<td>{{ facture.price }} €</td>
+	        				</tr>
+	        				{% if facture.kmFinal > facture.vehiculeKm + facture.maxKm %}
+	        					<tr>
+	        						<td>Kilomètres dépassant {{ facture.vehiculeKm }} + {{ facture.maxKm }} = {{ facture.vehiculeKm + facture.maxKm }} km</td>
+	        						<td>{{ facture.kmFinal - (facture.vehiculeKm + facture.maxKm) }} km</td>
+	        						<td>{{ facture.kmPenalty }} €</td>
+	        						<td>{{ facture.tva }} %</td>
+	        						<td>{{ (facture.kmFinal - (facture.vehiculeKm + facture.maxKm)) * facture.kmPenalty }} €</td>
+	        					</tr>
+	        				{% endif %}
+	        				{% if facture.endFinal > facture.end %}
+	        					<tr>
+	        						<td>Minutes dépassant {{ facture.start|date('d/m/Y H:i') }} + {{ facture.maxTime|date('H:i') }} min = {{ facture.end|date('H:i') }} min</td>
+	        						<td>{{ facture.endDiff }} min</td>
+	        						<td>{{ facture.timePenalty }} €</td>
+	        						<td>{{ facture.tva }} %</td>
+	        						<td>{{ facture.endDiff * facture.timePenalty }} €</td>
+	        					</tr>
+	        				{% endif %}
+	        				<tr style="height: 22vh">
+	        					<td></td>
+	        					<td></td>
+	        					<td></td>
+	        					<td></td>
+	        					<td></td>
+	        				</tr>
+	        				<tr>
+	        					<td colspan="4"><b>Total</b></td>
+	        					<td><b>{{ facture.finalPrice }} €</b></td>
+	        				</tr>
+	        			</tbody>
+	        		</table>
+	        	</div>
+
+	        	<div class="col-3 mt-5">
+	        		<h4>Véhicule</h4>
+		        	<p>{{ facture.vehiculeName }}</p>
+		        	<p>{{ facture.brand }} {{ facture.serie }}</p>
+		        	<p>{{ facture.licencePlate }}</p>
+		        	<p>{{ facture.vehiculeKm }} km</p>
+	        	</div>
+	        	<div class="col-3 mt-5">
+	        		<h4>Contrat</h4>
+		        	<p>{{ facture.contractName }}</p>
+		        	<p>{{ facture.price }} €</p>
+		        	<p>{{ facture.maxTime ? facture.maxTime|date('i:s') : ''  }} min</p>
+		        	<p>{{ facture.maxKm }} km</p>
+		        	<p>{{ facture.timePenalty }} €/min</p>
+		        	<p>{{ facture.kmPenalty }} €/km</p>
+	        	</div>
+	        	<div class="col-3 mt-5">
+	        		<h4>Location</h4>
+		        	<p>{{ facture.start ? facture.start|date('Y-m-d H:i:s') : '' }}</p>
+		        	<p>{{ facture.end ? facture.end|date('Y-m-d H:i:s') : '' }}</p>
+		        	<p>{{ facture.endFinal ? facture.endFinal|date('Y-m-d H:i:s') : '' }}</p>
+		        	<p>{{ facture.kmFinal }}</p>
+		        	<p>{{ facture.cityName }}</p>
+	        	</div>
+	        	<div class="col-3 mt-5">
+	        		<h4>Arrivée</h4>
+	        		<p>{{ facture.kmFinal }} km</p>
+	        		<p>{{ facture.kmFinal - (facture.vehiculeKm + facture.maxKm) }} km</p>
+	        	</div>
+	        </div>
         </div>
     </body>
 </html>

@@ -151,6 +151,8 @@ class VehiculeFixtures extends Fixture implements DependentFixtureInterface
             ],
         ];
 
+        $images = ['transport', 'transport', 'transport'];
+
         $faker = Faker\Factory::create('fr_FR');
 
         for ($i = 0; $i < 20; $i++) {
@@ -172,7 +174,7 @@ class VehiculeFixtures extends Fixture implements DependentFixtureInterface
             $newVehicule->setStatus('Disponible');
             $newVehicule->setLat($faker->latitude($min = $villes[$ville]['latMin'], $max = $villes[$ville]['latMax']));
             $newVehicule->setLon($faker->longitude($min = $villes[$ville]['lonMin'], $max = $villes[$ville]['lonMax']));
-            $newVehicule->setImage($faker->imageUrl());
+            $newVehicule->setImage($faker->imageUrl($width = 640, $height = 480, $images[$type]));
 
             $newVehicule->setType($this->getReference(TypeVehicule::class.'_'.$type));
             $newVehicule->setVille($this->getReference(Ville::class.'_'.$ville));

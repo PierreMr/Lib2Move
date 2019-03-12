@@ -271,7 +271,12 @@ class LocationController extends AbstractController
             $location->setStatus("En cours");
             $date = new \DatetimeImmutable();
             $location->setStart($date);
-            $location->setEnd($date->add(new \DateInterval('P2D')));
+
+            $time = $contrat->getMaxTime();
+            $hours = $time->format('H');
+            $minutes = $time->format('i');
+            $intervalString = 'PT'.$hours.'H'.$minutes.'M';
+            $location->setEnd($date->add(new \DateInterval($intervalString)));
 
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($location);

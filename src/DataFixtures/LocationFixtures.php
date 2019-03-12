@@ -23,14 +23,23 @@ class LocationFixtures extends Fixture implements DependentFixtureInterface
     {
         $faker = Faker\Factory::create('fr_FR');
 
+
         for ($i = 0; $i < 20; $i++) {
             $newLocation = new Location();
+        
+            $vehicule = rand(0, 19);
+            $type = $this->getReference(Vehicule::class.'_'.$vehicule)->getType()->getId() - 1;
+            $contrat = [$type, rand(0, 2)];
 
             $date = $faker->dateTimeThisDecade($max = 'now', $timezone = 'Europe/Paris');
             $start = new \DateTimeImmutable($date->format('Y-m-d H:i:s'));
             $newLocation->setStart($start);
-            $end = $date->add(new \DateInterval('P'.rand(0, 3).'DT'.rand(1, 10).'H'.rand(0, 59).'M'));
-            $newLocation->setEnd($end);
+
+            $time = $this->getReference(Contrat::class.'_'.$contrat[0].'_'.$contrat[1])->getMaxTime();
+            $hours = $time->format('H');
+            $minutes = $time->format('i');
+            $intervalString = 'PT'.$hours.'H'.$minutes.'M';
+            $newLocation->setEnd($date->add(new \DateInterval($intervalString)));
 
             // $newLocation->setKilometers(rand(10, 100));
             // $newLocation->setTime(new \DateTime('00:'.rand(10, 50)));
@@ -38,8 +47,8 @@ class LocationFixtures extends Fixture implements DependentFixtureInterface
             $newLocation->setCreatedAt(new \DateTime('now'));
 
             $newLocation->setUser($this->getReference(User::class.'_'.rand(0, 7)));
-            $newLocation->setVehicule($this->getReference(Vehicule::class.'_'.rand(0, 19)));
-            $newLocation->setContrat($this->getReference(Contrat::class.'_'.rand(0, 2).'_'.rand(0, 2)));
+            $newLocation->setVehicule($this->getReference(Vehicule::class.'_'.$vehicule));
+            $newLocation->setContrat($this->getReference(Contrat::class.'_'.$contrat[0].'_'.$contrat[1]));
             
             $manager->persist($newLocation);
 

@@ -13,7 +13,6 @@
                 <th>Vehicule</th>
                 <th>Contrat</th>
                 <th>Kilometers</th>
-                <th>Time</th>
                 <th>actions</th>
             </tr>
         </thead>
@@ -25,7 +24,6 @@
                     <td>{{ location.vehicule.serialNumber }}</td>
                     <td>{{ location.contrat.name }}</td>
                     <td>{{ location.kilometers }}</td>
-                    <td>{{ location.time ? location.time|date('H:i:s') : '' }}</td>
                     <td>
                         <a href="{{ path('location_show', {'id': location.id}) }}">Voir PDF</a>
                     </td>
