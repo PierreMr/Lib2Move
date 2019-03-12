@@ -229,6 +229,9 @@ class LocationController extends AbstractController
 
 
         $user = $this->get('security.token_storage')->getToken()->getUser();
+        $loyaltyStamps = count($user->getLocations()) % 10;
+        $promo = false;
+        $loyaltyStamps === 1 ? $promo = true : $promo = false;
         
         $location = new Location();
 
