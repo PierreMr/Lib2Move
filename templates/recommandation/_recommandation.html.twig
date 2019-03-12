@@ -10,7 +10,7 @@
 	    <h5 class="card-title">En {{ lastOrderedRecommandation.vehicule.type.name }} </h5>
 	    <p class="card-text"> </p>
 	    <p class="card-text"></p>
-	    <a href="" class="btn btn-primary">à partir de {{ lastOrderedRecommandation.contrat.price }}</a>
+	    <a href="/location/recommandation/{{ lastOrderedRecommandation.contrat.id }}/{{ lastOrderedRecommandation.vehicule.ville.name }}/{{ lastOrderedRecommandation.vehicule.type.name }}" class="btn btn-primary">à partir de {{ lastOrderedRecommandation.contrat.price }}</a>
 	  </div>
 	</div>
 </div>
@@ -27,7 +27,7 @@
 	    <h5 class="card-title">En {{ mostType }} </h5>
 	    <p class="card-text"> </p>
 	    <p class="card-text"></p>
-	    <a href="" class="btn btn-primary">{{ bestOffre }}</a>
+	    <a href="/location/recommandation/{{ idC }}/{{ mostVille }}/{{ mostType }}" class="btn btn-primary">{{ bestOffre }}</a>
 	  </div>
 	</div>
 </div>

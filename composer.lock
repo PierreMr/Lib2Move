@@ -3659,7 +3659,7 @@
             ],
             "description": "Symfony HttpKernel Component",
             "homepage": "https://symfony.com",
-            "time": "2019-02-03 12:47:33
+            "time": "2019-02-03 12:47:33"
         },
         {
             "name": "symfony/inflector",

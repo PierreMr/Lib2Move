@@ -9,7 +9,24 @@
         <p>Hello {{ app.user.firstname }}, content de vous revoir !</p>
     {% endif %} 
 
-    <h2 class="m-3 mt-5">Réserver un vehicule : Aujourd'hui</h2>
+     <style type="text/css">
+                .btn-custom {
+                    background-color: #563D7C;
+                    color: white;
+                    font-size: 28px;
+                    min-width: 320px;
+                    height: 55px;
+                } 
+                .btn-custom:hover{
+                    color: white;
+                } 
+    </style>
+
+    <h2 class="m-3 mt-5">Réserver un vehicule : Aujourd'hui ou &nbsp;
+      <a class="btn btn-custom" data-toggle="collapse" href="#collapseDates" role="button" aria-expanded="false" aria-controls="collapseDates">
+        Reserver plus tard
+      </a>
+    </h2>
 
     <form>
         {{ form_start(form) }}  
@@ -20,18 +37,32 @@
             <div class="col">
                 {{ form_row(form.typeVehicule) }}
             </div>
-             <div class="col">
-                {{ form_row(form.start) }}
+
+            <div class="collapse" id="collapseDates" >
+                <div class="col" style="card">
+                        {{ form_row(form.start) }}
+                </div>
+                  <div class="col">
+                    {{ form_row(form.end) }}
+                </div>
             </div>
-              <div class="col">
-                {{ form_row(form.end) }}
-            </div>
-             <div class="col">
+            
+            <div class="col">
                 <button class="btn btn-primary" style="margin-top:31px;">Rechercher</button>
             </div>
         </div>
         {{ form_end(form) }}      
     </form>
+
+    {% if app.user and vehicules is null %}
+    <div id="container">
+        <div class="row">
+            {{ render(controller(
+                'App\\Controller\\RecommandationController::recommandation'
+            )) }}
+        </div>
+    </div>
+    {% endif %}
 
     {% if vehicules %}
         <h2 class="m-3">Results</h2>
@@ -72,14 +103,5 @@
             });
         });
     </script> -->
-    {% if app.user %}
-    <div id="container">
-        <div class="row">
-            {{ render(controller(
-                'App\\Controller\\RecommandationController::recommandation'
-            )) }}
-        </div>
-    </div>
-    {% endif %}
 
 {% endblock %}

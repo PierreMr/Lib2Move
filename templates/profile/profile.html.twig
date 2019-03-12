@@ -5,6 +5,27 @@
 {% block body %}
     <h1 class="mb-5">Profile</h1>
 
+    <div class="row" style="padding: 15px;">
+        <div class="col-10">
+            {% if loyaltyStamps %}   
+            {% for i in 1..loyaltyStamps %}
+                <div class="rubber_stamp"> {{ i }} Voyages</div>
+             {% endfor %}
+            {% endif %}
+        </div>
+        <div class="col-2">
+          
+        </div>
+    </div>
+
+    <div class="row">
+      <p style="margin-left:25px;">
+        Votre réduction dans : 
+          {% set  StampsLeft = 10 - loyaltyStamps %} 
+            {{ StampsLeft }} Voyages !          
+      </p>
+    </div>
+
     <div class="row">
         <div class="col-3">
             {% if user.image %}
@@ -57,6 +78,37 @@
             </table>
         </div>
     </div>
+
+    <style type="text/css">
+        .rubber_stamp {
+          font-size: 22px;
+          line-height: 22px;
+          font-weight: bold;
+          color: red;
+          border: 7px solid red;
+          float: left;
+          padding: 8px 7px;
+          margin-left: 8px;
+          margin-top: 8px;
+          border-radius: 10px; 
+          opacity: 0.8;
+          -webkit-transform: rotate(-10deg);
+          -o-transform: rotate(-10deg);
+          -moz-transform: rotate(-10deg);
+          -ms-transform: rotate(-10deg);
+        }
+        .rubber_stamp::after {
+          position: absolute;
+          content: " ";
+          width: 100%;
+          height: auto;
+          min-height: 100%;
+          top: -10px;
+          left: -10px;
+          padding: 8px;
+          background: url(https://raw.github.com/domenicosolazzo/css3/master/img/noise.png) repeat;
+        }
+    </style>
 
     {{ include('user/_delete_form.html.twig') }}
 {% endblock %}

@@ -25,8 +25,11 @@ class ProfileController extends AbstractController
     {
         $user = $this->get('security.token_storage')->getToken()->getUser();
 
+        $loyaltyStamps = count($user->getLocations()) % 10;
+
         return $this->render('profile/profile.html.twig', [
             'user' => $user,
+            'loyaltyStamps' => $loyaltyStamps,
         ]);
     }
 

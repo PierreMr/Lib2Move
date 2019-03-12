@@ -1,0 +1,71 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Confirm Location{% endblock %}
+
+{% block body %}
+
+	<nav aria-label="breadcrumb">
+		<ol class="breadcrumb">
+			<li class="breadcrumb-item"><a href="/">Home</a></li>
+			<li class="breadcrumb-item"><a href="">Contrat</a></li>
+      		<li class="breadcrumb-item"><a href="#">Paiement</a></li>
+			<li class="breadcrumb-item active font-weight-bold" aria-current="page">Confirmation</li>
+		</ol>
+	</nav>
+
+    <h1>Récapitulatif</h1>
+
+	<h2 class="m-3 mt-5">Contrat</h2>
+
+	<div class="card-columns">
+		<div class="card border-light mb-3 card-contrat" data="{{ contrat.id }}">
+			<div class="card-header bg-secondary text-white">
+				<strong>{{ contrat.name|upper }}</strong>
+				<span class="d-flex justify-content-end">{{ contrat.price }} €</span>
+			</div>
+			<div class="card-body">
+				<table class="table table-responsive">
+					<tr>
+					    <th>Kilomètres maximum</th>
+					    <td>{{ contrat.maxKm }}</td>
+					</tr>
+					<tr>
+					    <th>Durée maximale</th>
+					    <td>{{ contrat.maxTime ? contrat.maxTime|date('H:i') : '' }}</td>
+					</tr>
+				</table>
+			</div>
+		</div>
+	</div>
+
+	<h2 class="m-3 mt-5">Choix du vehicule</h2>
+
+
+	<div class="card-columns">
+        {% for vehicule in vehicules %}
+            <div class="card border-primary mb-3">
+                <img class="card-img-top" src="{{ vehicule.image }}" alt="Card image cap">
+                <div class="card-body">
+                    <table class="table table-hover">
+                        <tr>
+                            <th>Brand & Serie</th>
+                            <td>{{ vehicule.brand|capitalize }} {{ vehicule.serie|capitalize }}</td>
+                        </tr>
+                        <tr>
+                            <th>Serial number</th>
+                            <td>{{ vehicule.serialNumber|capitalize }}</td>
+                        </tr>
+                        <tr>
+                            <th>Type</th>
+                            <td>{{ vehicule.type.name|capitalize }}</td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="card-footer bg-transparent">
+                    <a href="{{ path('location_add_from_recommandation', {'idV': vehicule.id, 'idC' : contrat.id }) }}" class="btn btn-primary">Choisir ce Vehicule</a>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+
+{% endblock %}
