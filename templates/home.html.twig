@@ -42,9 +42,6 @@
                 <div class="col" style="card">
                         {{ form_row(form.start) }}
                 </div>
-                  <div class="col">
-                    {{ form_row(form.end) }}
-                </div>
             </div>
             
             <div class="col">
@@ -80,7 +77,7 @@
                         </tr>
                         <tr>
                             <th>Serial number</th>
-                            <td>{{ vehicule.serialNumber|capitalize }}</td>
+                            <td>{{ vehicule.serialNumber }}</td>
                         </tr>
                         <tr>
                             <th>Type</th>

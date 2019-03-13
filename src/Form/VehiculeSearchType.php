@@ -17,23 +17,21 @@ class VehiculeSearchType extends AbstractType
         $builder
             ->add('ville', ChoiceType::class, [
                 'choices'  => [
-                'Paris' => 1,
-                'Lyon' => 2,]
-                ])
+                    'Paris' => 1,
+                    'Lyon' => 2,
+                ]
+            ])
             ->add('typeVehicule', ChoiceType::class, [
                 'choices'  => [
-                'Voiture' => 1,
-                'Scooter' => 2,
-                'Trottinette' => 3,]
-                ])
+                    'Voiture' => 1,
+                    'Scooter' => 2,
+                    'Trottinette' => 3,
+                ]
+            ])
             ->add('start', DateTimeType::class, [
                 'widget' => 'single_text',
                 'required' => false,
-                ])
-            ->add('end', DateTimeType::class, [
-                'widget' => 'single_text',
-                'required' => false,
-                ]);
+            ]);
     }
 
     public function configureOptions(OptionsResolver $resolver)

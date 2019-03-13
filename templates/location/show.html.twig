@@ -29,7 +29,7 @@
             </tr>
             <tr>
                 <th>Vehicule</th>
-                <td>{{ location.vehicule.serialNumber }}</td>
+                <td>{{ location.vehicule.fullname(location.vehicule) }}</td>
             </tr>
             <tr>
                 <th>Type Vehicule</th>
@@ -38,6 +38,10 @@
             <tr>
                 <th>Contrat</th>
                 <td>{{ location.contrat.name }}</td>
+            </tr>
+            <tr>
+                <th>Ville</th>
+                <td>{{ location.vehicule.ville.name }}</td>
             </tr>
         </tbody>
     </table>

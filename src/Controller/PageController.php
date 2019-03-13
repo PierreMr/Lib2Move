@@ -21,6 +21,7 @@ class PageController extends AbstractController
     {
     	$search = new VehiculeSearch();
     	$form = $this->createForm(VehiculeSearchType::class, $search);
+        $form->get('start')->setData(new \Datetime());
     	$form->handleRequest($request);
 
     	$vehicules = null;
@@ -54,24 +55,46 @@ class PageController extends AbstractController
     	$form->handleRequest($request);
 
     	if($form->isSubmitted() && $form->isValid()) {
-    		$this->addFlash('warning', 'Server in progress !');
-
             $mail = (new \Swift_Message('Contact'))
-                ->setFrom('mauerpierre@gmail.com')
+                ->setFrom('laville.pierre201@gmail.com')
                 ->setTo($form->get('email')->getData())
-                // ->setFrom($form->get('email')->getData())
-                // ->setCc($form->get('email')->getData())
-                // ->setTo('mauerpierre@gmail.com')
                 ->setBody(
                     $this->renderView(
                         'emails/contact.html.twig',
-                        ['message' => $form->get('message')->getData()]
+                        [
+                            'message' => $form->get('message')->getData(),
+                            'lastname' => $form->get('lastname')->getData(),
+                            'firstname' => $form->get('firstname')->getData(),
+                        ]
                     ),
                     'text/html'
                 )
             ;
 
-            $mailer->send($mail);
+            $mailUser = (new \Swift_Message('Contact'))
+                ->setFrom($form->get('email')->getData())
+                ->setTo('laville.pierre201@gmail.com')
+                ->setBody(
+                    $this->renderView(
+                        'emails/contact-user.html.twig',
+                        [
+                            'message' => $form->get('message')->getData(),
+                            'lastname' => $form->get('lastname')->getData(),
+                            'firstname' => $form->get('firstname')->getData(),
+                            'email' => $form->get('email')->getData(),
+                            'phone' => $form->get('phone')->getData(),
+                        ]
+                    ),
+                    'text/html'
+                )
+            ;
+
+            $mailer->send($mailUser);
+
+            if ($mailer->send($mail)) $this->addFlash('success', 'Email envoyé avec succès !');
+            else $this->addFlash('danger', 'Une erreur est survenue');
+
+            
     	}
 
         return $this->render('page/contact.html.twig', [

@@ -46,6 +46,20 @@ class VehiculeRepository extends ServiceEntityRepository
                     ->setParameter('end', $search->getEnd());
         }
 
+
+        // if($search->getStart()) $start = $search->getStart();
+        // else $start = new \Datetime();
+
+        // $query
+        //     ->where('v.ville = :ville')
+        //     ->andWhere('v.type = :typeVehicule')
+        //     ->innerJoin('v.locations', 'l')
+        //     ->andWhere('l.start NOT BETWEEN :morning AND :evening')
+        //     ->setParameter('ville', $search->getVille())
+        //     ->setParameter('typeVehicule', $search->getTypeVehicule())
+        //     ->setParameter('morning', $start)
+        //     ->setParameter('evening', $start);
+
         return $query->getQuery()->getResult();
     }
 }
