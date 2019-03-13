@@ -61,12 +61,12 @@ class LocationController extends AbstractController
     {
         
         $user = $this->get('security.token_storage')->getToken()->getUser();
-        // Hors exemple 10
+    
         $loyaltyStamps = count($user->getLocations()) % 10;
         $promo = false;
 
         // hors teste le modumo doit valoire 1
-        $loyaltyStamps === 1 ? $promo = true : $promo = false;
+        $loyaltyStamps === 9 ? $promo = true : $promo = false;
         
         $location = new Location();
         $form = $this->createForm(LocationAddType::class, $location);
@@ -106,17 +106,14 @@ class LocationController extends AbstractController
         
         $location = new Location();
 
-
         $data = $request->get('location_add');
         
         $form = $this->createForm(LocationAddType::class, $location);
 
-        $loyaltyStamps = count($user->getLocations()) % 2;
+        $loyaltyStamps = count($user->getLocations()) % 10;
         $promo = false;
+        $loyaltyStamps === 9 ? $promo = true : $promo = false;
 
-        // hors teste le modulo doit valoire 1
-        $loyaltyStamps === 0 ? $promo = true : $promo = false;
-        
         
         $nameType = $typeVehiculeRepository->findOneBy(
             [
@@ -148,7 +145,6 @@ class LocationController extends AbstractController
         index vehicule dispo
         add $vehicule
         */
-
         if ($form->isSubmitted() && $form->isValid()) {
 
             
@@ -158,6 +154,9 @@ class LocationController extends AbstractController
             $location->setContrat($contrat);
 
             $location->setStatus("En cours");
+
+            if($promo){
+            $location->setPromo(true);}
 
             $date = new \DatetimeImmutable();
             $location->setStart($date);
@@ -186,12 +185,10 @@ class LocationController extends AbstractController
     {
         
         $user = $this->get('security.token_storage')->getToken()->getUser();
-        // Hors exemple 10
+    
         $loyaltyStamps = count($user->getLocations()) % 10;
         $promo = false;
-
-        // hors teste le modumo doit valoire 1
-        $loyaltyStamps === 1 ? $promo = true : $promo = false;
+        $loyaltyStamps === 9 ? $promo = true : $promo = false;
         
         $location = new Location();
         $form = $this->createForm(LocationAddType::class, $location);
@@ -231,19 +228,13 @@ class LocationController extends AbstractController
         $user = $this->get('security.token_storage')->getToken()->getUser();
         $loyaltyStamps = count($user->getLocations()) % 10;
         $promo = false;
-        $loyaltyStamps === 1 ? $promo = true : $promo = false;
+        $loyaltyStamps === 9 ? $promo = true : $promo = false;
         
         $location = new Location();
 
         $data = $request->get('location_add');
         
         $form = $this->createForm(LocationAddType::class, $location);
-
-        $loyaltyStamps = count($user->getLocations()) % 2;
-        $promo = false;
-
-        // hors teste le modulo doit valoire 1
-        $loyaltyStamps === 0 ? $promo = true : $promo = false;
         
         $vehicule = $vehiculeRepository->find($idV);
         $form->get('vehicule')->setData($vehicule);
@@ -271,6 +262,8 @@ class LocationController extends AbstractController
             $location->setStatus("En cours");
             $date = new \DatetimeImmutable();
             $location->setStart($date);
+             if($promo){
+            $location->setPromo(true);}
 
             $time = $contrat->getMaxTime();
             $hours = $time->format('H');

@@ -26,13 +26,26 @@ class PageController extends AbstractController
 
     	$vehicules = null;
 
+        $user = $this->get('security.token_storage')->getToken()->getUser(); 
+
+        if($user != "anon.") 
+        {
+            $loyaltyStamps = count($user->getLocations()) % 10;
+            $promo = false;
+            $loyaltyStamps === 9 ? $promo = true : $promo = false;
+        } else {
+            $promo = false;
+        }
+
     	if($form->isSubmitted() && $form->isValid()) {
     		$vehicules = $vehiculeRepository->findSearchVehicule($search);
     	}
+        //var_dump($loyaltyStamps);
 
         return $this->render('home.html.twig', [
         	'form' => $form->createView(),
         	'vehicules'=> $vehicules,
+            'promo' => $promo,
         ]);
 	}
 

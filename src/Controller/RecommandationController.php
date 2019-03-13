@@ -10,7 +10,6 @@ use App\Entity\Location;
 use App\Repository\LocationRepository;
 
 
-
 class RecommandationController extends AbstractController
 {
 	public function __construct(LocationRepository $locationRepository)
@@ -77,6 +76,7 @@ class RecommandationController extends AbstractController
 			// var_dump($tabOffre);
 
 			// A refaire en beau ! mais fonctionne pour le moment 
+			// Refacto !
 
 		    switch ($maxType[0]) {
 			    case "Trottinette":

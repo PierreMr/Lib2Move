@@ -30,20 +30,18 @@
 					<li class="nav-item active">
 						<a class="nav-link" href="/ville">Ville</a>
 					</li>
-					<li class="nav-item active">
-						<a class="nav-link" href="/facture">Facture</a>
-					</li>
 				{% endif %}
 			{% endif %}
-			<li class="nav-item active">
-				<a class="nav-link" href="/contact">Contact</a>
-			</li>
+			
 		</ul>
 		<!-- <form class="form-inline my-2 my-lg-0">
 			<input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
 			<button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
 		</form> -->
 		<ul class="navbar-nav my-2 my-lg-0 mr-4">
+			<li class="nav-item active">
+				<a class="nav-link" href="/contact">Contact</a>
+			</li>
     		{% if (app.user == null) %}
 				<li class="nav-item active">
 					<a class="nav-link" href="/login">Connexion</a>
@@ -52,6 +50,7 @@
 					<a class="nav-link" href="/register">Inscription</a>
 				</li>
 			{% else %}
+				
 				<li class="nav-item dropdown">
 					<!-- {% if app.user.image %}
 		                <img src="/assets/uploads/user_profile/{{ app.user.image }}" class="img-fluid rounded-circle" style="width: 3%;" />
@@ -69,6 +68,7 @@
 					</div>
 				</li>
     		{% endif %}
+			
 		</ul>
 	</div>
 </nav>

@@ -70,6 +70,11 @@ class Location
      */
     private $factures;
 
+    /**
+     * @ORM\Column(type="boolean", nullable=true)
+     */
+    private $promo;
+
     public function __construct()
     {
         $this->setCreatedAt(new \DateTime());
@@ -204,6 +209,18 @@ class Location
                 $facture->setLocationId(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getPromo(): ?bool
+    {
+        return $this->promo;
+    }
+
+    public function setPromo(?bool $promo): self
+    {
+        $this->promo = $promo;
 
         return $this;
     }
