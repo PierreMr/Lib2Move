@@ -4,11 +4,11 @@
 
 {% block body %}
 
-    {% if not app.user.firstname is defined%}
+
     
             <div class="background-home">
                 <img src="https://upload.wikimedia.org/wikipedia/commons/8/8d/Yarra_Night_Panorama%2C_Melbourne_-_Feb_2005.jpg" class="d-block w-100" alt="...">
-                   <div class="recherche-vehicule">
+                   <div class="recherche-vehicule p-4">
                         <h2 class="">Réserver un vehicule : Aujourd'hui</h2>
 
                             {{ form_start(form) }}  
@@ -32,13 +32,14 @@
                             {{ form_end(form) }}      
                     </div>
                 </div>
-        <div class="profil-connect">
-       {% if app.user.firstname is defined %}
-        <p class="">Hello {{ app.user.firstname }}, content de vous revoir !</p>
-        {% if promo %}
-        <p class="">-5% sur votre prochaine course ! Profitez-en aujourd'hui !</p>
-        {% endif %} 
-    {% endif %} 
+
+        <div class="profil-connect container">
+           {% if app.user.firstname is defined %}
+            <p class="">Hello {{ app.user.firstname }}, content de vous revoir !</p>
+            {% if promo %}
+            <p class="">-5% sur votre prochaine course ! Profitez-en aujourd'hui !</p>
+            {% endif %} 
+            {% endif %} 
         </div>
 
     <div id="home-select" class="container">
@@ -73,6 +74,15 @@
             {% endfor %}
         </div>
     </div>
+
+    {% if app.user and vehicules is null %}
+    <div class="m-auto" style="max-width: 1200px;">
+        {{ render(controller(
+            'App\\Controller\\RecommandationController::recommandation'
+        )) }}
+    </div>
+    {% endif %}
+
             <!-- 3eme section --> 
             <section class="present">  
                 <div class="container">
@@ -81,6 +91,7 @@
                     </p>
                 </div>
             </section>
+            
             <section class="publi">
                 <img src="https://d19m59y37dris4.cloudfront.net/directory/1-1/img/photo/photo-1497436072909-60f360e1d4b1.jpg"/>
                 <h3>Mobile en tout lieu !</h3>
@@ -161,26 +172,8 @@
             </div>
         </section>
        
-    {% endif%}
 
-    
 
-    <!-- <script>
-        $(document).ready(function() {
-            // you may need to change this code if you are not using Bootstrap Datepicker
-            $('.js-datepicker').datepicker({
-                format: 'yyyy-mm-dd'
-            });
-        });
-    </script> -->
-   {% if app.user and vehicules is null %}
-    <div id="container">
-        <div class="row">
-            {{ render(controller(
-                'App\\Controller\\RecommandationController::recommandation'
-            )) }}
-        </div>
-    </div>
-    {% endif %}
+   
 
 {% endblock %}
