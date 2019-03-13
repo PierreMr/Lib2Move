@@ -3,6 +3,222 @@ body {
     background-color: white;
 }
 
-#container {
-	
+@import url('https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css');
+section {
+    padding: 80px 0;
+}
+
+.navbar{
+    background-color: #1111 !important;
+    padding: 20px;
+    color: white !important;
+
+}
+.container {
+    max-width: 1140px;
+    padding: 2% !important;
+}
+
+.background-home{
+    position:relative;
+    z-index: 0;
+    .recherche-vehicule{
+        position: relative;
+        background: rgba(26, 70, 104, 0.51);
+        @media screen and (min-width: 768px){
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            left: 0;
+            padding-top: 15px;
+            z-index: 1;
+        }
+
+        h2{
+            color:white;
+            text-align: center;
+            padding-bottom: 10px;
+        }
+        form{
+            color:white;
+            text-align: center;
+            margin : 0 auto;
+        }
+
+    }
+}
+
+.background-contact{
+    position:relative;
+    z-index: 0;
+    .contact-particulier{
+        position: relative;
+        background: rgba(0, 0, 104, 0.51);
+        @media screen and (min-width: 768px){
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            right: 0;
+            left: 0;
+            z-index: 1;
+        }
+
+        h1{
+            color:white;
+            text-align: center;
+        }
+        form{
+            color:white;
+            text-align: center;
+            margin : 0 auto;
+        }
+
+    }
+}
+
+.form-content
+{
+    padding: 5%;
+    border: 1px solid #ced4da;
+    margin-bottom: 2%;
+}
+.form-control{
+    border-radius:1.5rem;
+}
+.btnSubmit
+{
+    border:none;
+    border-radius:1.5rem;
+    padding: 1%;
+    width: 20%;
+    cursor: pointer;
+    background: #0062cc;
+    color: #fff;
+}
+.texto{
+    margin-bottom: 50px;
+    padding: 15px;
+    color: #ffff !important;
+}
+
+#conect{
+    border:none;
+    border-radius:1.5rem;
+
+}
+
+/*menu*/
+
+#navbar-nav{
+    position: fixed;
+    top:0;
+    left:0;
+    right:0;
+    z-index : 999;
+    background-color: #111 !important;
+}
+.nav-link{
+    color: white !important;
+}
+
+/*3eme section */
+.card{
+    margin: 15px;
+}
+.card img{
+        max-width: 100%;
+	    height: auto;
+}
+
+.card p{
+    text-align:center;
+    padding: 5px;
+}
+
+#home-select h2{
+    text-align: center;
+    font-size: 2rem;
+}
+
+
+/*footer*/
+.footer{
+    background-color: #111;
+    padding : 5% !important;
+    color: white !important;
+}
+
+/*teste galerie info*/
+
+.present{
+
+    h1{
+        text-align:center;
+        font-size:2rem;
+    }
+    p{
+        text-align:center;
+    }
+}
+
+/*slogan*/
+.publi{
+    height: 500px;
+    position:relative;
+    overflow-y: hidden !important;
+    h3{
+        position:absolute;
+        top:50%;
+        left:15%;
+        right:0;
+        z-index:10;
+        font-size:3rem !important;
+        color:white !important;
+        text-shadow: 1px 1px 2px rgb(93, 98, 105);
+    }
+    img{
+        width: fit-content;
+        height: auto;
+        padding :0;
+        margin :0;
+        z-index:0;
+
+    }
+}
+
+.middle{
+    margin-top: 25px;
+    text-align:center;
+}
+.info{
+    background-color:rgb(93, 98, 105);
+    
+    h4{
+        color:white;
+    }
+    p{
+        color:white;
+        font-size:18px;
+    }
+}
+
+/*connexion page*/
+
+.sign{
+    padding: 15%;
+    background:linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.5)), url(http://www.dronestagr.am/wp-content/uploads/2017/06/MOSCOW-CITY.jpg) no-repeat center fixed;
+    background-size: cover;
+
+    width: 100%;
+    height: auto;
+    #inputEmail{
+        margin-top:12px;
+    }
+    #inputPassword{
+        margin-top: 12px;
+        margin-bottom: 12px;
+    }
+}
+#bouton{
+    border-radius: 40px;
 }

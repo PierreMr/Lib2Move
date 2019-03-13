@@ -7,17 +7,18 @@
         {% block stylesheets %}
             <link href="https://fonts.googleapis.com/css?family=Lato|ZCOOL+KuaiLe" rel="stylesheet">
             <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+            
             <!-- <script type="text/javascript" src="//cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script> -->
             {{ encore_entry_link_tags('app') }}
             {{ encore_entry_script_tags('app') }}
         {% endblock %}
     </head>
     <body>
-        <div id="navbar" class="mb-3">
+        <div id="navbar" class="">
             {% include('navs/main-navbar.html.twig') %}
         </div>
-
-        <div class="container">
+        <!-- courasel -->
+        <div class="">
             <div class="flashes">
                 {% for label, messages in app.flashes %}
                     {% set index = loop.index %}
@@ -34,15 +35,52 @@
             {% endblock %}
         
         </div>
+    
 
-        <footer class="footer bg-light p-3 mt-5 border-top rounded-top shadow">
-            <div class="container">
-                <p>&copy; 2019 Lib2Move</p>
-                <blockquote class="blockquote">
-                    <footer class="blockquote-footer">Paris | Lyon</footer>
+        <!-- Footer -->
+	<footer class="footer">
+		<div class="container">
+			<div class="row text-center text-xs-center text-sm-left text-md-left">
+				<div class="col-xs-12 col-sm-4 col-md-4">
+					<h6>Plan du site</h6>
+					<ul class="list-unstyled quick-links">
+						<li><a href="#">Accueil</a></li>
+						<li><a href="#">A propos</a></li>
+					</ul>
+				</div>
+				<div class="col-xs-12 col-sm-4 col-md-4">
+					<h6>Informations</h6>
+					<ul class="list-unstyled quick-links">
+						<li><a href="#">Condition de vente</a></li>
+						<li><a href="#">FAQ</a></li>
+					</ul>
+				</div>
+				<div class="col-xs-12 col-sm-4 col-md-4">
+					<h6>Nous joindre</h6>
+					<ul class="list-unstyled quick-links">
+						<li><a href="#">Contact</a></li>
+					</ul>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-xs-12 col-sm-12 col-md-12 mt-2 mt-sm-5">
+					<ul class="list-unstyled list-inline social text-center">
+						<li class="list-inline-item"><a href="#"><i class="fab fa-facebook-f"></i></a></li>
+						<li class="list-inline-item"><a href="#"><i class="fab fa-twitter"></i></a></li>
+				    <li class="list-inline-item"><a href="#"><i class="fab fa-instagram"></i></a></li>
+        </ul>
+				</div>
+			</div>	
+			<div class="row">
+				<div class="col-xs-12 col-sm-12 col-md-12 mt-2 mt-sm-2 text-center">
+					<p class="h6">&copy; 2019 Lib2Move</p>
+          <blockquote class="blockquote">
+                    <p class="blockquote-footer">Paris | Lyon</p>
                 </blockquote>
-            </div>
-        </footer>
+				</div>
+			</div>	
+		</div>
+	<!-- ./Footer -->
 
         {% block javascripts %}
             {{ encore_entry_script_tags('app-bottom') }}

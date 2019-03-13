@@ -4,65 +4,163 @@
 
 {% block body %}
 
-    <h1 class="mt-3"><i class="fas fa-car-crash"></i> Lib2Move</h1>
-    {% if app.user.firstname is defined %}
-        <p>Hello {{ app.user.firstname }}, content de vous revoir !</p>
-    {% endif %} 
+    {% if not app.user.firstname is defined%}
+    
+            <div class="background-home">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/8/8d/Yarra_Night_Panorama%2C_Melbourne_-_Feb_2005.jpg" class="d-block w-100" alt="...">
+                   <div class="recherche-vehicule">
+                        <h2 class="">Réserver un vehicule : Aujourd'hui</h2>
 
-    <h2 class="m-3 mt-5">Réserver un vehicule : Aujourd'hui</h2>
-
-    <form>
-        {{ form_start(form) }}  
-        <div class="form-row">
-            <div class="col">
-                {{ form_row(form.ville) }}  
-            </div>
-            <div class="col">
-                {{ form_row(form.typeVehicule) }}
-            </div>
-             <div class="col">
-                {{ form_row(form.start) }}
-            </div>
-              <div class="col">
-                {{ form_row(form.end) }}
-            </div>
-             <div class="col">
-                <button class="btn btn-primary" style="margin-top:31px;">Rechercher</button>
-            </div>
+                            {{ form_start(form) }}  
+                            <div class="form-row text-center">
+                                <div class="col-sm-10 offset-sm-1 col-md-2 offset-md-1">
+                                    {{ form_row(form.ville) }}  
+                                </div>
+                                <div class="col-sm-12 col-md-2">
+                                    {{ form_row(form.typeVehicule) }}
+                                </div>
+                                <div class="col-sm-12 col-md-2">
+                                    {{ form_row(form.start) }}
+                                </div>
+                                <div class="col-sm-12 col-md-2">
+                                    {{ form_row(form.end) }}
+                                </div>
+                                <div class="col-sm-12 col-md-2">
+                                    <button class="btn btn-primary" style="margin-top:31px;">Rechercher</button>
+                                </div>
+                            </div>
+                            {{ form_end(form) }}      
+                    </div>
+                </div>
+        <div class="profil-connect">
+        {% if app.user.firstname is defined %}
+            <p>Bonjour {{ app.user.firstname }}, content de vous revoir !</p>
+        {% endif %} 
         </div>
-        {{ form_end(form) }}      
-    </form>
 
-    {% if vehicules %}
-        <h2 class="m-3">Results</h2>
-    {% endif %}
+    <div id="home-select" class="container">
+            {% if vehicules %}
+                <h2 class="m-3">Résultat</h2>
+            {% endif %}
 
-    <div class="card-columns">
-        {% for vehicule in vehicules %}
-            <div class="card border-primary mb-3">
-                <img class="card-img-top" src="{{ vehicule.image }}" alt="Card image cap">
-                <div class="card-body">
-                    <table class="table table-hover">
-                        <tr>
-                            <th>Brand & Serie</th>
-                            <td>{{ vehicule.brand|capitalize }} {{ vehicule.serie|capitalize }}</td>
-                        </tr>
-                        <tr>
-                            <th>Serial number</th>
-                            <td>{{ vehicule.serialNumber|capitalize }}</td>
-                        </tr>
-                        <tr>
-                            <th>Type</th>
-                            <td>{{ vehicule.type.name|capitalize }}</td>
-                        </tr>
-                    </table>
+        <div class="card-columns">
+            {% for vehicule in vehicules %}
+                <div class="card border-primary mb-3">
+                    <img class="card-img-top" src="{{ vehicule.image }}" alt="Card image cap">
+                    <div class="card-body">
+                        <table class="table table-hover">
+                            <tr>
+                                <th>Brand & Serie</th>
+                                <td>{{ vehicule.brand|capitalize }} {{ vehicule.serie|capitalize }}</td>
+                            </tr>
+                            <tr>
+                                <th>Serial number</th>
+                                <td>{{ vehicule.serialNumber|capitalize }}</td>
+                            </tr>
+                            <tr>
+                                <th>Type</th>
+                                <td>{{ vehicule.type.name|capitalize }}</td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div class="card-footer bg-transparent">
+                        <a href="location/add/{{vehicule.id}}" class="btn btn-primary">Reserver</a>
+                    </div>
                 </div>
-                <div class="card-footer bg-transparent">
-                    <a href="location/add/{{vehicule.id}}" class="btn btn-primary">Reserver</a>
-                </div>
-            </div>
-        {% endfor %}
+            {% endfor %}
+        </div>
     </div>
+            <!-- 3eme section --> 
+            <section class="present">  
+                <div class="container">
+                    <h1 class="jumbotron-heading">&minus; A PROPOS &minus;</h1>
+                    <p class="lead text-muted">Vita est illis semper in fuga uxoresque mercenariae conductae ad tempus ex pacto atque, ut sit species matrimonii, dotis nomine futura coniunx hastam et tabernaculum offert marito<p>
+                    </p>
+                </div>
+            </section>
+            <section class="publi">
+                <img src="https://d19m59y37dris4.cloudfront.net/directory/1-1/img/photo/photo-1497436072909-60f360e1d4b1.jpg"/>
+                <h3>Mobile en tout lieu !</h3>
+            </section>
+
+            <!-- Upsem -->
+            <div class="info">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <h4>&minus; <strong>Libre déplacement</strong> &minus;</ha>
+                            <p>Vita est illis semper in fuga uxoresque mercenariae conductae ad tempus ex pacto atque, ut sit species matrimonii, dotis nomine futura coniunx hastam et tabernaculum offert marito<p>
+                            </p>
+                        </div>
+                        <div class="col-sm-12">
+                            <h4>&minus; <strong>Location</strong> &minus;</ha>
+                            <p>Vita est illis semper in fuga uxoresque mercenariae conductae ad tempus ex pacto atque, ut sit species matrimonii, dotis nomine futura coniunx hastam et tabernaculum offert marito<p>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div> 
+            <!-- type de vehicule-->
+        <div class="middle">
+            <h3><strong>Découvrez </strong>nos véhicules</h3>
+        </div>
+        <div class="album text-muted">
+            <div class="container">
+
+                <div class="row">
+                    <div class="card">
+                        <img src="https://www.challenges.fr/assets/img/2017/02/16/cover-r4x3w1000-5ab3cf2061674-DSC_0548.jpg" alt="Card image cap">
+                        <p class="card-text">Type de véhicule 01.</p>
+                    </div>
+                    <div class="card">
+                        <img src="https://www.challenges.fr/assets/img/2017/02/16/cover-r4x3w1000-5ab3cf2061674-DSC_0548.jpg" alt="Card image cap">
+                        <p class="card-text">Type de véhicule 02.</p>
+                    </div>
+                    <div class="card">
+                        <img src="https://www.challenges.fr/assets/img/2017/02/16/cover-r4x3w1000-5ab3cf2061674-DSC_0548.jpg" alt="Card image cap">
+                        <p class="card-text">Type de véhicule 03.</p>
+                    </div>
+
+                    <div class="card">
+                        <img src="https://www.challenges.fr/assets/img/2017/02/16/cover-r4x3w1000-5ab3cf2061674-DSC_0548.jpg" alt="Card image cap">
+                        <p class="card-text">Type de véhicule 04.</p>
+                    </div>
+                </div>
+
+            </div>
+         </div>
+        <section class="option">
+            <div class="container">
+                <div class="text-center pb-lg-4"></div>
+                <div class="row">
+                    <div class="col-6 .col-md-4">
+                        <div class="border ">
+                            <div class="p-3">
+                            <i class="fas fa-shuttle-van"> PARIS</i>
+                                <div class="icon-rounded bg-primary-light mb-3"> Voir du nouveau</div>
+                                <p class="text-muted">Iam virtutem ex consuetudine vitae sermonisque nostri interpretemur nec eam, ut quidam docti, verborum magnificentia metiamur virosque bonos eos, qui habentur, numeremus, Paulos, Catones, 
+                                Galos, Scipiones, Philos; his communis vita contenta est; eos autem omittamus, qui omnino nusquam reperiuntur</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-6 .col-md-4">
+                        <div class="border ">
+                            <div class="p-3">
+                            <i class="fas fa-shuttle-van"> PARIS</i>
+                                <div class="icon-rounded bg-primary-light mb-3"> comment ça fonctionne</div>
+                                <p class="text-muted">Iam virtutem ex consuetudine vitae sermonisque nostri interpretemur nec eam, ut quidam docti, verborum magnificentia metiamur virosque bonos eos, qui habentur, numeremus, Paulos, Catones, 
+                                Galos, Scipiones, Philos; his communis vita contenta est; eos autem omittamus, qui omnino nusquam reperiuntur</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+        </section>
+       
+    {% endif%}
+
+    
 
     <!-- <script>
         $(document).ready(function() {
