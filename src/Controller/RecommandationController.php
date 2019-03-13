@@ -10,7 +10,6 @@ use App\Entity\Location;
 use App\Repository\LocationRepository;
 
 
-
 class RecommandationController extends AbstractController
 {
 	public function __construct(LocationRepository $locationRepository)
