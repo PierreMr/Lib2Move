@@ -1,11 +1,13 @@
 
 {% if lastOrderedRecommandation.id is defined %}
+<h2>Mes préférences :</h2>
 <div class="row">
-	<div class="col-4">
-		<div class="card" style="">
-		  <img class="card-img-top" src="{{ lastOrderedRecommandation.vehicule.image }}" alt="Card image cap">
+	<div class="col">
+
+		<div class="card habits-card" style="margin:0 auto;  min-width:256px;"><h3 class="title-habits">Dernier voyage !</h3>
+		  <img class="card-img-top" src="{{ lastOrderedRecommandation.vehicule.image }}" alt="Card image cap" style="">
 		  <div class="card-body">
-		  	<h3>Une balade à {{ lastOrderedRecommandation.vehicule.ville.name|capitalize }}&nbsp;:</h3>
+		  	<h4>Une balade à {{ lastOrderedRecommandation.vehicule.ville.name|capitalize }}&nbsp;:</h4>
 		  	<br />
 		    
 		    <h5 class="card-title">En {{ lastOrderedRecommandation.vehicule.type.name }} </h5>
@@ -15,15 +17,16 @@
 		  </div>
 		</div>
 	</div>
-	<div class="col-4">
-		<div class="card" style="">
+	<div class="col">
+		<div class="card habits-card" style="margin:0 auto;  min-width:256px;">
+		<h3 class="title-habits">Comme d'hab ?</h3>
 		 {% if mostVille|lower == 'lyon' %}
-		  <img class="card-img-top" src="http://data1.ibtimes.co.in/cache-img-640-0/en/full/549410/1417872521_france-festival-lights.jpg" alt="Card image cap">
+		  <img class="card-img-top" src="http://data1.ibtimes.co.in/cache-img-640-0/en/full/549410/1417872521_france-festival-lights.jpg" alt="Card image cap" style="">
 		 {% else %}
 		 <img class="card-img-top" src="http://portail-voyage.fr/wp-content/uploads/2015/02/Paris.jpg" alt="Card image cap">	
 		 {% endif %}
 		  <div class="card-body">
-		  	<h3>Une balade à {{ mostVille|capitalize }}&nbsp;:</h3>
+		  	<h4>Une balade à {{ mostVille|capitalize }}&nbsp;:</h4>
 		  	<br />
 		    
 		    <h5 class="card-title">En {{ mostType }} </h5>
@@ -33,28 +36,38 @@
 		  </div>
 		</div>
 	</div>
-	<div class="col-4">
-		<div class="card" style="">
-		 {% if mostVille|lower == 'lyon' %}
-		  <img class="card-img-top" src="http://data1.ibtimes.co.in/cache-img-640-0/en/full/549410/1417872521_france-festival-lights.jpg" alt="Card image cap">
-		 {% else %}
-		 <img class="card-img-top" src="http://portail-voyage.fr/wp-content/uploads/2015/02/Paris.jpg" alt="Card image cap">	
-		 {% endif %}
-		  <div class="card-body">
-		  	<h3>Une balade à {{ mostVille|capitalize }}&nbsp;:</h3>
-		  	<br />
-		    
-		    <h5 class="card-title">En {{ mostType }} </h5>
-		    <p class="card-text"> </p>
-		    <p class="card-text"></p>
-		    <a href="/location/recommandation/{{ idC }}/{{ mostVille }}/{{ mostType }}" class="btn btn-primary">{{ bestOffre }}</a>
-		  </div>
+	<div class="col">
+		<div class="card habits-card" style="margin:0 auto;  min-width:256px;"><h3 class="title-habits">Code parrain ?</h3>
+			<p class="card-text">à venir</p>
+			<p class="card-text"></p>
+		</div>
+		
+	</div>
+	<div class="col">
+		<div class="card habits-card" style="margin:0 auto;  min-width:256px;"><h3 class="title-habits">Ambassadeur !</h3>
+			<p class="card-text"><a href="{{ path('app_contact')}}">nous contacter</a></p>
+			<p class="card-text"></p>
 		</div>
 	</div>
 </div>
+
 {% else %}
 <div>
- PUB
+	<div style="width:70%; margin:0 auto;">
+   		<img class="card-img-top" src="https://image.noelshack.com/fichiers/2019/11/3/1552491311-7d6av6ifxz.jpg" alt="Card image cap" style="">
+   	</div>
 </div>
 {% endif %}
 
+
+	<style type="text/css">
+	.title-habits {
+		padding: 10px;
+	}
+	@media screen and (max-width: 640px) {
+	  .habits-card {
+	  	margin: 10px !important; 
+	    min-width:256px;
+	    width:100%;
+	  }
+	  </style>
