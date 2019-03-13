@@ -6,7 +6,10 @@
 
     <h1 class="mt-3"><i class="fas fa-car-crash"></i> Lib2Move</h1>
     {% if app.user.firstname is defined %}
-        <p>Hello {{ app.user.firstname }}, content de vous revoir !</p>
+        <p class="">Hello {{ app.user.firstname }}, content de vous revoir !</p>
+        {% if promo %}
+        <p class="">-5% sur votre prochaine course ! Profitez-en aujourd'hui !</p>
+        {% endif %} 
     {% endif %} 
 
      <style type="text/css">
