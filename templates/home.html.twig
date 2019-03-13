@@ -33,9 +33,12 @@
                     </div>
                 </div>
         <div class="profil-connect">
-        {% if app.user.firstname is defined %}
-            <p>Bonjour {{ app.user.firstname }}, content de vous revoir !</p>
+       {% if app.user.firstname is defined %}
+        <p class="">Hello {{ app.user.firstname }}, content de vous revoir !</p>
+        {% if promo %}
+        <p class="">-5% sur votre prochaine course ! Profitez-en aujourd'hui !</p>
         {% endif %} 
+    {% endif %} 
         </div>
 
     <div id="home-select" class="container">
@@ -170,7 +173,7 @@
             });
         });
     </script> -->
-    {% if app.user %}
+   {% if app.user and vehicules is null %}
     <div id="container">
         <div class="row">
             {{ render(controller(
