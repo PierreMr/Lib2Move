@@ -8,12 +8,15 @@
 
 <h2>Lib2Move</h2>
 
-<p>Bonjour {{ firstname|capitalize }} {{ lastname|capitalize }},</p>
+<h3>Informations : </h3>
+<p>{{ firstname|capitalize }} {{ lastname|capitalize }} a envoyé un email,</p>
+<p>{{ email }}</p>
+<p>{{ phone }}</p>
+<br>
+<br>
+<br>
 
-<p>Nous vous confirmons la bonne recepetion du message suivant : </p>
-<br>
-<br>
-<br>
+<h3>Message : </h3>
 
 
 {% set content = message|split('\n') %}

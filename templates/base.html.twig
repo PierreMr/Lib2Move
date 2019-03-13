@@ -84,7 +84,7 @@
 
         {% block javascripts %}
             {{ encore_entry_script_tags('app-bottom') }}
-            <!-- <script>
+            <script>
               let myLatLng = {lat: parseFloat($('#lat').attr('data')), lng: parseFloat($('#lon').attr('data'))};
 
               function initMap() {
@@ -102,7 +102,7 @@
                 });
               }
             </script>
-            <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB5OO81Okr-XgCuyK8m2QApnrPsrJsZwtk&callback=initMap"></script> -->
+            <!-- <script async defer src="https://maps.googleapis.com/maps/api/js?key=env(MAPS_API_KEY)&callback=initMap"></script> -->
         {% endblock %}
     </body>
 </html>
