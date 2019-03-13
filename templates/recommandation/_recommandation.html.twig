@@ -1,38 +1,55 @@
 
 {% if lastOrderedRecommandation.id is defined %}
-<div class="col-5">
-	<div class="card" style="width: 18rem;">
-	  <img class="card-img-top" src="{{ lastOrderedRecommandation.vehicule.image }}" alt="Card image cap">
-	  <div class="card-body">
-	  	<h3>Une balade à {{ lastOrderedRecommandation.vehicule.ville.name|capitalize }}&nbsp;:</h3>
-	  	<br />
-	    
-	    <h5 class="card-title">En {{ lastOrderedRecommandation.vehicule.type.name }} </h5>
-	    <p class="card-text"> </p>
-	    <p class="card-text"></p>
-	    <a href="/location/recommandation/{{ lastOrderedRecommandation.contrat.id }}/{{ lastOrderedRecommandation.vehicule.ville.name }}/{{ lastOrderedRecommandation.vehicule.type.name }}" class="btn btn-primary">à partir de {{ lastOrderedRecommandation.contrat.price }}</a>
-	  </div>
+<div class="row">
+	<div class="col-4">
+		<div class="card" style="">
+		  <img class="card-img-top" src="{{ lastOrderedRecommandation.vehicule.image }}" alt="Card image cap">
+		  <div class="card-body">
+		  	<h3>Une balade à {{ lastOrderedRecommandation.vehicule.ville.name|capitalize }}&nbsp;:</h3>
+		  	<br />
+		    
+		    <h5 class="card-title">En {{ lastOrderedRecommandation.vehicule.type.name }} </h5>
+		    <p class="card-text"> </p>
+		    <p class="card-text"></p>
+		    <a href="/location/recommandation/{{ lastOrderedRecommandation.contrat.id }}/{{ lastOrderedRecommandation.vehicule.ville.name }}/{{ lastOrderedRecommandation.vehicule.type.name }}" class="btn btn-primary">à partir de {{ lastOrderedRecommandation.contrat.price }}</a>
+		  </div>
+		</div>
 	</div>
-</div>
-<div class="col-2">
-	Ou
-</div>
-<div class="col-5">
-	<div class="card" style="width: 18rem;">
-	 {% if mostVille|lower == 'lyon' %}
-	  <img class="card-img-top" src="http://data1.ibtimes.co.in/cache-img-640-0/en/full/549410/1417872521_france-festival-lights.jpg" alt="Card image cap">
-	 {% else %}
-	 <img class="card-img-top" src="http://portail-voyage.fr/wp-content/uploads/2015/02/Paris.jpg" alt="Card image cap">	
-	 {% endif %}
-	  <div class="card-body">
-	  	<h3>Une balade à {{ mostVille|capitalize }}&nbsp;:</h3>
-	  	<br />
-	    
-	    <h5 class="card-title">En {{ mostType }} </h5>
-	    <p class="card-text"> </p>
-	    <p class="card-text"></p>
-	    <a href="/location/recommandation/{{ idC }}/{{ mostVille }}/{{ mostType }}" class="btn btn-primary">{{ bestOffre }}</a>
-	  </div>
+	<div class="col-4">
+		<div class="card" style="">
+		 {% if mostVille|lower == 'lyon' %}
+		  <img class="card-img-top" src="http://data1.ibtimes.co.in/cache-img-640-0/en/full/549410/1417872521_france-festival-lights.jpg" alt="Card image cap">
+		 {% else %}
+		 <img class="card-img-top" src="http://portail-voyage.fr/wp-content/uploads/2015/02/Paris.jpg" alt="Card image cap">	
+		 {% endif %}
+		  <div class="card-body">
+		  	<h3>Une balade à {{ mostVille|capitalize }}&nbsp;:</h3>
+		  	<br />
+		    
+		    <h5 class="card-title">En {{ mostType }} </h5>
+		    <p class="card-text"> </p>
+		    <p class="card-text"></p>
+		    <a href="/location/recommandation/{{ idC }}/{{ mostVille }}/{{ mostType }}" class="btn btn-primary">{{ bestOffre }}</a>
+		  </div>
+		</div>
+	</div>
+	<div class="col-4">
+		<div class="card" style="">
+		 {% if mostVille|lower == 'lyon' %}
+		  <img class="card-img-top" src="http://data1.ibtimes.co.in/cache-img-640-0/en/full/549410/1417872521_france-festival-lights.jpg" alt="Card image cap">
+		 {% else %}
+		 <img class="card-img-top" src="http://portail-voyage.fr/wp-content/uploads/2015/02/Paris.jpg" alt="Card image cap">	
+		 {% endif %}
+		  <div class="card-body">
+		  	<h3>Une balade à {{ mostVille|capitalize }}&nbsp;:</h3>
+		  	<br />
+		    
+		    <h5 class="card-title">En {{ mostType }} </h5>
+		    <p class="card-text"> </p>
+		    <p class="card-text"></p>
+		    <a href="/location/recommandation/{{ idC }}/{{ mostVille }}/{{ mostType }}" class="btn btn-primary">{{ bestOffre }}</a>
+		  </div>
+		</div>
 	</div>
 </div>
 {% else %}
