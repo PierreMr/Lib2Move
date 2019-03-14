@@ -14,6 +14,7 @@
                 <th>Vehicule</th>
                 <th>Contrat</th>
                 <th>Kilometers</th>
+                <th>Ville</th>
                 <th>actions</th>
             </tr>
         </thead>
@@ -25,6 +26,7 @@
                     <td>{{ location.vehicule.serialNumber }}</td>
                     <td>{{ location.contrat.name }}</td>
                     <td>{{ location.kilometers }}</td>
+                    <td>{{ location.vehicule.ville.name }}</td>
                     <td>
                         <a href="{{ path('location_show', {'id': location.id}) }}">Voir détails</a>
                         |
