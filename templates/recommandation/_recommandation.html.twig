@@ -1,7 +1,7 @@
 
 {% if lastOrderedRecommandation.id is defined %}
 
-<h2>Mes préférences :</h2>
+<h2>Mes préférences & offres :</h2>
 <div class="row">
 	<div class="col">
 
@@ -38,9 +38,9 @@
 		</div>
 	</div>
 	<div class="col">
-		<div class="card habits-card" style="margin:0 auto;  min-width:256px;"><h3 class="title-habits">Code parrain ?</h3>
-			<p class="card-text">à venir</p>
-			<p class="card-text"></p>
+		<div class="card habits-card" style="margin:0 auto;  min-width:256px;"><h3 class="title-habits">Mon Code parrain</h3>
+			<p class="card-text">{{ codePromo }}r</p>
+			<p class="card-text"><a href="{{ path('app_contact')}}">Envoyer à un ami</a></p>
 		</div>
 		
 	</div>

@@ -99,13 +99,35 @@ class User implements UserInterface
      */
     private $lastLogin;
 
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $codePromo;
+
+    /**
+     * @ORM\Column(type="boolean", nullable=true)
+     */
+    private $isCodePromoUsed;
+
+ 
+    private function random_str($length, $keyspace = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ')
+    {
+        $pieces = [];
+        $max = mb_strlen($keyspace, '8bit') - 1;
+        for ($i = 0; $i < $length; ++$i) {
+            $pieces []= $keyspace[random_int(0, $max)];
+        }
+        return implode('', $pieces);
+    }
+
     public function __construct()
     {
         $this->roles = ['ROLE_USER'];
         $this->locations = new ArrayCollection();
         $this->setCreatedAt(new \DateTime());
         $this->setModifiedAt(new \DateTime());
-        $this->factures = new ArrayCollection();        
+        $this->factures = new ArrayCollection();  
+        $this->codePromo = $this->random_str(8, 'abcdefghijklmnopqrstuvwxyz');    
     }
 
     public function getId(): ?int
@@ -245,7 +267,6 @@ class User implements UserInterface
 
     }
     
-
     /**
      * @return Collection|Location[]
      */
@@ -340,6 +361,30 @@ class User implements UserInterface
     public function setLastLogin(?\DateTimeInterface $lastLogin): self
     {
         $this->lastLogin = $lastLogin;
+
+        return $this;
+    }
+
+    public function getCodePromo(): ?string
+    {
+        return $this->codePromo;
+    }
+
+    public function setCodePromo(?string $codePromo): self
+    {
+        $this->codePromo = $codePromo;
+
+        return $this;
+    }
+
+    public function getIsCodePromoUsed(): ?bool
+    {
+        return $this->isCodePromoUsed;
+    }
+
+    public function setIsCodePromoUsed(?bool $isCodePromoUsed): self
+    {
+        $this->isCodePromoUsed = $isCodePromoUsed;
 
         return $this;
     }

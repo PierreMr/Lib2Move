@@ -10,7 +10,7 @@
         <div class="col-10">
             {% if loyaltyStamps %}   
             {% for i in 1..loyaltyStamps %}
-                <div class="rubber_stamp"> {{ i }} Voyages</div>
+              <div class="rubber_stamp"> {{ i }} {{ (i == 1) ? "Voyage" : "Voyages" }}</div>
              {% endfor %}
             {% endif %}
         </div>
@@ -23,7 +23,7 @@
         <p style="margin-left:25px;">
           Votre réduction dans : 
             {% set  StampsLeft = 10 - loyaltyStamps %} 
-              {{ StampsLeft }} Voyages !          
+              {{ StampsLeft }} Voyage(s) !          
         </p>
       </div>
 

@@ -186,6 +186,8 @@ class RecommandationController extends AbstractController
 				$idC = null;
 			}
 
+			$codePromo = $user->getCodePromo();
+
 			//var_dump($maxOffre["Trottinette B"]);
 		    //var_dump($maxType[0]);
 			//var_dump($maxOffre[0]);
@@ -202,6 +204,7 @@ class RecommandationController extends AbstractController
 				'mostOffre' => $maxOffre[0],
 				'mostVille' => $maxVille[0],
 				'bestOffre' => $bestOffre,
+				'codePromo' => $codePromo,
 				'idC' => $idC,
 	        ]);
 	    }
