@@ -28,7 +28,7 @@ class LocationController extends AbstractController
     {
         $user = $this->get('security.token_storage')->getToken()->getUser();
 
-        if ($user->getRoles() == ['ROLE_ADMIN'] || ['ROLE_SUPERADMIN']) {
+        if ($user->getRoles() == ['ROLE_ADMIN'] || $user->getRoles() == ['ROLE_SUPERADMIN']) {
             $locations = $locationRepository->findAll();
         }
         else {
@@ -275,7 +275,7 @@ class LocationController extends AbstractController
             $entityManager->persist($location);
             $entityManager->flush();
 
-            return $this->redirectToRoute('location_index');
+            return $this->redirectToRoute('location_user');
         }
 
         return $this->render('location/confirm.html.twig', [
