@@ -267,7 +267,6 @@ class User implements UserInterface
 
     }
     
-
     /**
      * @return Collection|Location[]
      */
