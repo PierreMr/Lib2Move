@@ -5,9 +5,11 @@
 {% block body %}
     <h1>Edit Vehicule</h1>
 
-    {{ include('vehicule/_form.html.twig', {'button_label': 'Update'}) }}
+    <div class="container">
+    	 {{ include('vehicule/_form.html.twig', {'button_label': 'Update'}) }}
 
     <a href="{{ path('vehicule_index') }}">back to list</a>
 
     {{ include('vehicule/_delete_form.html.twig') }}
+    </div>
 {% endblock %}

@@ -8,23 +8,24 @@
 
 <h2>Lib2Move</h2>
 
-<h3>Informations : </h3>
-<p>{{ firstname|capitalize }} {{ lastname|capitalize }} a envoyé un email,</p>
-<p>{{ email }}</p>
-<p>{{ phone }}</p>
-<br>
-<br>
-<br>
+<div class="container">
+	<h3>Informations : </h3>
+	<p>{{ firstname|capitalize }} {{ lastname|capitalize }} a envoyé un email,</p>
+	<p>{{ email }}</p>
+	<p>{{ phone }}</p>
+	<br>
+	<br>
+	<br>
 
-<h3>Message : </h3>
+	<h3>Message : </h3>
 
 
-{% set content = message|split('\n') %}
+	{% set content = message|split('\n') %}
 
-<div class="content">
-	{% for line in content %}
-		<p>{{ line }}</p>
-	{% endfor %}
+	<div class="content">
+		{% for line in content %}
+			<p>{{ line }}</p>
+		{% endfor %}
+	</div>
 </div>
-
 

@@ -5,7 +5,8 @@
 {% block body %}
     <h1 class="mb-5">User</h1>
 
-    <div class="row">
+    <div class="container">
+        <div class="row">
         <div class="col-3">
             {% if user.image %}
                 {% if user.image starts with 'http' %}
@@ -68,4 +69,5 @@
     <a href="{{ path('user_edit', {'id': user.id}) }}">Edit</a>
 
     {{ include('user/_delete_form.html.twig') }}
+    </div>
 {% endblock %}

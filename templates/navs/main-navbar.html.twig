@@ -1,13 +1,13 @@
-<nav id="navbar-nav" class="navbar navbar-expand-lg navbar-light bg-light shadow-sm">
+<nav id="navbar-nav" class="navbar navbar-expand-lg navbar-dark bg-dark shadow-sm">
 	<!-- <a class="navbar-brand" href="/"><img src="/assets/images/beer.png" width="61px"></a> -->
 	<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-	<span class="navbar-toggler-icon"></span>
+	<span class="navbar-toggler-icon" style=""></span>
 	</button>
 
 	<div class="collapse navbar-collapse" id="navbarSupportedContent">
 		<ul class="navbar-nav mr-auto">
 			<li class="nav-item active">
-				<a class="nav-link text-primary" href="/"><i class="fas fa-car-crash"></i> Lib2Move</a>
+				<a class="nav-link text-primary logo" href="/"><i class="fas fa-car-crash"></i> Lib2Move</a>
 			</li>
 			{% if (app.user != null) %}
 				<li class="nav-item active">
@@ -72,3 +72,12 @@
 		</ul>
 	</div>
 </nav>
+
+<style type="text/css">
+	.logo {
+		color: #856ab7;
+	}
+	a:hover {
+		color: #856ab7 !important;
+	}
+</style>

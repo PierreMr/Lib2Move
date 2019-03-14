@@ -5,6 +5,7 @@
 {% block body %}
 	<h1 class="mb-5">Admin index</h1>
 
+<div class="container">
     <table id="datatable" class="table table-striped table-hover table-responsive cell-border">
         <thead>
             <tr>
@@ -45,4 +46,5 @@
     </table>
 
     <a href="{{ path('admin_new') }}">Create new</a>
+</div>
 {% endblock %}

@@ -5,39 +5,41 @@
 {% block body %}
     <h1>Create new Facture</h1>
 
-    <div class="row">
-    	<div class="col-6">
-    		{{ include('facture/_form.html.twig') }}
-    	</div>
-    	<div class="col-6">
-    		<h3>Location</h3>
-    		<table class="table table-responsive table-hover table-stripped">
-    			<tr>
-    				<th>Début</th>
-    				<td>{{ location.start ? location.start|date('d/m/Y  H:i') : '' }}</td>
-    			</tr>
-    			<tr>
-    				<th>Kilomètres</th>
-    				<td>{{ location.vehicule.kilometers }} km</td>
-    			</tr>
-    			<tr>
-    				<th>Contrat durée</th>
-    				<td>{{ location.contrat.maxTime ? location.contrat.maxTime|date('H:i') : '' }} min</td>
-    			</tr>
-                <tr>
-                    <th>Contrat km</th>
-                    <td>{{ location.contrat.maxKm }} km</td>
-                </tr>
-                <tr>
-                    <th>Fin (supposée)</th>
-                    <td>{{ location.end ? location.end|date('d/m/Y  H:i') : '' }}</td>
-                </tr>
-    			<tr>
-    				<th>Kilomètres (supposés)</th>
-    				<td>{{ location.vehicule.kilometers + location.contrat.maxKm }} km</td>
-    			</tr>
-    		</table>
-    	</div>
+    <div class="container">
+        <div class="row">
+        	<div class="col-6">
+        		{{ include('facture/_form.html.twig') }}
+        	</div>
+        	<div class="col-6">
+        		<h3>Location</h3>
+        		<table class="table table-responsive table-hover table-stripped">
+        			<tr>
+        				<th>Début</th>
+        				<td>{{ location.start ? location.start|date('d/m/Y  H:i') : '' }}</td>
+        			</tr>
+        			<tr>
+        				<th>Kilomètres</th>
+        				<td>{{ location.vehicule.kilometers }} km</td>
+        			</tr>
+        			<tr>
+        				<th>Contrat durée</th>
+        				<td>{{ location.contrat.maxTime ? location.contrat.maxTime|date('H:i') : '' }} min</td>
+        			</tr>
+                    <tr>
+                        <th>Contrat km</th>
+                        <td>{{ location.contrat.maxKm }} km</td>
+                    </tr>
+                    <tr>
+                        <th>Fin (supposée)</th>
+                        <td>{{ location.end ? location.end|date('d/m/Y  H:i') : '' }}</td>
+                    </tr>
+        			<tr>
+        				<th>Kilomètres (supposés)</th>
+        				<td>{{ location.vehicule.kilometers + location.contrat.maxKm }} km</td>
+        			</tr>
+        		</table>
+        	</div>
+        </div>
     </div>
 
     <a href="{{ path('facture_index') }}">back to list</a>

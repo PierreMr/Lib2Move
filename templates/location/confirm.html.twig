@@ -4,7 +4,7 @@
 
 {% block body %}
 
-	<nav aria-label="breadcrumb">
+	<nav aria-label="breadcrumb" class="bread">
 		<ol class="breadcrumb">
 			<li class="breadcrumb-item"><a href="/">Home</a></li>
 			<li class="breadcrumb-item"><a href="/location/add/{{ vehicule.id }}">Contrat</a></li>
@@ -15,7 +15,7 @@
 
     <h1>Récapitulatif</h1>
   
-
+<div class="container">
 	<h2 class="m-3 mt-5">Véhicule</h2>
 
 	<div class="row shadow">
@@ -144,5 +144,5 @@
 
 
     {{ include('location/_form.html.twig', {'button_label': 'Confirmer & Payer'}) }}
-
+</div>
 {% endblock %}

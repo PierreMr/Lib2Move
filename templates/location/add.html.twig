@@ -13,8 +13,9 @@
     </ol>
   </nav>
 
-  <h1 class="m-3">Contrat</h1>
-  
+   <h1 class="m-3">Contrat</h1>
+
+<div class="container">
   <div class="row">
     <div class="col-12">
       <div class="card-columns">
@@ -80,7 +81,6 @@
   </div>
 
   {% if promo is defined and promo == true %}
-    
     {{ include('location/_form.html.twig', {'button_label': 'Poursuivre profiter de vos -5% de reduction'}) }}
   {% else %}
     {{ include('location/_form.html.twig', {'button_label': 'Poursuivre'}) }}
@@ -146,5 +146,6 @@
       })
     })
   </script> -->
+</div>
 
 {% endblock %}

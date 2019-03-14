@@ -5,7 +5,11 @@
 {% block body %}
     <h1>Create new TypeVehicule</h1>
 
+    <div class="container">
+
     {{ include('type_vehicule/_form.html.twig') }}
 
     <a href="{{ path('type_vehicule_index') }}">back to list</a>
+
+    </div>
 {% endblock %}

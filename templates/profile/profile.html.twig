@@ -5,7 +5,8 @@
 {% block body %}
     <h1 class="mb-5">Profile</h1>
 
-    <div class="row" style="padding: 15px;">
+    <div class="container"> 
+      <div class="row" style="padding: 15px;">
         <div class="col-10">
             {% if loyaltyStamps %}   
             {% for i in 1..loyaltyStamps %}
@@ -16,99 +17,100 @@
         <div class="col-2">
           
         </div>
-    </div>
+      </div>
 
-    <div class="row">
-      <p style="margin-left:25px;">
-        Votre réduction dans : 
-          {% set  StampsLeft = 10 - loyaltyStamps %} 
-            {{ StampsLeft }} Voyages !          
-      </p>
-    </div>
+      <div class="row">
+        <p style="margin-left:25px;">
+          Votre réduction dans : 
+            {% set  StampsLeft = 10 - loyaltyStamps %} 
+              {{ StampsLeft }} Voyages !          
+        </p>
+      </div>
 
-    <div class="row">
-        <div class="col-3">
-            {% if user.image %}
-                {% if user.image starts with 'http' %}
-                    <img src="{{ user.image }}" class="img-fluid rounded-circle" />
-                {% else %}
-                    <img src="/assets/uploads/user_profile/{{ user.image }}" class="img-fluid rounded-circle" />
-                {% endif %}
-            {% else %}
-                <img src="/assets/img/user.png" class="img-fluid rounded-circle" />
-            {% endif %}
-        </div>
-        <div class="col-6">
-            <a href="/profile/edit"><i class="fas fa-user-edit"></i> Edit</a>
-            <table class="table table-hover mt-3">
-                <tbody>
-                    <tr>
-                        <th>Email</th>
-                        <td>{{ user.email }}</td>
-                    </tr>
-                    <!-- <tr>
-                        <th>Password</th>
-                        <td>{{ user.password }}</td>
-                    </tr> -->
-                    <tr>
-                        <th>Lastname</th>
-                        <td>{{ user.lastname }}</td>
-                    </tr>
-                    <tr>
-                        <th>Firstname</th>
-                        <td>{{ user.firstname }}</td>
-                    </tr>
-                    <tr>
-                        <th>Birthday</th>
-                        <td>{{ user.birthday ? user.birthday|date('d/m/Y') : '' }}</td>
-                    </tr>
-                    <tr>
-                        <th>Address</th>
-                        <td>{{ user.address }}</td>
-                    </tr>
-                    <tr>
-                        <th>Phone</th>
-                        <td>{{ user.phone }}</td>
-                    </tr>
-                    <tr>
-                        <th>Drivers_licence</th>
-                        <td>{{ user.driversLicence }}</td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-    </div>
+      <div class="row">
+          <div class="col-3">
+              {% if user.image %}
+                  {% if user.image starts with 'http' %}
+                      <img src="{{ user.image }}" class="img-fluid rounded-circle" />
+                  {% else %}
+                      <img src="/assets/uploads/user_profile/{{ user.image }}" class="img-fluid rounded-circle" />
+                  {% endif %}
+              {% else %}
+                  <img src="/assets/img/user.png" class="img-fluid rounded-circle" />
+              {% endif %}
+          </div>
+          <div class="col-6">
+              <a href="/profile/edit"><i class="fas fa-user-edit"></i> Edit</a>
+              <table class="table table-hover mt-3">
+                  <tbody>
+                      <tr>
+                          <th>Email</th>
+                          <td>{{ user.email }}</td>
+                      </tr>
+                      <!-- <tr>
+                          <th>Password</th>
+                          <td>{{ user.password }}</td>
+                      </tr> -->
+                      <tr>
+                          <th>Lastname</th>
+                          <td>{{ user.lastname }}</td>
+                      </tr>
+                      <tr>
+                          <th>Firstname</th>
+                          <td>{{ user.firstname }}</td>
+                      </tr>
+                      <tr>
+                          <th>Birthday</th>
+                          <td>{{ user.birthday ? user.birthday|date('d/m/Y') : '' }}</td>
+                      </tr>
+                      <tr>
+                          <th>Address</th>
+                          <td>{{ user.address }}</td>
+                      </tr>
+                      <tr>
+                          <th>Phone</th>
+                          <td>{{ user.phone }}</td>
+                      </tr>
+                      <tr>
+                          <th>Drivers_licence</th>
+                          <td>{{ user.driversLicence }}</td>
+                      </tr>
+                  </tbody>
+              </table>
+          </div>
+      </div>
 
-    <style type="text/css">
-        .rubber_stamp {
-          font-size: 22px;
-          line-height: 22px;
-          font-weight: bold;
-          color: red;
-          border: 7px solid red;
-          float: left;
-          padding: 8px 7px;
-          margin-left: 8px;
-          margin-top: 8px;
-          border-radius: 10px; 
-          opacity: 0.8;
-          -webkit-transform: rotate(-10deg);
-          -o-transform: rotate(-10deg);
-          -moz-transform: rotate(-10deg);
-          -ms-transform: rotate(-10deg);
-        }
-        .rubber_stamp::after {
-          position: absolute;
-          content: " ";
-          width: 100%;
-          height: auto;
-          min-height: 100%;
-          top: -10px;
-          left: -10px;
-          padding: 8px;
-          background: url(https://raw.github.com/domenicosolazzo/css3/master/img/noise.png) repeat;
-        }
-    </style>
+      <style type="text/css">
+          .rubber_stamp {
+            font-size: 22px;
+            line-height: 22px;
+            font-weight: bold;
+            color: red;
+            border: 7px solid red;
+            float: left;
+            padding: 8px 7px;
+            margin-left: 8px;
+            margin-top: 8px;
+            border-radius: 10px; 
+            opacity: 0.8;
+            -webkit-transform: rotate(-10deg);
+            -o-transform: rotate(-10deg);
+            -moz-transform: rotate(-10deg);
+            -ms-transform: rotate(-10deg);
+          }
+          .rubber_stamp::after {
+            position: absolute;
+            content: " ";
+            width: 100%;
+            height: auto;
+            min-height: 100%;
+            top: -10px;
+            left: -10px;
+            padding: 8px;
+            background: url(https://raw.github.com/domenicosolazzo/css3/master/img/noise.png) repeat;
+          }
+      </style>
 
-    {{ include('user/_delete_form.html.twig') }}
+      {{ include('user/_delete_form.html.twig') }}
+  </div>
 {% endblock %}
