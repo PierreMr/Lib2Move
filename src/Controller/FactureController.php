@@ -104,8 +104,12 @@ class FactureController extends Controller
         $facture = new Facture();
         $em = $this->getDoctrine()->getManager();
         $form = $this->createForm(PenaltyType::class, $facture);
-        $form->handleRequest($request);
         $location = $locationRepository->find($id);
+
+        $kmFinalForm = $location->getVehicule()->getKilometers() + $location->getContrat()->getMaxKm();
+        $form->get('km_final')->setData($kmFinalForm);
+        $form->get('end_final')->setData($location->getEnd());
+        $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             
