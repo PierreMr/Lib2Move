@@ -43,8 +43,11 @@ security:
         - { path: ^/register, roles: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/logout, roles: ROLE_USER }
         - { path: ^/profile, roles: ROLE_USER }
+        - { path: ^/location/user, roles: ROLE_USER }
         - { path: ^/location, roles: ROLE_USER }
         - { path: ^/contrat/vehicule, roles: ROLE_USER }
+        - { path: ^/facture/pdf, roles: ROLE_USER }
+        - { path: ^/facture/pdftest, roles: ROLE_USER }
         - { path: /user, roles: ROLE_ADMIN }
         - { path: /type/vehicule, roles: ROLE_ADMIN }
         - { path: /vehicule, roles: ROLE_ADMIN }

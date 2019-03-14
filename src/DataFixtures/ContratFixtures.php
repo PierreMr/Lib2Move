@@ -22,14 +22,65 @@ class ContratFixtures extends Fixture implements DependentFixtureInterface
 
         $contrats = ['Voiture', 'Scooter', 'Trottinette'];
     	$types = ['A', 'B', 'C'];
+        $kms = [
+            [
+                10,
+                30,
+                50
+            ],
+            [
+                5,
+                10,
+                20
+            ],
+            [
+                1,
+                5,
+                10
+            ],
+        ];
+        $times = [
+            [
+                '01:00',
+                '04:00',
+                '08:00',
+            ],
+            [
+                '00:15',
+                '00:30',
+                '01:00',
+            ],
+            [
+                '00:10',
+                '00:30',
+                '00:45',
+            ],
+        ];
+        $prices = [
+            [
+                15,
+                30,
+                40,
+            ],
+            [
+                5,
+                10,
+                20,
+            ],
+            [
+                3,
+                10,
+                18,
+            ],
+        ];
 
         for ($i = 0; $i < 3; $i++) {
             for ($j = 0; $j < 3; $j++) {
                 $newContrat = new Contrat();
                 $newContrat->setName($contrats[$i].' '.$types[$j]);
-                $newContrat->setMaxKm(rand(10, 50));
-                $newContrat->setMaxTime(new \DateTime('00:'.rand(10, 50)));
-                $newContrat->setPrice(20.5);
+                $newContrat->setMaxKm($kms[$i][$j]);
+                $newContrat->setMaxTime(new \DateTime($times[$i][$j]));
+                $newContrat->setPrice($prices[$i][$j]);
                 $newContrat->setKmPenalty(0.5);
                 $newContrat->setTimePenalty(0.5);
                 $newContrat->setType($this->getReference(TypeVehicule::class.'_'.$i));
