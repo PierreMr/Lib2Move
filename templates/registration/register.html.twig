@@ -5,6 +5,8 @@
 {% block body %}
     <h1>Register</h1>
 
+<div class="container">
+
     {{ form_start(registrationForm) }}
         {{ form_row(registrationForm.email) }}
         {{ form_row(registrationForm.password) }}
@@ -13,4 +15,6 @@
 
         <button class="btn">Register</button>
     {{ form_end(registrationForm) }}
+
+</div>
 {% endblock %}

@@ -10,9 +10,11 @@
 				<a class="nav-link text-primary logo" href="/"><i class="fas fa-car-crash"></i> Lib2Move</a>
 			</li>
 			{% if (app.user != null) %}
+				<!--
 				<li class="nav-item active">
 					<a class="nav-link" href="/location">Location</a>
 				</li>
+				-->
 				
 				{% if (app.user.roles.0 == 'ROLE_ADMIN') or (app.user.roles.0 == 'ROLE_SUPERADMIN') %}
 					<li class="nav-item active">
