@@ -29,36 +29,36 @@ class VehiculeRepository extends ServiceEntityRepository
         $query = $this->createQueryBuilder('v');
 
         
-        if($search->getVille() || $search->getTypeVehicule()) {
-            $query = $query
-                    ->where('v.ville = :ville')
-                    ->andWhere('v.type = :typeVehicule')
-                    ->setParameter('ville', $search->getVille())
-                    ->setParameter('typeVehicule', $search->getTypeVehicule());
-        }
+        // if($search->getVille() || $search->getTypeVehicule()) {
+        //     $query = $query
+        //             ->where('v.ville = :ville')
+        //             ->andWhere('v.type = :typeVehicule')
+        //             ->setParameter('ville', $search->getVille())
+        //             ->setParameter('typeVehicule', $search->getTypeVehicule());
+        // }
 
-        if($search->getStart() && $search->getEnd()) {
-            $query
-                    ->innerJoin(Location::class, 'l', Join::WITH, 'v.id = l.vehicule')
-                    ->andWhere(':start NOT BETWEEN l.start AND l.end')
-                    ->andWhere(':end NOT BETWEEN l.start AND l.end')
-                    ->setParameter('start', $search->getStart())
-                    ->setParameter('end', $search->getEnd());
-        }
+        // if($search->getStart() && $search->getEnd()) {
+        //     $query
+        //             ->innerJoin(Location::class, 'l', Join::WITH, 'v.id = l.vehicule')
+        //             ->andWhere(':start NOT BETWEEN l.start AND l.end')
+        //             ->andWhere(':end NOT BETWEEN l.start AND l.end')
+        //             ->setParameter('start', $search->getStart())
+        //             ->setParameter('end', $search->getEnd());
+        // }
 
 
-        // if($search->getStart()) $start = $search->getStart();
-        // else $start = new \Datetime();
+        if($search->getStart()) $start = $search->getStart();
+        else $start = new \Datetime();
 
-        // $query
-        //     ->where('v.ville = :ville')
-        //     ->andWhere('v.type = :typeVehicule')
-        //     ->innerJoin('v.locations', 'l')
-        //     ->andWhere('l.start NOT BETWEEN :morning AND :evening')
-        //     ->setParameter('ville', $search->getVille())
-        //     ->setParameter('typeVehicule', $search->getTypeVehicule())
-        //     ->setParameter('morning', $start)
-        //     ->setParameter('evening', $start);
+        $query
+            ->where('v.ville = :ville')
+            ->andWhere('v.type = :typeVehicule')
+            ->innerJoin('v.locations', 'l')
+            ->andWhere('l.start NOT BETWEEN :from AND :to')
+            ->setParameter('ville', $search->getVille())
+            ->setParameter('typeVehicule', $search->getTypeVehicule())
+            ->setParameter('from', new \Datetime($start->format('Y-m-d') . ' 00:00:00'))
+            ->setParameter('to', new \Datetime($start->format('Y-m-d') . ' 23:59:59'));
 
         return $query->getQuery()->getResult();
     }
