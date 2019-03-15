@@ -11,8 +11,7 @@
                 <h1 class="">POUR PLUS D'INFORMATIONS</h1> <br />
                 <h2 class="texto">Nous vous invitons à nous contacter....</h2>
 
-                    <form>
-                        {{ form_start(form) }}  
+                    {{ form_start(form) }}  
                         <div class="form-row">
                             <div class="col">
                                 {{ form_row(form.firstname) }}  
@@ -38,12 +37,12 @@
                         <div class="form-row">
                             <div id="conect" class="col">
                                 <button class="btn btn-primary">Envoyer</button>
+                            </div>
                         </div>
-                    </form>
+                    {{ form_end(form) }}  
             </div>
         </div>
 </div>
-            {{ form_end(form) }}  
                 
     </div>
     

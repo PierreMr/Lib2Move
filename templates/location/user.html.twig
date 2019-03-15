@@ -30,7 +30,7 @@
                     <td>
                         <a href="{{ path('location_show', {'id': location.id}) }}">Voir détails</a>
                         |
-                        <a href="{{ path('facture_pdftest', {'id': location.id}) }}">Voir PDF</a>
+                        <a href="{{ path('facture_pdftest', {'id': location.getFactures|last.id}) }}">Voir PDF</a>
                     </td>
                 </tr>
             {% else %}
